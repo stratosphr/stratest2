@@ -9,7 +9,7 @@ import visitors.AFormatter;
  * Created by gvoiron on 14/09/17.
  * Time : 11:35
  */
-public final class SMT2Formatter extends AFormatter<ABoolExpr> implements ISMT2Visitor {
+public final class SMT2Formatter extends AFormatter implements ISMT2Visitor {
 
     private SMT2Formatter() {
     }

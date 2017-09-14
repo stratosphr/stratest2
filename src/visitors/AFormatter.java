@@ -6,7 +6,7 @@ import java.util.Collections;
  * Created by gvoiron on 14/09/17.
  * Time : 11:36
  */
-public abstract class AFormatter<T> {
+public abstract class AFormatter {
 
     private int indentation;
     private StringBuilder formatted;
