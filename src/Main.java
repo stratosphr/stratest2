@@ -1,10 +1,12 @@
-import com.microsoft.z3.Context;
+import com.microsoft.z3.Status;
+import langs.exprs.bool.False;
+import solvers.z3.Z3;
 
 public class Main {
 
     public static void main(String[] args) {
-        Context context = new Context();
-        System.out.println(context.mkInt(2));
+        Status status = Z3.checkSAT(new False());
+        System.out.println(status);
     }
 
 }
