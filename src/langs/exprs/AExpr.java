@@ -12,7 +12,7 @@ import java.util.LinkedHashSet;
  * Created by gvoiron on 14/09/17.
  * Time : 11:41
  */
-public abstract class AExpr implements IExprVisitable, ISMT2Visitable {
+public abstract class AExpr implements IExprVisitable, ISMT2Visitable, Comparable<AExpr> {
 
     public abstract LinkedHashSet<Const> getConsts();
 
@@ -26,6 +26,11 @@ public abstract class AExpr implements IExprVisitable, ISMT2Visitable {
     @Override
     public boolean equals(Object o) {
         return getClass().getName().equals(o.getClass().getName()) && toString().equals(o.toString());
+    }
+
+    @Override
+    public int compareTo(AExpr aExpr) {
+        return toString().compareTo(aExpr.toString());
     }
 
     @Override

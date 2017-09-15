@@ -10,12 +10,10 @@ import java.util.LinkedHashSet;
  * Created by gvoiron on 14/09/17.
  * Time : 12:48
  */
-public final class Var extends AArithExpr {
-
-    private String name;
+public final class Var extends AAssignable {
 
     public Var(String name) {
-        this.name = name;
+        super(name);
     }
 
     @Override
@@ -36,10 +34,6 @@ public final class Var extends AArithExpr {
     @Override
     public LinkedHashSet<Var> getVars() {
         return new LinkedHashSet<>(Collections.singletonList(this));
-    }
-
-    public String getName() {
-        return name;
     }
 
 }

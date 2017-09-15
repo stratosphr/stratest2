@@ -1,46 +1,30 @@
 import com.microsoft.z3.Status;
-import langs.exprs.arith.*;
-import langs.exprs.bool.*;
+import langs.exprs.arith.Int;
+import langs.exprs.arith.Var;
+import langs.exprs.bool.Equals;
+import langs.exprs.bool.False;
+import langs.exprs.bool.Or;
 import solvers.z3.Z3;
+
+import java.util.Arrays;
+import java.util.LinkedHashSet;
 
 public class Main {
 
     public static void main(String[] args) {
         Status status = Z3.checkSAT(new Or(
-                new False(),
-                new BoolITE(
-                        new True(),
-                        new Not(new False()),
-                        new False()
-                ),
                 new Equals(
-                        new Int(2),
-                        new Const("test"),
-                        new Plus(
-                                new Minus(new Int(3), new Var("toto"), new Int(4))
-                        ),
-                        new Int(3),
-                        new Var("lol")
-                ),
-                new GT(
-                        new Const("test"),
-                        new Var("lol")
-                ),
-                new LT(
-                        new Const("test"),
-                        new Var("lol")
-                ),
-                new LEQ(
-                        new Const("test"),
-                        new Var("lol")
-                ),
-                new GEQ(
-                        new Const("test"),
-                        new Var("lol")
+                        new Var("toto"),
+                        new Var("lol"),
+                        new Int(4)
                 ),
                 new False()
         ));
         System.out.println(status);
+        System.out.println(Z3.getModel(new LinkedHashSet<>(Arrays.asList(
+                new Var("toto"),
+                new Var("lol")
+        ))));
     }
 
 }
