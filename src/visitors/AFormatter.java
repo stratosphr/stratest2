@@ -1,6 +1,8 @@
 package visitors;
 
+import java.util.Collection;
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 /**
  * Created by gvoiron on 14/09/17.
@@ -31,11 +33,15 @@ public abstract class AFormatter {
     }
 
     protected void format(String text) {
-        formatted.append(indent()).append(text).append("\n");
+        formatted.append(indent()).append(text);
     }
 
     protected void formatLine(String line) {
         formatted.append(indent()).append(line).append("\n");
+    }
+
+    protected void join(Collection<?> operands, String join) {
+        formatted.append(operands.stream().map(Object::toString).collect(Collectors.joining(join)));
     }
 
     protected StringBuilder getFormatted() {

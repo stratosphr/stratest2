@@ -19,7 +19,6 @@ public final class Z3 {
     }
 
     public static Status checkSAT(ABoolExpr boolExpr) {
-        System.out.println(SMT2Formatter.format(boolExpr));
         solver.add(context.parseSMTLIB2String(SMT2Formatter.format(boolExpr), null, null, null, null));
         return solver.check();
     }

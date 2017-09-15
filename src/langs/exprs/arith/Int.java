@@ -1,7 +1,5 @@
-package langs.exprs.bool;
+package langs.exprs.arith;
 
-import langs.exprs.arith.Const;
-import langs.exprs.arith.Var;
 import visitors.exprs.IExprVisitor;
 import visitors.smt.ISMT2Visitor;
 
@@ -9,9 +7,15 @@ import java.util.LinkedHashSet;
 
 /**
  * Created by gvoiron on 14/09/17.
- * Time : 12:08
+ * Time : 12:46
  */
-public final class True extends ABoolExpr {
+public final class Int extends AArithExpr {
+
+    private Integer value;
+
+    public Int(Integer value) {
+        this.value = value;
+    }
 
     @Override
     public void accept(IExprVisitor visitor) {
@@ -31,6 +35,10 @@ public final class True extends ABoolExpr {
     @Override
     public LinkedHashSet<Var> getVars() {
         return new LinkedHashSet<>();
+    }
+
+    public Integer getValue() {
+        return value;
     }
 
 }
