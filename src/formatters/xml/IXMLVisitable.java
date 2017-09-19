@@ -1,4 +1,4 @@
-package visitors.xml;
+package formatters.xml;
 
 /**
  * Created by gvoiron on 19/09/17.

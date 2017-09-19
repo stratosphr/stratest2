@@ -1,4 +1,4 @@
-package visitors.xml;
+package formatters.xml;
 
 import parsers.xml.XMLDocument;
 import parsers.xml.XMLNode;

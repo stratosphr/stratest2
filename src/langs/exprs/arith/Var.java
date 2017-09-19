@@ -1,7 +1,7 @@
 package langs.exprs.arith;
 
-import visitors.exprs.IExprVisitor;
-import visitors.smt.ISMT2Visitor;
+import formatters.exprs.IExprVisitor;
+import formatters.smt.ISMT2Visitor;
 
 import java.util.Collections;
 import java.util.LinkedHashSet;

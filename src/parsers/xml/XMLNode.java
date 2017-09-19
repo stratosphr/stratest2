@@ -1,10 +1,10 @@
 package parsers.xml;
 
+import formatters.xml.IXMLVisitable;
+import formatters.xml.IXMLVisitor;
+import formatters.xml.XMLFormatter;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import visitors.xml.IXMLVisitable;
-import visitors.xml.IXMLVisitor;
-import visitors.xml.XMLFormatter;
 
 import java.util.ArrayList;
 import java.util.HashMap;

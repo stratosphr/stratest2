@@ -1,8 +1,8 @@
-package visitors.xml;
+package formatters.xml;
 
+import formatters.AFormatter;
 import parsers.xml.XMLDocument;
 import parsers.xml.XMLNode;
-import visitors.AFormatter;
 
 import java.util.stream.Collectors;
 

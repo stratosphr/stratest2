@@ -1,10 +1,10 @@
 package langs.exprs.bool;
 
+import formatters.exprs.IExprVisitor;
+import formatters.smt.ISMT2Visitor;
 import langs.exprs.AExpr;
 import langs.exprs.arith.Const;
 import langs.exprs.arith.Var;
-import visitors.exprs.IExprVisitor;
-import visitors.smt.ISMT2Visitor;
 
 import java.util.Arrays;
 import java.util.Collection;

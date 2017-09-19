@@ -1,8 +1,8 @@
 package langs.exprs.arith;
 
+import formatters.exprs.IExprVisitor;
+import formatters.smt.ISMT2Visitor;
 import langs.exprs.AExpr;
-import visitors.exprs.IExprVisitor;
-import visitors.smt.ISMT2Visitor;
 
 import java.util.Arrays;
 import java.util.Collection;

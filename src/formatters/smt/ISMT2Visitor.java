@@ -1,13 +1,13 @@
-package visitors.exprs;
+package formatters.smt;
 
 import langs.exprs.arith.*;
 import langs.exprs.bool.*;
 
 /**
  * Created by gvoiron on 14/09/17.
- * Time : 13:22
+ * Time : 12:11
  */
-public interface IExprVisitor {
+public interface ISMT2Visitor {
 
     void visit(Int anInt);
 
@@ -37,7 +37,7 @@ public interface IExprVisitor {
 
     void visit(LT lt);
 
-    void visit(LEQ geq);
+    void visit(LEQ leq);
 
     void visit(GT gt);
 
@@ -48,5 +48,9 @@ public interface IExprVisitor {
     void visit(Equiv equiv);
 
     void visit(BoolITE boolITE);
+
+    void visit(Exists exists);
+
+    void visit(ForAll forAll);
 
 }

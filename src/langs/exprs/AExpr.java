@@ -1,10 +1,10 @@
 package langs.exprs;
 
+import formatters.exprs.ExprFormatter;
+import formatters.exprs.IExprVisitable;
+import formatters.smt.ISMT2Visitable;
 import langs.exprs.arith.Const;
 import langs.exprs.arith.Var;
-import visitors.exprs.ExprFormatter;
-import visitors.exprs.IExprVisitable;
-import visitors.smt.ISMT2Visitable;
 
 import java.util.LinkedHashSet;
 

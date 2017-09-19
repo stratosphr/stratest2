@@ -1,4 +1,4 @@
-package visitors;
+package formatters;
 
 import java.util.Collection;
 import java.util.Collections;

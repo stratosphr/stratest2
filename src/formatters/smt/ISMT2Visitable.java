@@ -1,4 +1,4 @@
-package visitors.smt;
+package formatters.smt;
 
 /**
  * Created by gvoiron on 14/09/17.

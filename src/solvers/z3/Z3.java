@@ -3,9 +3,9 @@ package solvers.z3;
 import com.microsoft.z3.Context;
 import com.microsoft.z3.Solver;
 import com.microsoft.z3.Status;
+import formatters.smt.SMT2Formatter;
 import langs.exprs.arith.AAssignable;
 import langs.exprs.bool.ABoolExpr;
-import visitors.smt.SMT2Formatter;
 
 import java.util.Set;
 

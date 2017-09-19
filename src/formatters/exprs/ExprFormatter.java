@@ -1,9 +1,11 @@
-package visitors.exprs;
+package formatters.exprs;
 
+import formatters.AFormatter;
 import langs.exprs.AExpr;
 import langs.exprs.arith.*;
 import langs.exprs.bool.*;
-import visitors.AFormatter;
+
+import java.util.stream.Collectors;
 
 /**
  * Created by gvoiron on 14/09/17.
@@ -149,6 +151,20 @@ public class ExprFormatter extends AFormatter implements IExprVisitor {
         boolITE.getThenPart().accept(this);
         format(" : ");
         boolITE.getElsePart().accept(this);
+        format(")");
+    }
+
+    @Override
+    public void visit(Exists exists) {
+        format("€(" + exists.getQuantifiedVars().stream().map(AAssignable::getName).collect(Collectors.joining(", ")) + ").(");
+        exists.getExpr().accept(this);
+        format(")");
+    }
+
+    @Override
+    public void visit(ForAll forAll) {
+        format("\\/(" + forAll.getQuantifiedVars().stream().map(AAssignable::getName).collect(Collectors.joining(", ")) + ").(");
+        forAll.getExpr().accept(this);
         format(")");
     }
 

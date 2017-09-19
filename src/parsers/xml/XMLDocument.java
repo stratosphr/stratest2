@@ -1,9 +1,9 @@
 package parsers.xml;
 
+import formatters.xml.IXMLVisitable;
+import formatters.xml.IXMLVisitor;
+import formatters.xml.XMLFormatter;
 import org.w3c.dom.Document;
-import visitors.xml.IXMLVisitable;
-import visitors.xml.IXMLVisitor;
-import visitors.xml.XMLFormatter;
 
 /**
  * Created by gvoiron on 18/09/17.

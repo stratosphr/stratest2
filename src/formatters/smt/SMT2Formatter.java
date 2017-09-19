@@ -1,8 +1,8 @@
-package visitors.smt;
+package formatters.smt;
 
+import formatters.AFormatter;
 import langs.exprs.arith.*;
 import langs.exprs.bool.*;
-import visitors.AFormatter;
 
 import java.util.LinkedHashSet;
 
@@ -204,6 +204,34 @@ public final class SMT2Formatter extends AFormatter implements ISMT2Visitor {
         boolITE.getCondition().accept(this);
         boolITE.getThenPart().accept(this);
         boolITE.getElsePart().accept(this);
+        indentLeft();
+        formatLine(")");
+    }
+
+    @Override
+    public void visit(Exists exists) {
+        formatLine("(exists");
+        indentRight();
+        formatLine("(");
+        indentRight();
+        exists.getQuantifiedVars().forEach(var -> formatLine("(" + var.getName() + " Int)"));
+        indentLeft();
+        formatLine(")");
+        exists.getExpr().accept(this);
+        indentLeft();
+        formatLine(")");
+    }
+
+    @Override
+    public void visit(ForAll forAll) {
+        formatLine("(forall");
+        indentRight();
+        formatLine("(");
+        indentRight();
+        forAll.getQuantifiedVars().forEach(var -> formatLine("(" + var.getName() + " Int)"));
+        indentLeft();
+        formatLine(")");
+        forAll.getExpr().accept(this);
         indentLeft();
         formatLine(")");
     }
