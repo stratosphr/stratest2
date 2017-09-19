@@ -36,8 +36,8 @@ public final class XMLNode implements IXMLVisitable {
     }
 
     @Override
-    public void accept(IXMLVisitor visitor) {
-        visitor.visit(this);
+    public String accept(IXMLVisitor visitor) {
+        return visitor.visit(this);
     }
 
     public List<XMLNode> getChildren(String tag) {

@@ -1,8 +1,6 @@
 package formatters;
 
-import java.util.Collection;
 import java.util.Collections;
-import java.util.stream.Collectors;
 
 /**
  * Created by gvoiron on 14/09/17.
@@ -11,41 +9,41 @@ import java.util.stream.Collectors;
 public abstract class AFormatter {
 
     private int indentation;
-    private StringBuilder formatted;
 
     protected AFormatter() {
         this.indentation = 0;
-        this.formatted = new StringBuilder();
     }
 
-    protected void indentLeft() {
+    protected String indentLeft() {
         if (indentation >= 1) {
             --indentation;
         }
+        return "";
     }
 
-    protected void indentRight() {
+    protected String indentRight() {
         ++indentation;
+        return "";
     }
 
-    private String indent() {
+    private String indentation() {
         return String.join("", Collections.nCopies(indentation, "\t"));
     }
 
-    protected void format(String text) {
-        formatted.append(indent()).append(text);
+    protected String indent(String text) {
+        return indentation() + text;
     }
 
-    protected void formatLine(String line) {
-        formatted.append(indent()).append(line).append("\n");
+    protected String line() {
+        return line("");
     }
 
-    protected void join(Collection<?> operands, String join) {
-        formatted.append(operands.stream().map(Object::toString).collect(Collectors.joining(join)));
+    protected String line(String text) {
+        return text + "\n";
     }
 
-    protected String getFormatted() {
-        return formatted.toString();
+    protected String indentLine(String text) {
+        return indent(line(text));
     }
 
 }

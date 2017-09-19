@@ -6,6 +6,6 @@ package formatters.smt;
  */
 public interface ISMT2Visitable {
 
-    void accept(ISMT2Visitor visitor);
+    String accept(ISMT2Visitor visitor);
 
 }

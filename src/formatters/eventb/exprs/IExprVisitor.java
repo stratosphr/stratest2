@@ -1,13 +1,13 @@
-package formatters.smt;
+package formatters.eventb.exprs;
 
 import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.*;
 
 /**
  * Created by gvoiron on 14/09/17.
- * Time : 12:11
+ * Time : 13:22
  */
-public interface ISMT2Visitor {
+public interface IExprVisitor {
 
     String visit(Int anInt);
 

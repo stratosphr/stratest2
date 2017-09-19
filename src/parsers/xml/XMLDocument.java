@@ -19,8 +19,8 @@ public final class XMLDocument implements IXMLVisitable {
     }
 
     @Override
-    public void accept(IXMLVisitor visitor) {
-        visitor.visit(this);
+    public String accept(IXMLVisitor visitor) {
+        return visitor.visit(this);
     }
 
     public XMLNode getRoot() {

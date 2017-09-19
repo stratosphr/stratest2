@@ -6,6 +6,6 @@ package formatters.xml;
  */
 public interface IXMLVisitable {
 
-    void accept(IXMLVisitor visitor);
+    String accept(IXMLVisitor visitor);
 
 }

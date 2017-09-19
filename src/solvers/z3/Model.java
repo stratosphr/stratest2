@@ -1,8 +1,8 @@
 package solvers.z3;
 
 import com.microsoft.z3.Context;
-import langs.exprs.arith.AAssignable;
-import langs.exprs.arith.Int;
+import langs.eventb.exprs.arith.AAssignable;
+import langs.eventb.exprs.arith.Int;
 
 import java.util.Set;
 import java.util.TreeMap;

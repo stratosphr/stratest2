@@ -9,8 +9,8 @@ import parsers.xml.XMLNode;
  */
 public interface IXMLVisitor {
 
-    void visit(XMLDocument xmlDocument);
+    String visit(XMLDocument xmlDocument);
 
-    void visit(XMLNode xmlNode);
+    String visit(XMLNode xmlNode);
 
 }
