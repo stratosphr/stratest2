@@ -44,8 +44,8 @@ public abstract class AFormatter {
         formatted.append(operands.stream().map(Object::toString).collect(Collectors.joining(join)));
     }
 
-    protected StringBuilder getFormatted() {
-        return formatted;
+    protected String getFormatted() {
+        return formatted.toString();
     }
 
 }

@@ -34,7 +34,7 @@ public final class SMT2Formatter extends AFormatter implements ISMT2Visitor {
         boolExpr.accept(formatter);
         formatter.indentLeft();
         formatter.formatLine(")");
-        return formatter.getFormatted().toString();
+        return formatter.getFormatted();
     }
 
     @Override

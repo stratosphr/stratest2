@@ -9,7 +9,7 @@ import org.xml.sax.SAXParseException;
  */
 public final class ErrorHandler implements org.xml.sax.ErrorHandler {
 
-    public static String getErrorMessage(SAXParseException e) {
+    private static String getErrorMessage(SAXParseException e) {
         return "XML file \"" + e.getSystemId().replaceAll("^file:", "") + "\" is invalid:\n" + "\tl." + e.getLineNumber() + ", c." + e.getColumnNumber() + ": " + e.getMessage().replaceAll("^.* : ", "");
     }
 

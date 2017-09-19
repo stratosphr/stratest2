@@ -17,7 +17,7 @@ public class ExprFormatter extends AFormatter implements IExprVisitor {
     public static String format(AExpr aExpr) {
         ExprFormatter formatter = new ExprFormatter();
         aExpr.accept(formatter);
-        return formatter.getFormatted().toString();
+        return formatter.getFormatted();
     }
 
     @Override
