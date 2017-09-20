@@ -10,8 +10,10 @@ import langs.eventb.substitutions.Select;
 import solvers.z3.Z3;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
 
@@ -36,10 +38,13 @@ public class Main {
                 )
         );
         LinkedHashSet<AAssignable> vars = new LinkedHashSet<>(Arrays.asList(new Var("var1"), new Var("var2"), new Var("var3")));
+        LinkedHashSet<AAssignable> vars_ = new LinkedHashSet<>(Stream.of(new Var("var1"), new Var("var2"), new Var("var3")).map(var -> (AAssignable) var.prime()).collect(Collectors.toCollection(LinkedHashSet::new)));
+        LinkedHashSet<AAssignable> allVars = new LinkedHashSet<>(Stream.of(vars, vars_).flatMap(Collection::stream).collect(Collectors.toList()));
         Status status = Z3.checkSAT(substitution.getPrd(vars));
         if (status == Status.SATISFIABLE) {
             System.out.println(Z3.getModel(vars));
-            System.out.println(Z3.getModel(vars.stream().map(assignable -> (AAssignable) assignable.prime()).collect(Collectors.toCollection(LinkedHashSet::new))));
+            System.out.println(Z3.getModel(vars_));
+            System.out.println(Z3.getModel(allVars));
         }
     }
 
