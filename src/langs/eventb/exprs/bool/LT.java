@@ -5,6 +5,7 @@ import formatters.smt.ISMT2Visitor;
 import langs.eventb.exprs.arith.AArithExpr;
 import langs.eventb.exprs.arith.Const;
 import langs.eventb.exprs.arith.Var;
+import visitors.primer.IPrimerVisitor;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -32,6 +33,11 @@ public final class LT extends ABoolExpr {
 
     @Override
     public String accept(ISMT2Visitor visitor) {
+        return visitor.visit(this);
+    }
+
+    @Override
+    public LT accept(IPrimerVisitor visitor) {
         return visitor.visit(this);
     }
 

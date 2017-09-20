@@ -3,6 +3,7 @@ package langs.eventb.exprs.arith;
 import formatters.eventb.exprs.IExprVisitor;
 import formatters.smt.ISMT2Visitor;
 import langs.eventb.exprs.AExpr;
+import visitors.primer.IPrimerVisitor;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -28,6 +29,11 @@ public final class Minus extends AArithExpr {
 
     @Override
     public String accept(IExprVisitor visitor) {
+        return visitor.visit(this);
+    }
+
+    @Override
+    public Minus accept(IPrimerVisitor visitor) {
         return visitor.visit(this);
     }
 

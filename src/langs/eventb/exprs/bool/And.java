@@ -5,6 +5,7 @@ import formatters.smt.ISMT2Visitor;
 import langs.eventb.exprs.AExpr;
 import langs.eventb.exprs.arith.Const;
 import langs.eventb.exprs.arith.Var;
+import visitors.primer.IPrimerVisitor;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -30,6 +31,11 @@ public final class And extends ABoolExpr {
 
     @Override
     public String accept(ISMT2Visitor visitor) {
+        return visitor.visit(this);
+    }
+
+    @Override
+    public And accept(IPrimerVisitor visitor) {
         return visitor.visit(this);
     }
 
