@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE predicates SYSTEM "/home/gvoiron/IdeaProjects/stratest/src/main/resources/eventb/ebm.dtd">
+
+<predicates>
+
+    <predicate name="p0">
+        <equals>
+            <fun-call name="Portes">
+                <int value="1"/>
+            </fun-call>
+            <int value="0"/>
+        </equals>
+    </predicate>
+
+    <predicate name="p1">
+        <equals>
+            <fun-call name="Portes">
+                <int value="1"/>
+            </fun-call>
+            <int value="2"/>
+        </equals>
+    </predicate>
+
+    <predicate name="p2">
+        <exists>
+            <quantified-vars>
+                <var name="R"/>
+            </quantified-vars>
+            <and>
+                <equals>
+                    <var name="R"/>
+                    <int value="1"/>
+                </equals>
+                <between>
+                    <var name="R"/>
+                    <int value="1"/>
+                    <const name="NR"/>
+                </between>
+                <equals>
+                    <fun-call name="Mvt">
+                        <var name="R"/>
+                    </fun-call>
+                    <int value="1"/>
+                </equals>
+                <forall>
+                    <quantified-vars>
+                        <var name="R1"/>
+                    </quantified-vars>
+                    <implies>
+                        <and>
+                            <between>
+                                <var name="R1"/>
+                                <int value="1"/>
+                                <const name="NR"/>
+                            </between>
+                            <neq>
+                                <var name="R1"/>
+                                <var name="R"/>
+                            </neq>
+                        </and>
+                        <or>
+                            <neq>
+                                <fun-call name="Pos">
+                                    <var name="R1"/>
+                                </fun-call>
+                                <plus>
+                                    <fun-call name="Pos">
+                                        <var name="R"/>
+                                    </fun-call>
+                                    <fun-call name="Dir">
+                                        <var name="R"/>
+                                    </fun-call>
+                                </plus>
+                            </neq>
+                            <neq>
+                                <fun-call name="Dir">
+                                    <var name="R1"/>
+                                </fun-call>
+                                <fun-call name="Dir">
+                                    <var name="R"/>
+                                </fun-call>
+                            </neq>
+                        </or>
+                    </implies>
+                </forall>
+            </and>
+        </exists>
+    </predicate>
+
+</predicates>

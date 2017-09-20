@@ -4,6 +4,8 @@ import formatters.AFormatter;
 import parsers.xml.XMLDocument;
 import parsers.xml.XMLNode;
 
+import java.util.stream.Collectors;
+
 /**
  * Created by gvoiron on 19/09/17.
  * Time : 09:42
@@ -30,14 +32,7 @@ public final class XMLFormatter extends AFormatter implements IXMLVisitor {
 
     @Override
     public String visit(XMLNode node) {
-        /*line("<" + node.getName() + (node.getAttributes().isEmpty() ? "" : " " + node.getAttributes().keySet().stream().map(key -> key + "=\"" + node.getAttributes().get(key) + "\"").collect(Collectors.joining(" "))) + (node.getChildren().isEmpty() ? "/>" : ">"));
-        if (!node.getChildren().isEmpty()) {
-            indentRight();
-            node.getChildren().forEach(child -> child.accept(this));
-            indentLeft();
-            line("</" + node.getName() + ">");
-        }*/
-        return "";
+        return node.getChildren().isEmpty() ? "<" + node.getName() + (node.getAttributes().isEmpty() ? "" : " " + node.getAttributes().keySet().stream().map(key -> key + "=\"" + node.getAttributes().get(key) + "\"").collect(Collectors.joining(" "))) + "/>" : line("<" + node.getName() + (node.getAttributes().isEmpty() ? "" : " " + node.getAttributes().keySet().stream().map(key -> key + "=\"" + node.getAttributes().get(key) + "\"").collect(Collectors.joining(" "))) + (node.getChildren().isEmpty() ? "/>" : ">")) + indentRight() + node.getChildren().stream().map(child -> indentLine(child.accept(this))).collect(Collectors.joining()) + indentLeft() + indent("</" + node.getName() + ">");
     }
 
 }
