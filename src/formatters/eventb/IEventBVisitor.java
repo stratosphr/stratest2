@@ -1,10 +1,7 @@
 package formatters.eventb;
 
 import formatters.eventb.exprs.IExprVisitor;
-import langs.eventb.substitutions.Assignment;
-import langs.eventb.substitutions.IfThenElse;
-import langs.eventb.substitutions.Select;
-import langs.eventb.substitutions.Skip;
+import langs.eventb.substitutions.*;
 
 /**
  * Created by gvoiron on 19/09/17.
@@ -16,8 +13,12 @@ public interface IEventBVisitor extends IExprVisitor {
 
     String visit(Assignment assignment);
 
+    String visit(Assignments assignments);
+
     String visit(Select select);
 
     String visit(IfThenElse ifThenElse);
+
+    String visit(Any any);
 
 }

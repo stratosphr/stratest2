@@ -6,6 +6,7 @@ import langs.eventb.exprs.AExpr;
 import langs.eventb.exprs.arith.AArithExpr;
 import langs.eventb.exprs.arith.Const;
 import langs.eventb.exprs.arith.Var;
+import visitors.primer.IPrimerVisitor;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -31,6 +32,11 @@ public final class Equals extends ABoolExpr {
 
     @Override
     public String accept(ISMT2Visitor visitor) {
+        return visitor.visit(this);
+    }
+
+    @Override
+    public Equals accept(IPrimerVisitor visitor) {
         return visitor.visit(this);
     }
 

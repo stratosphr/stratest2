@@ -2,6 +2,7 @@ package langs.eventb.exprs.arith;
 
 import formatters.eventb.exprs.IExprVisitor;
 import formatters.smt.ISMT2Visitor;
+import visitors.primer.IPrimerVisitor;
 
 import java.util.LinkedHashSet;
 
@@ -24,6 +25,11 @@ public final class Int extends AArithExpr {
 
     @Override
     public String accept(ISMT2Visitor visitor) {
+        return visitor.visit(this);
+    }
+
+    @Override
+    public Int accept(IPrimerVisitor visitor) {
         return visitor.visit(this);
     }
 
