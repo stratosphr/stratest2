@@ -12,7 +12,7 @@ public abstract class AAssignable extends AArithExpr {
         this.name = name;
     }
 
-    public String getName() {
+    public final String getName() {
         return name;
     }
 

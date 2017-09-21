@@ -3,8 +3,12 @@ package visitors.primer;
 import langs.eventb.exprs.AExpr;
 import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.*;
+import langs.eventb.exprs.sets.ASetExpr;
+import langs.eventb.exprs.sets.Range;
+import utilities.Tuple;
 
 import java.util.LinkedHashSet;
+import java.util.function.IntFunction;
 
 /**
  * Created by gvoiron on 20/09/17.
@@ -14,6 +18,7 @@ public final class Primer implements IPrimerVisitor {
 
     private final boolean isPriming;
     private LinkedHashSet<Var> quantifiedVars;
+    private boolean inInvariant;
 
     private Primer(boolean isPriming) {
         this.quantifiedVars = new LinkedHashSet<>();
@@ -45,6 +50,11 @@ public final class Primer implements IPrimerVisitor {
     @Override
     public Var visit(Var var) {
         return isPriming ? new Var(var.getName() + Primer.getPrimeSuffix()) : new Var(var.getName().replaceAll("_$", ""));
+    }
+
+    @Override
+    public Fun visit(Fun fun) {
+        return isPriming ? new Fun(fun.getName() + Primer.getPrimeSuffix(), fun.getOperand().accept(this)) : new Fun(fun.getName().replaceAll("_$", ""), fun.getOperand().accept(this));
     }
 
     @Override
@@ -98,6 +108,11 @@ public final class Primer implements IPrimerVisitor {
     }
 
     @Override
+    public NEQ visit(NEQ neq) {
+        return new NEQ(neq.getOperands().stream().map(expr -> expr.accept(this)).toArray(AArithExpr[]::new));
+    }
+
+    @Override
     public LT visit(LT lt) {
         return new LT(lt.getLeft().accept(this), lt.getRight().accept(this));
     }
@@ -138,7 +153,7 @@ public final class Primer implements IPrimerVisitor {
         quantifiedVars = new LinkedHashSet<>();
         quantifiedVars.addAll(oldQuantifiedVariables);
         quantifiedVars.addAll(exists.getQuantifiedVars());
-        Exists primed = new Exists(exists.getExpr().accept(this), exists.getQuantifiedVars().stream().map(quantifiedVariable -> quantifiedVariable.accept(this)).toArray(Var[]::new));
+        Exists primed = new Exists(exists.getExpr().accept(this), exists.getQuantifiedVarsDefs().stream().map(quantifiedVarDef -> new Tuple<>(quantifiedVarDef.getFirst().accept(this), quantifiedVarDef.getSecond().accept(this))).toArray((IntFunction<Tuple<Var, ASetExpr>[]>) Tuple[]::new));
         quantifiedVars = oldQuantifiedVariables;
         return primed;
     }
@@ -149,9 +164,22 @@ public final class Primer implements IPrimerVisitor {
         quantifiedVars = new LinkedHashSet<>();
         quantifiedVars.addAll(oldQuantifiedVariables);
         quantifiedVars.addAll(forAll.getQuantifiedVars());
-        ForAll primed = new ForAll(forAll.getExpr().accept(this), forAll.getQuantifiedVars().stream().map(quantifiedVariable -> quantifiedVariable.accept(this)).toArray(Var[]::new));
+        ForAll primed = new ForAll(forAll.getExpr().accept(this), forAll.getQuantifiedVarsDefs().stream().map(quantifiedVarDef -> new Tuple<>(quantifiedVarDef.getFirst().accept(this), quantifiedVarDef.getSecond().accept(this))).toArray((IntFunction<Tuple<Var, ASetExpr>[]>) Tuple[]::new));
         quantifiedVars = oldQuantifiedVariables;
         return primed;
+    }
+
+    @Override
+    public Invariant visit(Invariant invariant) {
+        inInvariant = true;
+        Invariant primed = new Invariant(invariant.getExpr().accept(this));
+        inInvariant = false;
+        return primed;
+    }
+
+    @Override
+    public ASetExpr visit(Range range) {
+        return new Range(range.getLowerBound(), range.getUpperBound());
     }
 
 }

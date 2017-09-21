@@ -2,6 +2,7 @@ package formatters.eventb.exprs;
 
 import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.*;
+import langs.eventb.exprs.sets.Range;
 
 /**
  * Created by gvoiron on 14/09/17.
@@ -14,6 +15,8 @@ public interface IExprVisitor {
     String visit(Const aConst);
 
     String visit(Var var);
+
+    String visit(Fun fun);
 
     String visit(Plus plus);
 
@@ -35,6 +38,8 @@ public interface IExprVisitor {
 
     String visit(Equals equals);
 
+    String visit(NEQ neq);
+
     String visit(LT lt);
 
     String visit(LEQ leq);
@@ -52,5 +57,9 @@ public interface IExprVisitor {
     String visit(Exists exists);
 
     String visit(ForAll forAll);
+
+    String visit(Invariant invariant);
+
+    String visit(Range range);
 
 }

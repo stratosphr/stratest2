@@ -2,6 +2,8 @@ package langs.eventb.exprs.bool;
 
 import langs.eventb.exprs.arith.Const;
 import langs.eventb.exprs.arith.Var;
+import langs.eventb.exprs.sets.ASetExpr;
+import utilities.Tuple;
 
 import java.util.Arrays;
 import java.util.LinkedHashSet;
@@ -15,10 +17,13 @@ public abstract class AQuantifier extends ABoolExpr {
 
     private final ABoolExpr expr;
     private final LinkedHashSet<Var> quantifiedVars;
+    private final LinkedHashSet<Tuple<Var, ASetExpr>> quantifiedVarsDefs;
 
-    AQuantifier(ABoolExpr expr, Var... quantifiedVars) {
+    @SafeVarargs
+    AQuantifier(ABoolExpr expr, Tuple<Var, ASetExpr>... quantifiedVarsDefs) {
         this.expr = expr;
-        this.quantifiedVars = new LinkedHashSet<>(Arrays.asList(quantifiedVars));
+        this.quantifiedVars = new LinkedHashSet<>(Arrays.stream(quantifiedVarsDefs).map(Tuple::getFirst).collect(Collectors.toList()));
+        this.quantifiedVarsDefs = new LinkedHashSet<>(Arrays.asList(quantifiedVarsDefs));
     }
 
     @Override
@@ -37,6 +42,10 @@ public abstract class AQuantifier extends ABoolExpr {
 
     public LinkedHashSet<Var> getQuantifiedVars() {
         return quantifiedVars;
+    }
+
+    public LinkedHashSet<Tuple<Var, ASetExpr>> getQuantifiedVarsDefs() {
+        return quantifiedVarsDefs;
     }
 
 }

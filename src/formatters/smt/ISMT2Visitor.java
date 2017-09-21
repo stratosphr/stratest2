@@ -15,6 +15,8 @@ public interface ISMT2Visitor {
 
     String visit(Var var);
 
+    String visit(Fun fun);
+
     String visit(Plus plus);
 
     String visit(Minus minus);
@@ -35,6 +37,8 @@ public interface ISMT2Visitor {
 
     String visit(Equals equals);
 
+    String visit(NEQ neq);
+
     String visit(LT lt);
 
     String visit(LEQ leq);
@@ -52,5 +56,7 @@ public interface ISMT2Visitor {
     String visit(Exists exists);
 
     String visit(ForAll forAll);
+
+    String visit(Invariant invariant);
 
 }

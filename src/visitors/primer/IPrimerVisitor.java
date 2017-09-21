@@ -2,6 +2,8 @@ package visitors.primer;
 
 import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.*;
+import langs.eventb.exprs.sets.ASetExpr;
+import langs.eventb.exprs.sets.Range;
 
 /**
  * Created by gvoiron on 20/09/17.
@@ -14,6 +16,8 @@ public interface IPrimerVisitor {
     Const visit(Const aConst);
 
     Var visit(Var var);
+
+    Fun visit(Fun fun);
 
     Plus visit(Plus plus);
 
@@ -35,6 +39,8 @@ public interface IPrimerVisitor {
 
     Equals visit(Equals equals);
 
+    NEQ visit(NEQ neq);
+
     LT visit(LT lt);
 
     LEQ visit(LEQ leq);
@@ -52,5 +58,9 @@ public interface IPrimerVisitor {
     Exists visit(Exists exists);
 
     ForAll visit(ForAll forAll);
+
+    ABoolExpr visit(Invariant invariant);
+
+    ASetExpr visit(Range range);
 
 }

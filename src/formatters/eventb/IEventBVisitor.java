@@ -1,6 +1,8 @@
 package formatters.eventb;
 
 import formatters.eventb.exprs.IExprVisitor;
+import langs.eventb.Event;
+import langs.eventb.Machine;
 import langs.eventb.substitutions.*;
 
 /**
@@ -8,6 +10,10 @@ import langs.eventb.substitutions.*;
  * Time : 10:42
  */
 public interface IEventBVisitor extends IExprVisitor {
+
+    String visit(Machine machine);
+
+    String visit(Event event);
 
     String visit(Skip skip);
 

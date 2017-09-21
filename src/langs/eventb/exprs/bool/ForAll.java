@@ -3,6 +3,8 @@ package langs.eventb.exprs.bool;
 import formatters.eventb.exprs.IExprVisitor;
 import formatters.smt.ISMT2Visitor;
 import langs.eventb.exprs.arith.Var;
+import langs.eventb.exprs.sets.ASetExpr;
+import utilities.Tuple;
 import visitors.primer.IPrimerVisitor;
 
 /**
@@ -11,8 +13,9 @@ import visitors.primer.IPrimerVisitor;
  */
 public final class ForAll extends AQuantifier {
 
-    public ForAll(ABoolExpr expr, Var... quantifiedVars) {
-        super(expr, quantifiedVars);
+    @SafeVarargs
+    public ForAll(ABoolExpr expr, Tuple<Var, ASetExpr>... quantifiedVarsDefs) {
+        super(expr, quantifiedVarsDefs);
     }
 
     @Override

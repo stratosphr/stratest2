@@ -347,6 +347,23 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    <xs:element name="select" substitutionGroup="substitution">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="bool-expr"/>
+                <xs:element ref="substitution"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="if-then-else" substitutionGroup="substitution">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="bool-expr"/>
+                <xs:element ref="substitution"/>
+                <xs:element ref="substitution"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="any" substitutionGroup="substitution">
         <xs:complexType>
             <xs:all>

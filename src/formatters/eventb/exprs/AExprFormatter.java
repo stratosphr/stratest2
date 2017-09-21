@@ -3,6 +3,7 @@ package formatters.eventb.exprs;
 import formatters.AFormatter;
 import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.*;
+import langs.eventb.exprs.sets.Range;
 
 import java.util.stream.Collectors;
 
@@ -28,6 +29,11 @@ public abstract class AExprFormatter extends AFormatter implements IExprVisitor 
     @Override
     public String visit(Var var) {
         return var.getName();
+    }
+
+    @Override
+    public String visit(Fun fun) {
+        return fun.getName() + "(" + fun.getOperand().accept(this) + ")";
     }
 
     @Override
@@ -67,17 +73,22 @@ public abstract class AExprFormatter extends AFormatter implements IExprVisitor 
 
     @Override
     public String visit(Or or) {
-        return "OR(" + or.getOperands().stream().map(operand -> operand.accept(this)).collect(Collectors.joining(", ")) + ")";
+        return line("OR(") + indentRight() + or.getOperands().stream().map(operand -> indentLine(operand.accept(this))).collect(Collectors.joining()) + indentLeft() + indent(")");
     }
 
     @Override
     public String visit(And and) {
-        return "AND(" + and.getOperands().stream().map(operand -> operand.accept(this)).collect(Collectors.joining(", ")) + ")";
+        return line("AND(") + indentRight() + and.getOperands().stream().map(operand -> indentLine(operand.accept(this))).collect(Collectors.joining()) + indentLeft() + indent(")");
     }
 
     @Override
     public String visit(Equals equals) {
         return equals.getOperands().stream().map(operand -> operand.accept(this)).collect(Collectors.joining(" = "));
+    }
+
+    @Override
+    public String visit(NEQ neq) {
+        return new Not(new Equals(neq.getOperands().toArray(new AArithExpr[neq.getOperands().size()]))).accept(this);
     }
 
     @Override
@@ -117,12 +128,22 @@ public abstract class AExprFormatter extends AFormatter implements IExprVisitor 
 
     @Override
     public String visit(Exists exists) {
-        return "€(" + exists.getQuantifiedVars().stream().map(var -> var.accept(this)).collect(Collectors.joining(", ")) + ").(" + exists.getExpr().accept(this) + ")";
+        return "€(" + exists.getQuantifiedVarsDefs().stream().map(tuple -> tuple.getFirst().accept(this) + " in " + tuple.getSecond().accept(this)).collect(Collectors.joining(", ")) + ").(" + exists.getExpr().accept(this) + ")";
     }
 
     @Override
     public String visit(ForAll forAll) {
-        return "\\/(" + forAll.getQuantifiedVars().stream().map(var -> var.accept(this)).collect(Collectors.joining(", ")) + ").(" + forAll.getExpr().accept(this) + ")";
+        return "!(" + forAll.getQuantifiedVarsDefs().stream().map(tuple -> tuple.getFirst().accept(this) + " in " + tuple.getSecond().accept(this)).collect(Collectors.joining(", ")) + ").(" + forAll.getExpr().accept(this) + ")";
+    }
+
+    @Override
+    public String visit(Invariant invariant) {
+        return invariant.getExpr().accept(this);
+    }
+
+    @Override
+    public String visit(Range range) {
+        return range.getLowerBound().accept(this) + ".." + range.getUpperBound().accept(this);
     }
 
 }

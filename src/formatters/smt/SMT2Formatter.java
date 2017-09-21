@@ -49,6 +49,11 @@ public final class SMT2Formatter extends AFormatter implements ISMT2Visitor {
     }
 
     @Override
+    public String visit(Fun fun) {
+        return line("(read_" + fun.getName()) + indentRight() + indentLine(fun.getOperand().accept(this)) + indentLeft() + indent(")");
+    }
+
+    @Override
     public String visit(Plus plus) {
         return line("(+") + indentRight() + plus.getOperands().stream().map(expr -> indentLine(expr.accept(this))).collect(Collectors.joining()) + indentLeft() + indent(")");
     }
@@ -99,6 +104,11 @@ public final class SMT2Formatter extends AFormatter implements ISMT2Visitor {
     }
 
     @Override
+    public String visit(NEQ neq) {
+        return new Not(new Equals(neq.getOperands().toArray(new AArithExpr[neq.getOperands().size()]))).accept(this);
+    }
+
+    @Override
     public String visit(LT lt) {
         return line("(<") + indentRight() + indentLine(lt.getLeft().accept(this)) + indentLine(lt.getRight().accept(this)) + indentLeft() + indent(")");
     }
@@ -133,14 +143,21 @@ public final class SMT2Formatter extends AFormatter implements ISMT2Visitor {
         return line("(ite") + indentRight() + indentLine(boolITE.getCondition().accept(this)) + indentLine(boolITE.getThenPart().accept(this)) + indentLine(boolITE.getElsePart().accept(this)) + indentLeft() + indent(")");
     }
 
+    // TODO: Add the quantified vars domains constraints in the body of the existential quantifier
     @Override
     public String visit(Exists exists) {
         return line("(exists") + indentRight() + indentLine("(") + indentRight() + exists.getQuantifiedVars().stream().map(var -> indentLine("(" + var.getName() + " Int)")).collect(Collectors.joining()) + indentLeft() + indentLine(")") + indentLine(exists.getExpr().accept(this)) + indentLeft() + indent(")");
     }
 
+    // TODO: Add the quantified vars domains constraints in the body of the universal quantifier
     @Override
     public String visit(ForAll forAll) {
         return line("(forall") + indentRight() + indentLine("(") + indentRight() + forAll.getQuantifiedVars().stream().map(var -> indentLine("(" + var.getName() + " Int)")).collect(Collectors.joining()) + indentLeft() + indentLine(")") + indentLine(forAll.getExpr().accept(this)) + indentLeft() + indent(")");
+    }
+
+    @Override
+    public String visit(Invariant invariant) {
+        return invariant.getExpr().accept(this);
     }
 
 }

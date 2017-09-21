@@ -10,8 +10,7 @@ public final class ExprFormatter extends AExprFormatter implements IExprVisitor 
     }
 
     public static String format(IExprVisitable visitable) {
-        ExprFormatter formatter = new ExprFormatter();
-        return visitable.accept(formatter);
+        return visitable.accept(new ExprFormatter());
     }
 
 }
