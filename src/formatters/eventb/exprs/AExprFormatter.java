@@ -146,4 +146,9 @@ public abstract class AExprFormatter extends AFormatter implements IExprVisitor 
         return range.getLowerBound().accept(this) + ".." + range.getUpperBound().accept(this);
     }
 
+    @Override
+    public String visit(InDomain inDomain) {
+        return inDomain.getExpr().accept(this) + " in " + inDomain.getDomain().accept(this);
+    }
+
 }

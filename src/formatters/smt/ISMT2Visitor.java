@@ -59,4 +59,6 @@ public interface ISMT2Visitor {
 
     String visit(Invariant invariant);
 
+    String visit(InDomain inDomain);
+
 }

@@ -20,15 +20,16 @@ public final class Machine extends AEventBObject {
 
     private final String name;
     private final LinkedHashMap<String, Int> constsDefs;
-    private LinkedHashSet<Event> events;
-    private ASubstitution initialisation;
+    private final LinkedHashSet<Event> events;
+    private final ASubstitution initialisation;
     private final LinkedHashMap<String, ASetExpr> varsDefs;
     private final LinkedHashMap<String, Tuple<ASetExpr, ASetExpr>> funsDefs;
     private final Invariant invariant;
-    private LinkedHashMap<String, Const> consts;
-    private LinkedHashMap<String, Var> vars;
+    private final LinkedHashMap<String, Const> consts;
+    private final LinkedHashMap<String, Var> vars;
+    private static Machine singleton;
 
-    public Machine(String name, LinkedHashMap<String, Int> constsDefs, LinkedHashMap<String, ASetExpr> varsDefs, LinkedHashMap<String, Tuple<ASetExpr, ASetExpr>> funsDefs, Invariant invariant, ASubstitution initialisation, LinkedHashSet<Event> events) {
+    private Machine(String name, LinkedHashMap<String, Int> constsDefs, LinkedHashMap<String, ASetExpr> varsDefs, LinkedHashMap<String, Tuple<ASetExpr, ASetExpr>> funsDefs, Invariant invariant, ASubstitution initialisation, LinkedHashSet<Event> events) {
         this.name = name;
         this.constsDefs = constsDefs;
         this.consts = new LinkedHashMap<>();
@@ -40,6 +41,21 @@ public final class Machine extends AEventBObject {
         this.invariant = invariant;
         this.initialisation = initialisation;
         this.events = events;
+    }
+
+    public static Machine getSingleton() {
+        if (singleton == null) {
+            throw new Error("No machine was instanciated yet. This is required in order to have a working context of execution.");
+        } else {
+            return singleton;
+        }
+    }
+
+    public static Machine getSingleton(String name, LinkedHashMap<String, Int> constsDefs, LinkedHashMap<String, ASetExpr> varsDefs, LinkedHashMap<String, Tuple<ASetExpr, ASetExpr>> funsDefs, Invariant invariant, ASubstitution initialisation, LinkedHashSet<Event> events) {
+        if (singleton == null) {
+            singleton = new Machine(name, constsDefs, varsDefs, funsDefs, invariant, initialisation, events);
+        }
+        return singleton;
     }
 
     @Override

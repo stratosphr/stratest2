@@ -10,7 +10,7 @@ import java.util.LinkedHashSet;
  * Created by gvoiron on 14/09/17.
  * Time : 12:46
  */
-public final class Int extends AArithExpr {
+public final class Int extends AValue {
 
     private Integer value;
 

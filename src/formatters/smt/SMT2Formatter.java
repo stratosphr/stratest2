@@ -4,8 +4,11 @@ import formatters.AFormatter;
 import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.*;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by gvoiron on 14/09/17.
@@ -143,21 +146,26 @@ public final class SMT2Formatter extends AFormatter implements ISMT2Visitor {
         return line("(ite") + indentRight() + indentLine(boolITE.getCondition().accept(this)) + indentLine(boolITE.getThenPart().accept(this)) + indentLine(boolITE.getElsePart().accept(this)) + indentLeft() + indent(")");
     }
 
-    // TODO: Add the quantified vars domains constraints in the body of the existential quantifier
     @Override
     public String visit(Exists exists) {
-        return line("(exists") + indentRight() + indentLine("(") + indentRight() + exists.getQuantifiedVars().stream().map(var -> indentLine("(" + var.getName() + " Int)")).collect(Collectors.joining()) + indentLeft() + indentLine(")") + indentLine(exists.getExpr().accept(this)) + indentLeft() + indent(")");
+        And and = new And(Stream.of(exists.getQuantifiedVarsDefs().stream().map(tuple -> new InDomain(tuple.getFirst(), tuple.getSecond())).collect(Collectors.toList()), Collections.singletonList(exists.getExpr())).flatMap(Collection::stream).toArray(ABoolExpr[]::new));
+        return line("(exists") + indentRight() + indentLine("(") + indentRight() + exists.getQuantifiedVars().stream().map(var -> indentLine("(" + var.getName() + " Int)")).collect(Collectors.joining()) + indentLeft() + indentLine(")") + indentLine(and.accept(this)) + indentLeft() + indent(")");
     }
 
-    // TODO: Add the quantified vars domains constraints in the body of the universal quantifier
     @Override
     public String visit(ForAll forAll) {
-        return line("(forall") + indentRight() + indentLine("(") + indentRight() + forAll.getQuantifiedVars().stream().map(var -> indentLine("(" + var.getName() + " Int)")).collect(Collectors.joining()) + indentLeft() + indentLine(")") + indentLine(forAll.getExpr().accept(this)) + indentLeft() + indent(")");
+        And and = new And(Stream.of(forAll.getQuantifiedVarsDefs().stream().map(tuple -> new InDomain(tuple.getFirst(), tuple.getSecond())).collect(Collectors.toList()), Collections.singletonList(forAll.getExpr())).flatMap(Collection::stream).toArray(ABoolExpr[]::new));
+        return line("(forall") + indentRight() + indentLine("(") + indentRight() + forAll.getQuantifiedVars().stream().map(var -> indentLine("(" + var.getName() + " Int)")).collect(Collectors.joining()) + indentLeft() + indentLine(")") + indentLine(and.accept(this)) + indentLeft() + indent(")");
     }
 
     @Override
     public String visit(Invariant invariant) {
         return invariant.getExpr().accept(this);
+    }
+
+    @Override
+    public String visit(InDomain inDomain) {
+        return new Or(inDomain.getDomain().getSet().stream().map(value -> new Equals(inDomain.getExpr(), value)).toArray(ABoolExpr[]::new)).accept(this);
     }
 
 }

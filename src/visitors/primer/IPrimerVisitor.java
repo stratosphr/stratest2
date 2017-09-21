@@ -63,4 +63,6 @@ public interface IPrimerVisitor {
 
     ASetExpr visit(Range range);
 
+    InDomain visit(InDomain inDomain);
+
 }

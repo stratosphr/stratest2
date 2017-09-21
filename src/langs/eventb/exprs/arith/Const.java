@@ -11,7 +11,7 @@ import java.util.LinkedHashSet;
  * Created by gvoiron on 14/09/17.
  * Time : 12:48
  */
-public final class Const extends AArithExpr {
+public final class Const extends AValue {
 
     private String name;
 

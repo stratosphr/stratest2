@@ -8,7 +8,10 @@ import langs.eventb.exprs.arith.Var;
 import langs.eventb.exprs.sets.ASetExpr;
 import visitors.primer.IPrimerVisitor;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by gvoiron on 21/09/17.
@@ -24,6 +27,31 @@ public final class InDomain extends ABoolExpr {
         this.domain = domain;
     }
 
+    @Override
+    public String accept(ISMT2Visitor visitor) {
+        return visitor.visit(this);
+    }
+
+    @Override
+    public InDomain accept(IPrimerVisitor visitor) {
+        return visitor.visit(this);
+    }
+
+    @Override
+    public String accept(IExprVisitor visitor) {
+        return visitor.visit(this);
+    }
+
+    @Override
+    public LinkedHashSet<Const> getConsts() {
+        return Stream.of(expr.getConsts(), domain.getConsts()).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
+    }
+
+    @Override
+    public LinkedHashSet<Var> getVars() {
+        return Stream.of(expr.getVars(), domain.getVars()).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
+    }
+
     public AArithExpr getExpr() {
         return expr;
     }
@@ -32,28 +60,4 @@ public final class InDomain extends ABoolExpr {
         return domain;
     }
 
-    @Override
-    public String accept(ISMT2Visitor visitor) {
-        return null;
-    }
-
-    @Override
-    public ABoolExpr accept(IPrimerVisitor visitor) {
-        return null;
-    }
-
-    @Override
-    public String accept(IExprVisitor visitor) {
-        return null;
-    }
-
-    @Override
-    public LinkedHashSet<Const> getConsts() {
-        return null;
-    }
-
-    @Override
-    public LinkedHashSet<Var> getVars() {
-        return null;
-    }
 }

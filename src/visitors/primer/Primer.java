@@ -182,4 +182,9 @@ public final class Primer implements IPrimerVisitor {
         return new Range(range.getLowerBound(), range.getUpperBound());
     }
 
+    @Override
+    public InDomain visit(InDomain inDomain) {
+        return new InDomain(inDomain.getExpr().accept(this), inDomain.getDomain().accept(this));
+    }
+
 }

@@ -5,7 +5,7 @@
     <consts-defs>
         <const-def name="NS" value="2"/>
         <const-def name="NS1" value="1"/> <!-- NS - 1 -->
-        <const-def name="NR" value="2"/>
+        <const-def name="NR" value="140007"/>
     </consts-defs>
 
     <funs-defs>

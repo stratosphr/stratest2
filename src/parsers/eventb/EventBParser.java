@@ -91,7 +91,7 @@ public final class EventBParser {
         if (!eventsNodes.isEmpty()) {
             events = parseEvents(eventsNodes.get(0));
         }
-        return new Machine(name, constsDefs, varsDefs, funsDefs, invariant, initialisation, events);
+        return Machine.getSingleton(name, constsDefs, varsDefs, funsDefs, invariant, initialisation, events);
     }
 
     private void parseConstsDefs(XMLNode node) {

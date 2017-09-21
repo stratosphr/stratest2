@@ -1,7 +1,10 @@
 package langs.eventb.exprs.sets;
 
 import langs.eventb.exprs.AExpr;
+import langs.eventb.exprs.arith.AValue;
 import visitors.primer.Primer;
+
+import java.util.LinkedHashSet;
 
 /**
  * Created by gvoiron on 21/09/17.
@@ -18,5 +21,7 @@ public abstract class ASetExpr extends AExpr<ASetExpr> {
     public ASetExpr unprime() {
         return Primer.unprime(this);
     }
+
+    public abstract LinkedHashSet<AValue> getSet();
 
 }
