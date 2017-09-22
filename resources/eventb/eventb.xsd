@@ -58,8 +58,10 @@
     </xs:element>
     <xs:element name="const-def">
         <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="arith-expr-non-enum"/>
+            </xs:sequence>
             <xs:attribute name="name" type="identifier" use="required"/>
-            <xs:attribute name="value" type="xs:integer" use="required"/>
         </xs:complexType>
     </xs:element>
 

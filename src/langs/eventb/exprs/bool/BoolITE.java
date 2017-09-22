@@ -3,6 +3,7 @@ package langs.eventb.exprs.bool;
 import formatters.eventb.exprs.IExprVisitor;
 import formatters.smt.ISMT2Visitor;
 import langs.eventb.exprs.arith.Const;
+import langs.eventb.exprs.arith.Fun;
 import langs.eventb.exprs.arith.Var;
 import visitors.primer.IPrimerVisitor;
 
@@ -50,6 +51,11 @@ public final class BoolITE extends ABoolExpr {
     @Override
     public LinkedHashSet<Var> getVars() {
         return Stream.of(condition.getVars(), thenPart.getVars(), elsePart.getVars()).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
+    }
+
+    @Override
+    public LinkedHashSet<Fun> getFuns() {
+        return Stream.of(condition.getFuns(), thenPart.getFuns(), elsePart.getFuns()).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
     public ABoolExpr getCondition() {

@@ -2,9 +2,14 @@ package langs.eventb.exprs.arith;
 
 import formatters.eventb.exprs.IExprVisitor;
 import formatters.smt.ISMT2Visitor;
+import langs.eventb.Machine;
+import langs.eventb.exprs.sets.ASetExpr;
+import utilities.Tuple;
 import visitors.primer.IPrimerVisitor;
 
+import java.util.Collections;
 import java.util.LinkedHashSet;
+import java.util.stream.Collectors;
 
 /**
  * Created by gvoiron on 21/09/17.
@@ -41,7 +46,13 @@ public final class Fun extends AAssignable {
 
     @Override
     public LinkedHashSet<Var> getVars() {
-        return new LinkedHashSet<>();
+        Tuple<ASetExpr, ASetExpr> tuple = Machine.getSingleton().getFunsDefs().get(name);
+        return new LinkedHashSet<>(tuple.getFirst().getSet().stream().map(value -> new Var(name + "!" + value)).collect(Collectors.toList()));
+    }
+
+    @Override
+    public LinkedHashSet<Fun> getFuns() {
+        return new LinkedHashSet<>(Collections.singletonList(this));
     }
 
     public AArithExpr getOperand() {

@@ -25,6 +25,8 @@ public interface ISMT2Visitor {
 
     String visit(Div div);
 
+    String visit(ArithITE arithITE);
+
     String visit(False aFalse);
 
     String visit(True aTrue);

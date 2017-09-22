@@ -43,6 +43,11 @@ public final class Int extends AValue {
         return new LinkedHashSet<>();
     }
 
+    @Override
+    public LinkedHashSet<Fun> getFuns() {
+        return new LinkedHashSet<>();
+    }
+
     public Integer getValue() {
         return value;
     }

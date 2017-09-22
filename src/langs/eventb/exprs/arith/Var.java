@@ -42,4 +42,9 @@ public final class Var extends AAssignable {
         return new LinkedHashSet<>(Collections.singletonList(this));
     }
 
+    @Override
+    public LinkedHashSet<Fun> getFuns() {
+        return new LinkedHashSet<>();
+    }
+
 }

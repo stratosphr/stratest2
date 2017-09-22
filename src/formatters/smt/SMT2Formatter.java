@@ -1,12 +1,13 @@
 package formatters.smt;
 
 import formatters.AFormatter;
+import langs.eventb.Machine;
 import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.*;
+import langs.eventb.exprs.sets.ASetExpr;
+import utilities.Tuple;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedHashSet;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -21,19 +22,44 @@ public final class SMT2Formatter extends AFormatter implements ISMT2Visitor {
 
     public static String format(ABoolExpr boolExpr) {
         SMT2Formatter formatter = new SMT2Formatter();
-        String formatted = "";
+        StringBuilder formatted = new StringBuilder();
         LinkedHashSet<Const> consts = boolExpr.getConsts();
         LinkedHashSet<Var> vars = boolExpr.getVars();
+        LinkedHashSet<String> funsNames = boolExpr.getFuns().stream().map(AAssignable::getName).collect(Collectors.toCollection(LinkedHashSet::new));
         if (!consts.isEmpty()) {
-            formatted += formatter.line("; CONSTS");
-            formatted += consts.stream().map(aConst -> formatter.line("(declare-fun " + aConst.getName() + " () Int)")).collect(Collectors.joining());
+            formatted.append(formatter.line("; CONSTS"));
+            formatted.append(consts.stream().map(aConst -> formatter.line("(declare-fun " + aConst.getName() + " () Int)")).collect(Collectors.joining()));
+            formatted.append(formatter.line());
         }
         if (!vars.isEmpty()) {
-            formatted += formatter.line("; VARS");
-            formatted += vars.stream().map(var -> formatter.line("(declare-fun " + var.getName() + " () Int)")).collect(Collectors.joining());
+            formatted.append(formatter.line("; VARS"));
+            formatted.append(vars.stream().map(var -> formatter.line("(declare-fun " + var.getName() + " () Int)")).collect(Collectors.joining()));
+            formatted.append(formatter.line());
         }
-        formatted += formatter.line() + formatter.line("(assert") + formatter.indentRight() + formatter.indentLine(boolExpr.accept(formatter)) + formatter.indentLeft() + formatter.indent(")");
-        return formatted;
+        if (!funsNames.isEmpty()) {
+            formatted.append(formatter.line("; FUNS"));
+            for (String funName : funsNames) {
+                formatted.append(formatter.line("(define-fun read_" + funName + " ((index! Int)) Int"));
+                Tuple<ASetExpr, ASetExpr> funDomains = Machine.getSingleton().getFunsDefs().get(funName);
+                ArrayList<AValue> funDomain = new ArrayList<>(funDomains.getFirst().getSet());
+                ArrayList<AValue> funCoDomain = new ArrayList<>(funDomains.getSecond().getSet());
+                List<ABoolExpr> equals = funDomain.stream().map(value -> new Equals(new Var("index!"), value)).collect(Collectors.toList());
+                Collections.reverse(equals);
+                ArithITE ite = new ArithITE(
+                        equals.get(0),
+                        new Var(funName + "!" + funDomain.get(funDomain.size() - 1)),
+                        new Minus(funCoDomain.iterator().next(), new Int(1))
+                );
+                for (int i = 1; i < equals.subList(1, equals.size()).size() + 1; i++) {
+                    ite = new ArithITE(equals.get(i), new Var(funName + "!" + funDomain.get(funDomain.size() - 1 - i)), ite);
+                }
+                formatted.append(formatter.indentRight()).append(formatter.indentLine(ite.accept(formatter))).append(formatter.indentLeft());
+                formatted.append(formatter.indent(")"));
+                formatted.append(formatter.line());
+            }
+        }
+        formatted.append(formatter.line()).append(formatter.line("(assert")).append(formatter.indentRight()).append(formatter.indentLine(boolExpr.accept(formatter))).append(formatter.indentLeft()).append(formatter.indent(")"));
+        return formatted.toString();
     }
 
     @Override
@@ -77,6 +103,11 @@ public final class SMT2Formatter extends AFormatter implements ISMT2Visitor {
     }
 
     @Override
+    public String visit(ArithITE arithITE) {
+        return line("(ite") + indentRight() + indentLine(arithITE.getCondition().accept(this)) + indentLine(arithITE.getThenPart().accept(this)) + indentLine(arithITE.getElsePart().accept(this)) + indentLeft() + indent(")");
+    }
+
+    @Override
     public String visit(False aFalse) {
         return "false";
     }
@@ -93,12 +124,12 @@ public final class SMT2Formatter extends AFormatter implements ISMT2Visitor {
 
     @Override
     public String visit(Or or) {
-        return line("(or") + indentRight() + or.getOperands().stream().map(expr -> indentLine(expr.accept(this))).collect(Collectors.joining()) + indentLeft() + indent(")");
+        return or.getOperands().isEmpty() ? new False().accept(this) : line("(or") + indentRight() + or.getOperands().stream().map(expr -> indentLine(expr.accept(this))).collect(Collectors.joining()) + indentLeft() + indent(")");
     }
 
     @Override
     public String visit(And and) {
-        return line("(and") + indentRight() + and.getOperands().stream().map(expr -> indentLine(expr.accept(this))).collect(Collectors.joining()) + indentLeft() + indent(")");
+        return and.getOperands().isEmpty() ? new True().accept(this) : line("(and") + indentRight() + and.getOperands().stream().map(expr -> indentLine(expr.accept(this))).collect(Collectors.joining()) + indentLeft() + indent(")");
     }
 
     @Override
@@ -154,8 +185,8 @@ public final class SMT2Formatter extends AFormatter implements ISMT2Visitor {
 
     @Override
     public String visit(ForAll forAll) {
-        And and = new And(Stream.of(forAll.getQuantifiedVarsDefs().stream().map(tuple -> new InDomain(tuple.getFirst(), tuple.getSecond())).collect(Collectors.toList()), Collections.singletonList(forAll.getExpr())).flatMap(Collection::stream).toArray(ABoolExpr[]::new));
-        return line("(forall") + indentRight() + indentLine("(") + indentRight() + forAll.getQuantifiedVars().stream().map(var -> indentLine("(" + var.getName() + " Int)")).collect(Collectors.joining()) + indentLeft() + indentLine(")") + indentLine(and.accept(this)) + indentLeft() + indent(")");
+        Implies implies = new Implies(new And(forAll.getQuantifiedVarsDefs().stream().map(tuple -> new InDomain(tuple.getFirst(), tuple.getSecond())).toArray(ABoolExpr[]::new)), forAll.getExpr());
+        return line("(forall") + indentRight() + indentLine("(") + indentRight() + forAll.getQuantifiedVars().stream().map(var -> indentLine("(" + var.getName() + " Int)")).collect(Collectors.joining()) + indentLeft() + indentLine(")") + indentLine(implies.accept(this)) + indentLeft() + indent(")");
     }
 
     @Override

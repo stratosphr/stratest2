@@ -3,6 +3,7 @@ package langs.eventb.exprs;
 import formatters.eventb.exprs.ExprFormatter;
 import formatters.eventb.exprs.IExprVisitable;
 import langs.eventb.exprs.arith.Const;
+import langs.eventb.exprs.arith.Fun;
 import langs.eventb.exprs.arith.Var;
 import visitors.primer.IPrimerVisitable;
 
@@ -17,6 +18,8 @@ public abstract class AExpr<T extends AExpr> implements IExprVisitable, IPrimerV
     public abstract LinkedHashSet<Const> getConsts();
 
     public abstract LinkedHashSet<Var> getVars();
+
+    public abstract LinkedHashSet<Fun> getFuns();
 
     public abstract T unprime();
 

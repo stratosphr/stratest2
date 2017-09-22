@@ -3,6 +3,7 @@ package langs.eventb.exprs.bool;
 import formatters.eventb.exprs.IExprVisitor;
 import formatters.smt.ISMT2Visitor;
 import langs.eventb.exprs.arith.Const;
+import langs.eventb.exprs.arith.Fun;
 import langs.eventb.exprs.arith.Var;
 import visitors.primer.IPrimerVisitor;
 
@@ -43,6 +44,11 @@ public final class Not extends ABoolExpr {
     @Override
     public LinkedHashSet<Var> getVars() {
         return operand.getVars();
+    }
+
+    @Override
+    public LinkedHashSet<Fun> getFuns() {
+        return operand.getFuns();
     }
 
     public ABoolExpr getOperand() {

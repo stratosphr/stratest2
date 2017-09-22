@@ -47,6 +47,11 @@ public final class Times extends AArithExpr {
         return operands.stream().map(AExpr::getVars).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
+    @Override
+    public LinkedHashSet<Fun> getFuns() {
+        return operands.stream().map(AExpr::getFuns).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
+    }
+
     public LinkedHashSet<AArithExpr> getOperands() {
         return operands;
     }

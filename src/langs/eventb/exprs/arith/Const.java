@@ -44,6 +44,11 @@ public final class Const extends AValue {
         return new LinkedHashSet<>();
     }
 
+    @Override
+    public LinkedHashSet<Fun> getFuns() {
+        return new LinkedHashSet<>();
+    }
+
     public String getName() {
         return name;
     }

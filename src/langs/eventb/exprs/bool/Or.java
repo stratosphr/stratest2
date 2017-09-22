@@ -4,6 +4,7 @@ import formatters.eventb.exprs.IExprVisitor;
 import formatters.smt.ISMT2Visitor;
 import langs.eventb.exprs.AExpr;
 import langs.eventb.exprs.arith.Const;
+import langs.eventb.exprs.arith.Fun;
 import langs.eventb.exprs.arith.Var;
 import visitors.primer.IPrimerVisitor;
 
@@ -47,6 +48,11 @@ public final class Or extends ABoolExpr {
     @Override
     public LinkedHashSet<Var> getVars() {
         return operands.stream().map(AExpr::getVars).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
+    }
+
+    @Override
+    public LinkedHashSet<Fun> getFuns() {
+        return operands.stream().map(AExpr::getFuns).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
     public LinkedHashSet<ABoolExpr> getOperands() {

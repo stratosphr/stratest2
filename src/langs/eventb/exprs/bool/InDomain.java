@@ -4,6 +4,7 @@ import formatters.eventb.exprs.IExprVisitor;
 import formatters.smt.ISMT2Visitor;
 import langs.eventb.exprs.arith.AArithExpr;
 import langs.eventb.exprs.arith.Const;
+import langs.eventb.exprs.arith.Fun;
 import langs.eventb.exprs.arith.Var;
 import langs.eventb.exprs.sets.ASetExpr;
 import visitors.primer.IPrimerVisitor;
@@ -50,6 +51,11 @@ public final class InDomain extends ABoolExpr {
     @Override
     public LinkedHashSet<Var> getVars() {
         return Stream.of(expr.getVars(), domain.getVars()).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
+    }
+
+    @Override
+    public LinkedHashSet<Fun> getFuns() {
+        return Stream.of(expr.getFuns(), domain.getFuns()).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
     public AArithExpr getExpr() {

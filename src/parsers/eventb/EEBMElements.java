@@ -7,6 +7,8 @@ package parsers.eventb;
 public final class EEBMElements {
 
     public static final String MODEL = "model";
+    public static final String SETS_DEFS = "sets-defs";
+    public static final String SET_DEF = "set-def";
     public static final String CONSTS_DEFS = "consts-defs";
     public static final String CONST_DEF = "const-def";
     public static final String VARS_DEFS = "vars-defs";

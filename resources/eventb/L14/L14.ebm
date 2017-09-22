@@ -12,9 +12,18 @@
     </sets-defs>
 
     <consts-defs>
-        <const-def name="NS" value="2"/>
-        <const-def name="NS1" value="1"/> <!-- NS - 1 -->
-        <const-def name="NR" value="2"/>
+        <const-def name="NS">
+            <int value="2"/>
+        </const-def>
+        <const-def name="NS1"> <!-- NS - 1 -->
+            <minus>
+                <const name="NS"/>
+                <int value="1"/>
+            </minus>
+        </const-def>
+        <const-def name="NR">
+            <int value="2"/>
+        </const-def>
     </consts-defs>
 
     <funs-defs>

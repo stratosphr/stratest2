@@ -57,6 +57,11 @@ public abstract class AExprFormatter extends AFormatter implements IExprVisitor 
     }
 
     @Override
+    public String visit(ArithITE arithITE) {
+        return "(" + arithITE.getCondition().accept(this) + " ? " + arithITE.getThenPart().accept(this) + " : " + arithITE.getElsePart().accept(this) + ")";
+    }
+
+    @Override
     public String visit(False aFalse) {
         return "false";
     }
@@ -73,12 +78,12 @@ public abstract class AExprFormatter extends AFormatter implements IExprVisitor 
 
     @Override
     public String visit(Or or) {
-        return line("OR(") + indentRight() + or.getOperands().stream().map(operand -> indentLine(operand.accept(this))).collect(Collectors.joining()) + indentLeft() + indent(")");
+        return or.getOperands().isEmpty() ? new False().accept(this) : line("OR(") + indentRight() + or.getOperands().stream().map(operand -> indentLine(operand.accept(this))).collect(Collectors.joining()) + indentLeft() + indent(")");
     }
 
     @Override
     public String visit(And and) {
-        return line("AND(") + indentRight() + and.getOperands().stream().map(operand -> indentLine(operand.accept(this))).collect(Collectors.joining()) + indentLeft() + indent(")");
+        return and.getOperands().isEmpty() ? new True().accept(this) : line("AND(") + indentRight() + and.getOperands().stream().map(operand -> indentLine(operand.accept(this))).collect(Collectors.joining()) + indentLeft() + indent(")");
     }
 
     @Override

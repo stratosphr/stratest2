@@ -6,7 +6,7 @@ package langs.eventb.exprs.arith;
  */
 public abstract class AAssignable extends AArithExpr {
 
-    private String name;
+    protected String name;
 
     public AAssignable(String name) {
         this.name = name;

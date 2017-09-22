@@ -1,10 +1,8 @@
-package langs.eventb.exprs.bool;
+package langs.eventb.exprs.arith;
 
 import formatters.eventb.exprs.IExprVisitor;
 import formatters.smt.ISMT2Visitor;
-import langs.eventb.exprs.arith.Const;
-import langs.eventb.exprs.arith.Fun;
-import langs.eventb.exprs.arith.Var;
+import langs.eventb.exprs.bool.ABoolExpr;
 import visitors.primer.IPrimerVisitor;
 
 import java.util.Collection;
@@ -16,14 +14,16 @@ import java.util.stream.Stream;
  * Created by gvoiron on 14/09/17.
  * Time : 12:26
  */
-public final class Implies extends ABoolExpr {
+public final class ArithITE extends AArithExpr {
 
     private final ABoolExpr condition;
-    private final ABoolExpr thenPart;
+    private final AArithExpr thenPart;
+    private final AArithExpr elsePart;
 
-    public Implies(ABoolExpr condition, ABoolExpr thenPart) {
+    public ArithITE(ABoolExpr condition, AArithExpr thenPart, AArithExpr elsePart) {
         this.condition = condition;
         this.thenPart = thenPart;
+        this.elsePart = elsePart;
     }
 
     @Override
@@ -37,31 +37,35 @@ public final class Implies extends ABoolExpr {
     }
 
     @Override
-    public Implies accept(IPrimerVisitor visitor) {
+    public ArithITE accept(IPrimerVisitor visitor) {
         return visitor.visit(this);
     }
 
     @Override
     public LinkedHashSet<Const> getConsts() {
-        return Stream.of(condition.getConsts(), thenPart.getConsts()).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
+        return Stream.of(condition.getConsts(), thenPart.getConsts(), elsePart.getConsts()).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
     @Override
     public LinkedHashSet<Var> getVars() {
-        return Stream.of(condition.getVars(), thenPart.getVars()).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
+        return Stream.of(condition.getVars(), thenPart.getVars(), elsePart.getVars()).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
     @Override
     public LinkedHashSet<Fun> getFuns() {
-        return Stream.of(condition.getFuns(), thenPart.getFuns()).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
+        return Stream.of(condition.getFuns(), thenPart.getFuns(), elsePart.getFuns()).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
     public ABoolExpr getCondition() {
         return condition;
     }
 
-    public ABoolExpr getThenPart() {
+    public AArithExpr getThenPart() {
         return thenPart;
+    }
+
+    public AArithExpr getElsePart() {
+        return elsePart;
     }
 
 }

@@ -12,8 +12,10 @@ import utilities.maths.Maths;
 import visitors.primer.IPrimerVisitor;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by gvoiron on 21/09/17.
@@ -42,12 +44,17 @@ public final class Range extends ASetExpr {
 
     @Override
     public LinkedHashSet<Const> getConsts() {
-        return new LinkedHashSet<>();
+        return Stream.of(lowerBound.getConsts(), upperBound.getConsts()).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
     @Override
     public LinkedHashSet<Var> getVars() {
-        return new LinkedHashSet<>();
+        return Stream.of(lowerBound.getVars(), upperBound.getVars()).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
+    }
+
+    @Override
+    public LinkedHashSet<Fun> getFuns() {
+        return Stream.of(lowerBound.getFuns(), upperBound.getFuns()).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
     public AArithExpr getLowerBound() {

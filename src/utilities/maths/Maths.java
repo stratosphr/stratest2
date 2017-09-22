@@ -11,6 +11,9 @@ import java.util.stream.IntStream;
 public final class Maths {
 
     public static List<Integer> range(int lowerBound, int upperBound) {
+        if (lowerBound >= upperBound) {
+            throw new Error("Invalid range " + lowerBound + ".." + upperBound + " (the lower bound must be lower than the upper bound).");
+        }
         return IntStream.rangeClosed(lowerBound, upperBound).boxed().collect(Collectors.toList());
     }
 

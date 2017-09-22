@@ -36,7 +36,8 @@ import static parsers.eventb.EEBMElements.*;
 public final class EventBParser {
 
     private final String name;
-    private final LinkedHashMap<String, Int> constsDefs;
+    private LinkedHashMap<String, ASetExpr> setsDefs;
+    private LinkedHashMap<String, AArithExpr> constsDefs;
     private final LinkedHashMap<String, ASetExpr> varsDefs;
     private final LinkedHashMap<String, Tuple<ASetExpr, ASetExpr>> funsDefs;
     private Invariant invariant;
@@ -45,6 +46,7 @@ public final class EventBParser {
 
     private EventBParser() {
         this.name = "";
+        this.setsDefs = new LinkedHashMap<>();
         this.constsDefs = new LinkedHashMap<>();
         this.varsDefs = new LinkedHashMap<>();
         this.funsDefs = new LinkedHashMap<>();
@@ -67,14 +69,18 @@ public final class EventBParser {
 
     private Machine parseModel(XMLNode node) {
         check(node, MODEL);
+        List<XMLNode> setsDefsNodes = node.getChildren(SETS_DEFS);
         List<XMLNode> constsDefsNodes = node.getChildren(CONSTS_DEFS);
         List<XMLNode> varsDefsNodes = node.getChildren(VARS_DEFS);
         List<XMLNode> funsDefsNodes = node.getChildren(FUNS_DEFS);
         List<XMLNode> invariantNodes = node.getChildren(INVARIANT);
         List<XMLNode> initialisationNodes = node.getChildren(INITIALISATION);
         List<XMLNode> eventsNodes = node.getChildren(EVENTS);
+        if (!setsDefsNodes.isEmpty()) {
+            setsDefs = parseSetsDefs(setsDefsNodes.get(0));
+        }
         if (!constsDefsNodes.isEmpty()) {
-            parseConstsDefs(constsDefsNodes.get(0));
+            constsDefs = parseConstsDefs(constsDefsNodes.get(0));
         }
         if (!varsDefsNodes.isEmpty()) {
             parseVarsDefs(varsDefsNodes.get(0)).forEach(varDef -> varsDefs.put(varDef.getFirst(), varDef.getSecond()));
@@ -91,12 +97,21 @@ public final class EventBParser {
         if (!eventsNodes.isEmpty()) {
             events = parseEvents(eventsNodes.get(0));
         }
-        return Machine.getSingleton(name, constsDefs, varsDefs, funsDefs, invariant, initialisation, events);
+        return Machine.getSingleton(name, setsDefs, constsDefs, varsDefs, funsDefs, invariant, initialisation, events);
     }
 
-    private void parseConstsDefs(XMLNode node) {
+    private LinkedHashMap<String, ASetExpr> parseSetsDefs(XMLNode node) {
+        check(node, SETS_DEFS);
+        LinkedHashMap<String, ASetExpr> setsDefs = new LinkedHashMap<>();
+        node.getChildren().forEach(node1 -> setsDefs.put(node1.getAttributes().get(NAME), parseSetExpr(node1.getChildren().get(0))));
+        return setsDefs;
+    }
+
+    private LinkedHashMap<String, AArithExpr> parseConstsDefs(XMLNode node) {
         check(node, CONSTS_DEFS);
-        node.getChildren().forEach(this::parseConstDef);
+        LinkedHashMap<String, AArithExpr> constsDefs = new LinkedHashMap<>();
+        node.getChildren().forEach(node1 -> constsDefs.put(node1.getAttributes().get(NAME), parseArithExpr(node1.getChildren().get(0))));
+        return constsDefs;
     }
 
     private void parseConstDef(XMLNode node) {

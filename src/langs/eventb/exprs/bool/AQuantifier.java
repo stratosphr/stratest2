@@ -1,6 +1,7 @@
 package langs.eventb.exprs.bool;
 
 import langs.eventb.exprs.arith.Const;
+import langs.eventb.exprs.arith.Fun;
 import langs.eventb.exprs.arith.Var;
 import langs.eventb.exprs.sets.ASetExpr;
 import utilities.Tuple;
@@ -34,6 +35,11 @@ public abstract class AQuantifier extends ABoolExpr {
     @Override
     public LinkedHashSet<Var> getVars() {
         return expr.getVars().stream().filter(var -> !quantifiedVars.contains(var)).collect(Collectors.toCollection(LinkedHashSet::new));
+    }
+
+    @Override
+    public LinkedHashSet<Fun> getFuns() {
+        return expr.getFuns();
     }
 
     public ABoolExpr getExpr() {

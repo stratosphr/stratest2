@@ -27,6 +27,8 @@ public interface IPrimerVisitor {
 
     Div visit(Div div);
 
+    ArithITE visit(ArithITE arithITE);
+
     False visit(False aFalse);
 
     True visit(True aTrue);

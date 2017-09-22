@@ -1,5 +1,6 @@
 package visitors.primer;
 
+import langs.eventb.Machine;
 import langs.eventb.exprs.AExpr;
 import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.*;
@@ -54,7 +55,9 @@ public final class Primer implements IPrimerVisitor {
 
     @Override
     public Fun visit(Fun fun) {
-        return isPriming ? (inInvariant ? new Fun(fun.getName() + Primer.getPrimeSuffix(), fun.getOperand().accept(this)) : new Fun(fun.getName() + Primer.getPrimeSuffix(), fun.getOperand())) : (inInvariant ? new Fun(fun.getName().replaceAll("_$", ""), fun.getOperand().accept(this)) : new Fun(fun.getName().replaceAll("_$", ""), fun.getOperand()));
+        Fun primed = isPriming ? (inInvariant ? new Fun(fun.getName() + Primer.getPrimeSuffix(), fun.getOperand().accept(this)) : new Fun(fun.getName() + Primer.getPrimeSuffix(), fun.getOperand())) : (inInvariant ? new Fun(fun.getName().replaceAll("_$", ""), fun.getOperand().accept(this)) : new Fun(fun.getName().replaceAll("_$", ""), fun.getOperand()));
+        Machine.getSingleton().getFunsDefs().put(primed.getName(), Machine.getSingleton().getFunsDefs().get(fun.getName()));
+        return primed;
     }
 
     @Override
@@ -75,6 +78,11 @@ public final class Primer implements IPrimerVisitor {
     @Override
     public Div visit(Div div) {
         return new Div(div.getOperands().stream().map(expr -> expr.accept(this)).toArray(AArithExpr[]::new));
+    }
+
+    @Override
+    public ArithITE visit(ArithITE arithITE) {
+        return new ArithITE(arithITE.getCondition().accept(this), arithITE.getThenPart().accept(this), arithITE.getElsePart().accept(this));
     }
 
     @Override
