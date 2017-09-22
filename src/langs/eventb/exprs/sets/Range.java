@@ -8,6 +8,7 @@ import langs.eventb.exprs.bool.And;
 import langs.eventb.exprs.bool.Equals;
 import solvers.z3.Model;
 import solvers.z3.Z3;
+import utilities.maths.Maths;
 import visitors.primer.IPrimerVisitor;
 
 import java.util.Arrays;
@@ -64,17 +65,9 @@ public final class Range extends ASetExpr {
             Var varUpperBound = new Var("_upperBound");
             Z3.checkSAT(new And(new Equals(varLowerBound, lowerBound), new Equals(varUpperBound, upperBound), new And(Machine.getSingleton().getConstsDefs().keySet().stream().map(constName -> new Equals(Machine.getSingleton().getConsts().get(constName), Machine.getSingleton().getConstsDefs().get(constName))).toArray(ABoolExpr[]::new))));
             Model model = Z3.getModel(new LinkedHashSet<>(Arrays.asList(varLowerBound, varUpperBound)));
-            set = (model.get(varLowerBound).getValue() < model.get(varUpperBound).getValue() ? range(model.get(varLowerBound).getValue(), model.get(varUpperBound).getValue()) : range(model.get(varUpperBound).getValue(), model.get(varLowerBound).getValue())).stream().map(Int::new).collect(Collectors.toCollection(LinkedHashSet::new));
+            set = (model.get(varLowerBound).getValue() < model.get(varUpperBound).getValue() ? Maths.range(model.get(varLowerBound).getValue(), model.get(varUpperBound).getValue()) : Maths.range(model.get(varUpperBound).getValue(), model.get(varLowerBound).getValue())).stream().map(Int::new).collect(Collectors.toCollection(LinkedHashSet::new));
         }
         return set;
-    }
-
-    private LinkedHashSet<Integer> range(int lowerBound, int upperBound) {
-        LinkedHashSet<Integer> range = new LinkedHashSet<>();
-        for (int i = lowerBound; i <= upperBound; i++) {
-            range.add(i);
-        }
-        return range;
     }
 
 }

@@ -2,10 +2,19 @@
 <model xmlns="eventb" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="eventb ../eventb.xsd"
        name="line14">
 
+    <sets-defs>
+        <set-def name="Rames">
+            <range>
+                <int value="1"/>
+                <const name="NR"/>
+            </range>
+        </set-def>
+    </sets-defs>
+
     <consts-defs>
         <const-def name="NS" value="2"/>
         <const-def name="NS1" value="1"/> <!-- NS - 1 -->
-        <const-def name="NR" value="140007"/>
+        <const-def name="NR" value="2"/>
     </consts-defs>
 
     <funs-defs>

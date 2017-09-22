@@ -49,12 +49,12 @@ public final class Primer implements IPrimerVisitor {
 
     @Override
     public Var visit(Var var) {
-        return isPriming ? new Var(var.getName() + Primer.getPrimeSuffix()) : new Var(var.getName().replaceAll("_$", ""));
+        return quantifiedVars.contains(var) ? new Var(var.getName()) : isPriming ? new Var(var.getName() + Primer.getPrimeSuffix()) : new Var(var.getName().replaceAll("_$", ""));
     }
 
     @Override
     public Fun visit(Fun fun) {
-        return isPriming ? new Fun(fun.getName() + Primer.getPrimeSuffix(), fun.getOperand().accept(this)) : new Fun(fun.getName().replaceAll("_$", ""), fun.getOperand().accept(this));
+        return isPriming ? (inInvariant ? new Fun(fun.getName() + Primer.getPrimeSuffix(), fun.getOperand().accept(this)) : new Fun(fun.getName() + Primer.getPrimeSuffix(), fun.getOperand())) : (inInvariant ? new Fun(fun.getName().replaceAll("_$", ""), fun.getOperand().accept(this)) : new Fun(fun.getName().replaceAll("_$", ""), fun.getOperand()));
     }
 
     @Override
