@@ -57,14 +57,6 @@ public final class Range extends ASetExpr {
         return Stream.of(lowerBound.getFuns(), upperBound.getFuns()).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
-    public AArithExpr getLowerBound() {
-        return lowerBound;
-    }
-
-    public AArithExpr getUpperBound() {
-        return upperBound;
-    }
-
     @Override
     public LinkedHashSet<AValue> getSet() {
         if (set == null) {
@@ -75,6 +67,14 @@ public final class Range extends ASetExpr {
             set = (model.get(varLowerBound).getValue() < model.get(varUpperBound).getValue() ? Maths.range(model.get(varLowerBound).getValue(), model.get(varUpperBound).getValue()) : Maths.range(model.get(varUpperBound).getValue(), model.get(varLowerBound).getValue())).stream().map(Int::new).collect(Collectors.toCollection(LinkedHashSet::new));
         }
         return set;
+    }
+
+    public AArithExpr getLowerBound() {
+        return lowerBound;
+    }
+
+    public AArithExpr getUpperBound() {
+        return upperBound;
     }
 
 }

@@ -4,8 +4,8 @@ import langs.eventb.Machine;
 import langs.eventb.exprs.AExpr;
 import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.*;
-import langs.eventb.exprs.sets.ASetExpr;
-import langs.eventb.exprs.sets.Range;
+import langs.eventb.exprs.sets.*;
+import langs.eventb.exprs.sets.Enum;
 import utilities.Tuple;
 
 import java.util.LinkedHashSet;
@@ -186,13 +186,33 @@ public final class Primer implements IPrimerVisitor {
     }
 
     @Override
-    public ASetExpr visit(Range range) {
+    public InDomain visit(InDomain inDomain) {
+        return new InDomain(inDomain.getExpr().accept(this), inDomain.getDomain().accept(this));
+    }
+
+    @Override
+    public Set visit(Set set) {
+        return new Set(set.getElements().toArray(new AArithExpr[set.getElements().size()]));
+    }
+
+    @Override
+    public Enum visit(Enum anEnum) {
+        return new Enum(anEnum.getEnumValues().toArray(new EnumValue[anEnum.getEnumValues().size()]));
+    }
+
+    @Override
+    public NamedSet visit(NamedSet namedSet) {
+        return new NamedSet(namedSet.getName());
+    }
+
+    @Override
+    public Range visit(Range range) {
         return new Range(range.getLowerBound(), range.getUpperBound());
     }
 
     @Override
-    public InDomain visit(InDomain inDomain) {
-        return new InDomain(inDomain.getExpr().accept(this), inDomain.getDomain().accept(this));
+    public EnumValue visit(EnumValue enumValue) {
+        return new EnumValue(enumValue.getName(), enumValue.getValue());
     }
 
 }

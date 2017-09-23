@@ -2,15 +2,6 @@
 <model xmlns="eventb" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="eventb ../eventb.xsd"
        name="line14">
 
-    <sets-defs>
-        <set-def name="Rames">
-            <range>
-                <int value="1"/>
-                <const name="NR"/>
-            </range>
-        </set-def>
-    </sets-defs>
-
     <consts-defs>
         <const-def name="NS">
             <int value="2"/>
@@ -26,42 +17,43 @@
         </const-def>
     </consts-defs>
 
-    <funs-defs>
-        <fun-def name="Pos">
+    <sets-defs>
+        <set-def name="Rames">
             <range>
                 <int value="1"/>
                 <const name="NR"/>
             </range>
+        </set-def>
+        <set-def name="Stations">
             <range>
                 <int value="0"/>
                 <const name="NS1"/>
             </range>
+        </set-def>
+    </sets-defs>
+
+    <funs-defs>
+        <fun-def name="Pos">
+            <named-set name="Rames"/>
+            <named-set name="Stations"/>
         </fun-def>
         <fun-def name="Dir">
-            <range>
-                <int value="1"/>
-                <const name="NR"/>
-            </range>
-            <range>
+            <named-set name="Rames"/>
+            <set>
                 <int value="-1"/>
                 <int value="1"/>
-            </range>
+            </set>
         </fun-def>
         <fun-def name="Portes">
-            <range>
-                <int value="1"/>
-                <const name="NR"/>
-            </range>
-            <range>
-                <int value="0"/>
-                <int value="2"/>
-            </range>
+            <named-set name="Rames"/>
+            <enum>
+                <enum-value name="open"/>
+                <enum-value name="closed"/>
+                <enum-value name="closing"/>
+            </enum>
         </fun-def>
         <fun-def name="Mvt">
-            <range>
-                <int value="1"/>
-                <const name="NR"/>
-            </range>
+            <named-set name="Rames"/>
             <range>
                 <int value="0"/>
                 <int value="1"/>
@@ -74,10 +66,7 @@
             <forall>
                 <vars-defs>
                     <var-def name="R">
-                        <range>
-                            <int value="1"/>
-                            <const name="NR"/>
-                        </range>
+                        <named-set name="Rames"/>
                     </var-def>
                 </vars-defs>
                 <implies>
@@ -93,17 +82,14 @@
                         <fun name="Portes">
                             <var name="R"/>
                         </fun>
-                        <int value="1"/>
+                        <enum-value name="closed"/>
                     </equals>
                 </implies>
             </forall>
             <forall>
                 <vars-defs>
                     <var-def name="R">
-                        <range>
-                            <int value="1"/>
-                            <const name="NR"/>
-                        </range>
+                        <named-set name="Rames"/>
                     </var-def>
                 </vars-defs>
                 <implies>
@@ -111,7 +97,7 @@
                         <fun name="Portes">
                             <var name="R"/>
                         </fun>
-                        <int value="0"/>
+                        <enum-value name="open"/>
                     </equals>
                     <equals>
                         <fun name="Mvt">
@@ -124,10 +110,7 @@
             <forall>
                 <vars-defs>
                     <var-def name="R">
-                        <range>
-                            <int value="1"/>
-                            <const name="NR"/>
-                        </range>
+                        <named-set name="Rames"/>
                     </var-def>
                 </vars-defs>
                 <implies>
@@ -135,7 +118,7 @@
                         <fun name="Portes">
                             <var name="R"/>
                         </fun>
-                        <int value="2"/>
+                        <enum-value name="closing"/>
                     </equals>
                     <equals>
                         <fun name="Mvt">
@@ -148,10 +131,7 @@
             <forall>
                 <vars-defs>
                     <var-def name="R">
-                        <range>
-                            <int value="1"/>
-                            <const name="NR"/>
-                        </range>
+                        <named-set name="Rames"/>
                     </var-def>
                 </vars-defs>
                 <neq>
@@ -164,16 +144,10 @@
             <forall>
                 <vars-defs>
                     <var-def name="R1">
-                        <range>
-                            <int value="1"/>
-                            <const name="NR"/>
-                        </range>
+                        <named-set name="Rames"/>
                     </var-def>
                     <var-def name="R2">
-                        <range>
-                            <int value="1"/>
-                            <const name="NR"/>
-                        </range>
+                        <named-set name="Rames"/>
                     </var-def>
                 </vars-defs>
                 <implies>
@@ -212,10 +186,7 @@
             <forall>
                 <vars-defs>
                     <var-def name="R">
-                        <range>
-                            <int value="1"/>
-                            <const name="NR"/>
-                        </range>
+                        <named-set name="Rames"/>
                     </var-def>
                 </vars-defs>
                 <implies>
@@ -244,10 +215,7 @@
             <forall>
                 <vars-defs>
                     <var-def name="R">
-                        <range>
-                            <int value="1"/>
-                            <const name="NR"/>
-                        </range>
+                        <named-set name="Rames"/>
                     </var-def>
                 </vars-defs>
                 <implies>
@@ -318,13 +286,13 @@
                 <fun name="Portes">
                     <int value="1"/>
                 </fun>
-                <int value="1"/>
+                <enum-value name="closed"/>
             </assignment>
             <assignment>
                 <fun name="Portes">
                     <int value="2"/>
                 </fun>
-                <int value="1"/>
+                <enum-value name="closed"/>
             </assignment>
         </assignments>
     </initialisation>
@@ -335,10 +303,7 @@
             <any>
                 <vars-defs>
                     <var-def name="R">
-                        <range>
-                            <int value="1"/>
-                            <const name="NR"/>
-                        </range>
+                        <named-set name="Rames"/>
                     </var-def>
                 </vars-defs>
                 <and>
@@ -346,7 +311,7 @@
                         <fun name="Portes">
                             <var name="R"/>
                         </fun>
-                        <int value="2"/>
+                        <enum-value name="closing"/>
                     </equals>
                     <equals>
                         <fun name="Mvt">
@@ -385,10 +350,7 @@
                     <forall>
                         <vars-defs>
                             <var-def name="R1">
-                                <range>
-                                    <int value="1"/>
-                                    <const name="NR"/>
-                                </range>
+                                <named-set name="Rames"/>
                             </var-def>
                         </vars-defs>
                         <implies>
@@ -422,7 +384,7 @@
                         <fun name="Portes">
                             <var name="R"/>
                         </fun>
-                        <int value="1"/>
+                        <enum-value name="closed"/>
                     </assignment>
                     <assignment>
                         <fun name="Mvt">
@@ -438,10 +400,7 @@
             <any>
                 <vars-defs>
                     <var-def name="R">
-                        <range>
-                            <int value="1"/>
-                            <const name="NR"/>
-                        </range>
+                        <named-set name="Rames"/>
                     </var-def>
                 </vars-defs>
                 <and>
@@ -454,10 +413,7 @@
                     <forall>
                         <vars-defs>
                             <var-def name="R1">
-                                <range>
-                                    <int value="1"/>
-                                    <const name="NR"/>
-                                </range>
+                                <named-set name="Rames"/>
                             </var-def>
                         </vars-defs>
                         <implies>
@@ -521,10 +477,7 @@
             <any>
                 <vars-defs>
                     <var-def name="R">
-                        <range>
-                            <int value="1"/>
-                            <const name="NR"/>
-                        </range>
+                        <named-set name="Rames"/>
                     </var-def>
                 </vars-defs>
                 <and>
@@ -532,7 +485,7 @@
                         <fun name="Portes">
                             <var name="R"/>
                         </fun>
-                        <int value="2"/>
+                        <enum-value name="closing"/>
                     </equals>
                     <or>
                         <and>
@@ -567,10 +520,7 @@
                     <forall>
                         <vars-defs>
                             <var-def name="R1">
-                                <range>
-                                    <int value="1"/>
-                                    <const name="NR"/>
-                                </range>
+                                <named-set name="Rames"/>
                             </var-def>
                         </vars-defs>
                         <implies>
@@ -598,7 +548,7 @@
                         <fun name="Portes">
                             <var name="R"/>
                         </fun>
-                        <int value="1"/>
+                        <enum-value name="closed"/>
                     </assignment>
                     <assignment>
                         <fun name="Dir">
@@ -619,10 +569,7 @@
             <any>
                 <vars-defs>
                     <var-def name="R">
-                        <range>
-                            <int value="1"/>
-                            <const name="NR"/>
-                        </range>
+                        <named-set name="Rames"/>
                     </var-def>
                 </vars-defs>
                 <and>
@@ -630,7 +577,7 @@
                         <fun name="Portes">
                             <var name="R"/>
                         </fun>
-                        <int value="1"/>
+                        <enum-value name="closed"/>
                     </equals>
                     <equals>
                         <fun name="Mvt">
@@ -643,7 +590,7 @@
                     <fun name="Portes">
                         <var name="R"/>
                     </fun>
-                    <int value="0"/>
+                    <enum-value name="open"/>
                 </assignment>
             </any>
         </event>
@@ -652,10 +599,7 @@
             <any>
                 <vars-defs>
                     <var-def name="R">
-                        <range>
-                            <int value="1"/>
-                            <const name="NR"/>
-                        </range>
+                        <named-set name="Rames"/>
                     </var-def>
                 </vars-defs>
                 <and>
@@ -663,7 +607,7 @@
                         <fun name="Portes">
                             <var name="R"/>
                         </fun>
-                        <int value="0"/>
+                        <enum-value name="open"/>
                     </equals>
                     <equals>
                         <fun name="Mvt">
@@ -676,7 +620,7 @@
                     <fun name="Portes">
                         <var name="R"/>
                     </fun>
-                    <int value="2"/>
+                    <enum-value name="closing"/>
                 </assignment>
             </any>
         </event>

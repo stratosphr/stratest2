@@ -39,7 +39,11 @@ public final class EEBMElements {
     public static final String EQUIV = "equiv";
     public static final String EXISTS = "exists";
     public static final String FORALL = "forall";
+    public static final String SET = "set";
+    public static final String ENUM = "enum";
+    public static final String ENUM_VALUE = "enum-value";
     public static final String RANGE = "range";
+    public static final String NAMED_SET = "named-set";
     public static final String EVENTS = "events";
     public static final String EVENT = "event";
     public static final String INITIALISATION = "initialisation";

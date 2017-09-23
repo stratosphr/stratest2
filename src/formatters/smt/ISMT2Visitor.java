@@ -63,4 +63,6 @@ public interface ISMT2Visitor {
 
     String visit(InDomain inDomain);
 
+    String visit(EnumValue enumValue);
+
 }

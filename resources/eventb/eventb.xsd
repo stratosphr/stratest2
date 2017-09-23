@@ -134,9 +134,16 @@
     <!-- SET ******************************************************* -->
     <xs:element name="set-expr" abstract="true"/>
     <xs:element name="set-expr-non-named" abstract="true" substitutionGroup="set-expr"/>
-    <xs:element name="set" substitutionGroup="set-expr">
+    <xs:element name="named-set" substitutionGroup="set-expr">
         <xs:complexType>
             <xs:attribute name="name" type="identifier" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="set" substitutionGroup="set-expr-non-named">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="arith-expr-non-enum" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
         </xs:complexType>
     </xs:element>
     <xs:element name="enum" substitutionGroup="set-expr-non-named">

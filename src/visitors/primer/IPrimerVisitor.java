@@ -2,8 +2,10 @@ package visitors.primer;
 
 import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.*;
-import langs.eventb.exprs.sets.ASetExpr;
+import langs.eventb.exprs.sets.Enum;
+import langs.eventb.exprs.sets.NamedSet;
 import langs.eventb.exprs.sets.Range;
+import langs.eventb.exprs.sets.Set;
 
 /**
  * Created by gvoiron on 20/09/17.
@@ -63,8 +65,16 @@ public interface IPrimerVisitor {
 
     ABoolExpr visit(Invariant invariant);
 
-    ASetExpr visit(Range range);
-
     InDomain visit(InDomain inDomain);
+
+    Set visit(Set set);
+
+    Enum visit(Enum anEnum);
+
+    NamedSet visit(NamedSet namedSet);
+
+    Range visit(Range range);
+
+    EnumValue visit(EnumValue enumValue);
 
 }

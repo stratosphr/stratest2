@@ -199,4 +199,9 @@ public final class SMT2Formatter extends AFormatter implements ISMT2Visitor {
         return new Or(inDomain.getDomain().getSet().stream().map(value -> new Equals(inDomain.getExpr(), value)).toArray(ABoolExpr[]::new)).accept(this);
     }
 
+    @Override
+    public String visit(EnumValue enumValue) {
+        return enumValue.getValue().accept(this);
+    }
+
 }

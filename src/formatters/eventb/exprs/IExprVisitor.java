@@ -2,7 +2,10 @@ package formatters.eventb.exprs;
 
 import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.*;
+import langs.eventb.exprs.sets.Enum;
+import langs.eventb.exprs.sets.NamedSet;
 import langs.eventb.exprs.sets.Range;
+import langs.eventb.exprs.sets.Set;
 
 /**
  * Created by gvoiron on 14/09/17.
@@ -62,8 +65,16 @@ public interface IExprVisitor {
 
     String visit(Invariant invariant);
 
+    String visit(InDomain inDomain);
+
+    String visit(Set set);
+
+    String visit(Enum anEnum);
+
+    String visit(NamedSet namedSet);
+
     String visit(Range range);
 
-    String visit(InDomain inDomain);
+    String visit(EnumValue enumValue);
 
 }

@@ -9,8 +9,8 @@ import langs.eventb.exprs.bool.GT;
 import langs.eventb.exprs.bool.LEQ;
 import langs.eventb.exprs.bool.LT;
 import langs.eventb.exprs.bool.NEQ;
-import langs.eventb.exprs.sets.ASetExpr;
-import langs.eventb.exprs.sets.Range;
+import langs.eventb.exprs.sets.*;
+import langs.eventb.exprs.sets.Enum;
 import langs.eventb.substitutions.*;
 import parsers.xml.XMLDocument;
 import parsers.xml.XMLNode;
@@ -103,7 +103,7 @@ public final class EventBParser {
     private LinkedHashMap<String, ASetExpr> parseSetsDefs(XMLNode node) {
         check(node, SETS_DEFS);
         LinkedHashMap<String, ASetExpr> setsDefs = new LinkedHashMap<>();
-        node.getChildren().forEach(node1 -> setsDefs.put(node1.getAttributes().get(NAME), parseSetExpr(node1.getChildren().get(0))));
+        node.getChildren().forEach(child -> setsDefs.put(child.getAttributes().get(NAME), parseSetExpr(child.getChildren().get(0))));
         return setsDefs;
     }
 
@@ -161,12 +161,38 @@ public final class EventBParser {
 
     private ASetExpr parseSetExpr(XMLNode node) {
         switch (node.getName()) {
+            case SET:
+                return parseSet(node);
+            case ENUM:
+                return parseEnum(node);
             case RANGE:
                 return parseRange(node);
+            case NAMED_SET:
+                return parseNamedSet(node);
             default:
-                check(node, RANGE);
+                check(node, SET, NAMED_SET, RANGE);
                 return null;
         }
+    }
+
+    private ASetExpr parseSet(XMLNode node) {
+        check(node, SET);
+        return new Set(node.getChildren().stream().map(this::parseArithExpr).toArray(AArithExpr[]::new));
+    }
+
+    private ASetExpr parseEnum(XMLNode node) {
+        check(node, ENUM);
+        return new Enum(node.getChildren().stream().map(this::parseEnumValue).toArray(EnumValue[]::new));
+    }
+
+    private EnumValue parseEnumValue(XMLNode node) {
+        check(node, ENUM_VALUE);
+        return new EnumValue(node.getAttributes().get(NAME), EnumValue.getUniqueID());
+    }
+
+    private ASetExpr parseNamedSet(XMLNode node) {
+        check(node, NAMED_SET);
+        return new NamedSet(node.getAttributes().get(NAME));
     }
 
     private Range parseRange(XMLNode node) {
@@ -180,6 +206,8 @@ public final class EventBParser {
                 return parseInt(node);
             case CONST:
                 return parseConst(node);
+            case ENUM_VALUE:
+                return parseEnumValue(node);
             case VAR:
                 return parseVar(node);
             case FUN:

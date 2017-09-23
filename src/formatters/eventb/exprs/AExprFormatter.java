@@ -3,7 +3,10 @@ package formatters.eventb.exprs;
 import formatters.AFormatter;
 import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.*;
+import langs.eventb.exprs.sets.Enum;
+import langs.eventb.exprs.sets.NamedSet;
 import langs.eventb.exprs.sets.Range;
+import langs.eventb.exprs.sets.Set;
 
 import java.util.stream.Collectors;
 
@@ -147,13 +150,33 @@ public abstract class AExprFormatter extends AFormatter implements IExprVisitor 
     }
 
     @Override
+    public String visit(InDomain inDomain) {
+        return inDomain.getExpr().accept(this) + " in " + inDomain.getDomain().accept(this);
+    }
+
+    @Override
+    public String visit(Set set) {
+        return "{" + set.getSet().stream().map(value -> value.accept(this)).collect(Collectors.joining(", ")) + "}";
+    }
+
+    @Override
+    public String visit(Enum anEnum) {
+        return "{" + anEnum.getEnumValues().stream().map(enumValue -> enumValue.accept(this)).collect(Collectors.joining(", ")) + "}";
+    }
+
+    @Override
+    public String visit(NamedSet namedSet) {
+        return namedSet.getName();
+    }
+
+    @Override
     public String visit(Range range) {
         return range.getLowerBound().accept(this) + ".." + range.getUpperBound().accept(this);
     }
 
     @Override
-    public String visit(InDomain inDomain) {
-        return inDomain.getExpr().accept(this) + " in " + inDomain.getDomain().accept(this);
+    public String visit(EnumValue enumValue) {
+        return enumValue.getName();
     }
 
 }
