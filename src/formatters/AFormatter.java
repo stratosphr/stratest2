@@ -2,6 +2,9 @@ package formatters;
 
 import java.util.Collections;
 
+import static utilities.Chars.NL;
+import static utilities.Chars.TAB;
+
 /**
  * Created by gvoiron on 14/09/17.
  * Time : 11:36
@@ -27,7 +30,7 @@ public abstract class AFormatter {
     }
 
     private String indentation() {
-        return String.join("", Collections.nCopies(indentation, "\t"));
+        return String.join("", Collections.nCopies(indentation, TAB));
     }
 
     protected String indent(String text) {
@@ -39,7 +42,7 @@ public abstract class AFormatter {
     }
 
     protected String line(String text) {
-        return text + "\n";
+        return text + NL;
     }
 
     protected String indentLine(String text) {

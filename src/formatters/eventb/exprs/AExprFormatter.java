@@ -3,12 +3,16 @@ package formatters.eventb.exprs;
 import formatters.AFormatter;
 import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.*;
+import langs.eventb.exprs.bool.GEQ;
+import langs.eventb.exprs.bool.LEQ;
 import langs.eventb.exprs.sets.Enum;
 import langs.eventb.exprs.sets.NamedSet;
 import langs.eventb.exprs.sets.Range;
 import langs.eventb.exprs.sets.Set;
 
 import java.util.stream.Collectors;
+
+import static utilities.Chars.*;
 
 /**
  * Created by gvoiron on 14/09/17.
@@ -76,17 +80,17 @@ public abstract class AExprFormatter extends AFormatter implements IExprVisitor 
 
     @Override
     public String visit(Not not) {
-        return "NOT(" + not.getOperand().accept(this) + ")";
+        return "not(" + not.getOperand().accept(this) + ")";
     }
 
     @Override
     public String visit(Or or) {
-        return or.getOperands().isEmpty() ? new False().accept(this) : line("OR(") + indentRight() + or.getOperands().stream().map(operand -> indentLine(operand.accept(this))).collect(Collectors.joining()) + indentLeft() + indent(")");
+        return or.getOperands().isEmpty() ? new False().accept(this) : line("or(") + indentRight() + or.getOperands().stream().map(operand -> indentLine(operand.accept(this))).collect(Collectors.joining()) + indentLeft() + indent(")");
     }
 
     @Override
     public String visit(And and) {
-        return and.getOperands().isEmpty() ? new True().accept(this) : line("AND(") + indentRight() + and.getOperands().stream().map(operand -> indentLine(operand.accept(this))).collect(Collectors.joining()) + indentLeft() + indent(")");
+        return and.getOperands().isEmpty() ? new True().accept(this) : line("and(") + indentRight() + and.getOperands().stream().map(operand -> indentLine(operand.accept(this))).collect(Collectors.joining()) + indentLeft() + indent(")");
     }
 
     @Override
@@ -106,7 +110,7 @@ public abstract class AExprFormatter extends AFormatter implements IExprVisitor 
 
     @Override
     public String visit(LEQ leq) {
-        return leq.getLeft().accept(this) + " <= " + leq.getRight().accept(this);
+        return leq.getLeft().accept(this) + " " + LEQ + " " + leq.getRight().accept(this);
     }
 
     @Override
@@ -116,17 +120,17 @@ public abstract class AExprFormatter extends AFormatter implements IExprVisitor 
 
     @Override
     public String visit(GEQ geq) {
-        return geq.getLeft().accept(this) + " >= " + geq.getRight().accept(this);
+        return geq.getLeft().accept(this) + " " + GEQ + " " + geq.getRight().accept(this);
     }
 
     @Override
     public String visit(Implies implies) {
-        return implies.getCondition().accept(this) + " => " + implies.getThenPart().accept(this);
+        return implies.getCondition().accept(this) + " " + IMPLIES + " " + implies.getThenPart().accept(this);
     }
 
     @Override
     public String visit(Equiv equiv) {
-        return equiv.getLeft().accept(this) + " <=> " + equiv.getRight().accept(this);
+        return equiv.getLeft().accept(this) + " " + EQUIV + " " + equiv.getRight().accept(this);
     }
 
     @Override
@@ -136,12 +140,12 @@ public abstract class AExprFormatter extends AFormatter implements IExprVisitor 
 
     @Override
     public String visit(Exists exists) {
-        return "€(" + exists.getQuantifiedVarsDefs().stream().map(tuple -> tuple.getFirst().accept(this) + " in " + tuple.getSecond().accept(this)).collect(Collectors.joining(", ")) + ").(" + exists.getExpr().accept(this) + ")";
+        return EXISTS + "(" + exists.getQuantifiedVarsDefs().stream().map(tuple -> tuple.getFirst().accept(this) + " " + IN + " " + tuple.getSecond().accept(this)).collect(Collectors.joining(", ")) + ").(" + exists.getExpr().accept(this) + ")";
     }
 
     @Override
     public String visit(ForAll forAll) {
-        return "!(" + forAll.getQuantifiedVarsDefs().stream().map(tuple -> tuple.getFirst().accept(this) + " in " + tuple.getSecond().accept(this)).collect(Collectors.joining(", ")) + ").(" + forAll.getExpr().accept(this) + ")";
+        return FORALL + "(" + forAll.getQuantifiedVarsDefs().stream().map(tuple -> tuple.getFirst().accept(this) + " " + IN + " " + tuple.getSecond().accept(this)).collect(Collectors.joining(", ")) + ").(" + forAll.getExpr().accept(this) + ")";
     }
 
     @Override
@@ -151,7 +155,7 @@ public abstract class AExprFormatter extends AFormatter implements IExprVisitor 
 
     @Override
     public String visit(InDomain inDomain) {
-        return inDomain.getExpr().accept(this) + " in " + inDomain.getDomain().accept(this);
+        return inDomain.getExpr().accept(this) + " " + IN + " " + inDomain.getDomain().accept(this);
     }
 
     @Override

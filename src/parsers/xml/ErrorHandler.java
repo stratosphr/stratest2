@@ -2,6 +2,7 @@ package parsers.xml;
 
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+import utilities.Chars;
 
 /**
  * Created by gvoiron on 18/09/17.
@@ -10,7 +11,7 @@ import org.xml.sax.SAXParseException;
 public final class ErrorHandler implements org.xml.sax.ErrorHandler {
 
     private static String getErrorMessage(SAXParseException e) {
-        return "XML file \"" + e.getSystemId().replaceAll("^file:", "") + "\" is invalid:\n" + "\tl." + e.getLineNumber() + ", c." + e.getColumnNumber() + ": " + e.getMessage().replaceAll("^.* : ", "");
+        return "XML file \"" + e.getSystemId().replaceAll("^file:", "") + "\" is invalid:" + Chars.NL + Chars.TAB + "l." + e.getLineNumber() + ", c." + e.getColumnNumber() + ": " + e.getMessage().replaceAll("^.* : ", "");
     }
 
     @Override

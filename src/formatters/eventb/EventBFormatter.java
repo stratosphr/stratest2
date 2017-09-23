@@ -9,6 +9,8 @@ import langs.eventb.substitutions.*;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+import static utilities.Chars.*;
+
 /**
  * Created by gvoiron on 19/09/17.
  * Time : 10:47
@@ -26,8 +28,8 @@ public final class EventBFormatter extends AExprFormatter implements IEventBVisi
     @Override
     public String visit(Machine machine) {
         String formatted = line("MACHINE" + machine.getName());
-        formatted += machine.getConstsDefs().isEmpty() ? "" : line() + indentRight() + indentLine("CONSTS") + indentRight() + machine.getConsts().keySet().stream().map(name -> indentLine(machine.getConsts().get(name).accept(this) + " =def " + machine.getConstsDefs().get(name).accept(this))).collect(Collectors.joining()) + indentLeft() + indentLeft();
-        formatted += machine.getVarsDefs().isEmpty() ? "" : line() + indentRight() + indentLine("VARS") + indentRight() + machine.getVars().keySet().stream().map(name -> indentLine(new Var(name).accept(this) + " in " + machine.getVarsDefs().get(name).accept(this))).collect(Collectors.joining()) + indentLeft() + indentLeft();
+        formatted += machine.getConstsDefs().isEmpty() ? "" : line() + indentRight() + indentLine("CONSTS") + indentRight() + machine.getConsts().keySet().stream().map(name -> indentLine(machine.getConsts().get(name).accept(this) + " " + EQ_DEF + " " + machine.getConstsDefs().get(name).accept(this))).collect(Collectors.joining()) + indentLeft() + indentLeft();
+        formatted += machine.getVarsDefs().isEmpty() ? "" : line() + indentRight() + indentLine("VARS") + indentRight() + machine.getVars().keySet().stream().map(name -> indentLine(new Var(name).accept(this) + " " + IN + " " + machine.getVarsDefs().get(name).accept(this))).collect(Collectors.joining()) + indentLeft() + indentLeft();
         formatted += machine.getFunsDefs().isEmpty() ? "" : line() + indentRight() + indentLine("FUNS") + indentRight() + machine.getFunsDefs().keySet().stream().map(name -> indentLine(name + " : " + machine.getFunsDefs().get(name).getFirst().accept(this) + " -> " + machine.getFunsDefs().get(name).getSecond().accept(this))).collect(Collectors.joining()) + indentLeft() + indentLeft();
         formatted += line() + indentRight() + indentLine("INVARIANT") + indentRight() + indentLine(machine.getInvariant().accept(this)) + indentLeft() + indentLeft();
         formatted += line() + indentRight() + indentLine("INITIALISATION") + indentRight() + indentLine(machine.getInitialisation().accept(this)) + indentLeft() + indentLeft();
@@ -37,7 +39,7 @@ public final class EventBFormatter extends AExprFormatter implements IEventBVisi
 
     @Override
     public String visit(Event event) {
-        return line(event.getName() + " =def ") + indentRight() + indentLine(event.getSubstitution().accept(this)) + indentLeft();
+        return line(event.getName() + " " + EQ_DEF) + indentRight() + indentLine(event.getSubstitution().accept(this)) + indentLeft();
     }
 
     @Override
@@ -52,7 +54,7 @@ public final class EventBFormatter extends AExprFormatter implements IEventBVisi
 
     @Override
     public String visit(Assignments assignments) {
-        return assignments.getAssignments().size() == 1 ? assignments.getAssignments().iterator().next().accept(this) : line(assignments.getAssignments().iterator().next().accept(this) + " ||") + new ArrayList<>(assignments.getAssignments()).subList(1, assignments.getAssignments().size()).stream().map(assignment -> indent(assignment.accept(this))).collect(Collectors.joining(" ||\n"));
+        return assignments.getAssignments().size() == 1 ? assignments.getAssignments().iterator().next().accept(this) : line(assignments.getAssignments().iterator().next().accept(this) + " ||") + new ArrayList<>(assignments.getAssignments()).subList(1, assignments.getAssignments().size()).stream().map(assignment -> indent(assignment.accept(this))).collect(Collectors.joining(" ||" + NL));
     }
 
     @Override
@@ -67,7 +69,7 @@ public final class EventBFormatter extends AExprFormatter implements IEventBVisi
 
     @Override
     public String visit(Any any) {
-        return line("ANY") + indentRight() + any.getQuantifiedVarsDefs().stream().map(tuple -> indentLine(tuple.getFirst().accept(this) + " in " + tuple.getSecond().accept(this))).collect(Collectors.joining()) + indentLeft() + indentLine("WHERE") + indentRight() + indentLine(any.getCondition().accept(this)) + indentLeft() + indentLine("THEN") + indentRight() + indentLine(any.getSubstitution().accept(this)) + indentLeft() + indent("END");
+        return line("ANY") + indentRight() + any.getQuantifiedVarsDefs().stream().map(tuple -> indentLine(tuple.getFirst().accept(this) + " " + IN + " " + tuple.getSecond().accept(this))).collect(Collectors.joining()) + indentLeft() + indentLine("WHERE") + indentRight() + indentLine(any.getCondition().accept(this)) + indentLeft() + indentLine("THEN") + indentRight() + indentLine(any.getSubstitution().accept(this)) + indentLeft() + indent("END");
     }
 
 }
