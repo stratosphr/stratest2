@@ -5,6 +5,7 @@ import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.*;
 import langs.eventb.exprs.bool.GEQ;
 import langs.eventb.exprs.bool.LEQ;
+import langs.eventb.exprs.bool.NEQ;
 import langs.eventb.exprs.sets.Enum;
 import langs.eventb.exprs.sets.NamedSet;
 import langs.eventb.exprs.sets.Range;
@@ -80,7 +81,7 @@ public abstract class AExprFormatter extends AFormatter implements IExprVisitor 
 
     @Override
     public String visit(Not not) {
-        return "not(" + not.getOperand().accept(this) + ")";
+        return "(" + not.getOperand().accept(this) + ")";
     }
 
     @Override
@@ -100,7 +101,7 @@ public abstract class AExprFormatter extends AFormatter implements IExprVisitor 
 
     @Override
     public String visit(NEQ neq) {
-        return new Not(new Equals(neq.getOperands().toArray(new AArithExpr[neq.getOperands().size()]))).accept(this);
+        return neq.getLeft().accept(this) + " " + NEQ + " " + neq.getRight().accept(this);
     }
 
     @Override

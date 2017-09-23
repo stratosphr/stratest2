@@ -260,7 +260,8 @@
     <xs:element name="neq" substitutionGroup="bool-expr">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="arith-expr" minOccurs="2" maxOccurs="unbounded"/>
+                <xs:element ref="arith-expr"/>
+                <xs:element ref="arith-expr"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

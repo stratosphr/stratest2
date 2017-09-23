@@ -348,7 +348,7 @@ public final class EventBParser {
 
     private ABoolExpr parseNEQ(XMLNode node) {
         check(node, NEQ);
-        return new NEQ(node.getChildren().stream().map(this::parseArithExpr).toArray(AArithExpr[]::new));
+        return new NEQ(parseArithExpr(node.getChildren().get(0)), parseArithExpr(node.getChildren().get(1)));
     }
 
     private LT parseLT(XMLNode node) {

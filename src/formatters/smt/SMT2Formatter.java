@@ -139,7 +139,7 @@ public final class SMT2Formatter extends AFormatter implements ISMT2Visitor {
 
     @Override
     public String visit(NEQ neq) {
-        return new Not(new Equals(neq.getOperands().toArray(new AArithExpr[neq.getOperands().size()]))).accept(this);
+        return new Not(new Equals(neq.getLeft(), neq.getRight())).accept(this);
     }
 
     @Override

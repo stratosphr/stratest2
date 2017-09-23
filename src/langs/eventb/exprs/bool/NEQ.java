@@ -9,10 +9,10 @@ import langs.eventb.exprs.arith.Fun;
 import langs.eventb.exprs.arith.Var;
 import visitors.primer.IPrimerVisitor;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by gvoiron on 14/09/17.
@@ -20,10 +20,12 @@ import java.util.stream.Collectors;
  */
 public final class NEQ extends ABoolExpr {
 
-    private final LinkedHashSet<AArithExpr> operands;
+    private final AArithExpr left;
+    private final AArithExpr right;
 
-    public NEQ(AArithExpr... operands) {
-        this.operands = new LinkedHashSet<>(Arrays.asList(operands));
+    public NEQ(AArithExpr left, AArithExpr right) {
+        this.left = left;
+        this.right = right;
     }
 
     @Override
@@ -43,21 +45,25 @@ public final class NEQ extends ABoolExpr {
 
     @Override
     public LinkedHashSet<Const> getConsts() {
-        return operands.stream().map(AExpr::getConsts).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
+        return Stream.of(left, right).map(AExpr::getConsts).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
     @Override
     public LinkedHashSet<Var> getVars() {
-        return operands.stream().map(AExpr::getVars).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
+        return Stream.of(left, right).map(AExpr::getVars).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
     @Override
     public LinkedHashSet<Fun> getFuns() {
-        return operands.stream().map(AExpr::getFuns).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
+        return Stream.of(left, right).map(AExpr::getFuns).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
-    public LinkedHashSet<AArithExpr> getOperands() {
-        return operands;
+    public AArithExpr getLeft() {
+        return left;
+    }
+
+    public AArithExpr getRight() {
+        return right;
     }
 
 }

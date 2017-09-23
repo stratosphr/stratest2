@@ -117,7 +117,7 @@ public final class Primer implements IPrimerVisitor {
 
     @Override
     public NEQ visit(NEQ neq) {
-        return new NEQ(neq.getOperands().stream().map(expr -> expr.accept(this)).toArray(AArithExpr[]::new));
+        return new NEQ(neq.getLeft().accept(this), neq.getRight().accept(this));
     }
 
     @Override
