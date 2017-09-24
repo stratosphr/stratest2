@@ -50,7 +50,21 @@ public final class Primer implements IPrimerVisitor {
 
     @Override
     public Var visit(Var var) {
-        return quantifiedVars.contains(var) ? new Var(var.getName()) : isPriming ? new Var(var.getName() + Primer.getPrimeSuffix()) : new Var(var.getName().replaceAll("_$", ""));
+        if (quantifiedVars.contains(var)) {
+            return new Var(var.getName());
+        } else if (isPriming) {
+            if (!var.getName().contains(Fun.getParameterDelimiter())) {
+                return new Var(var.getName() + Primer.getPrimeSuffix());
+            } else {
+                return new Var(var.getName().split(Fun.getParameterDelimiter())[0] + Primer.getPrimeSuffix() + Fun.getParameterDelimiter() + var.getName().split(Fun.getParameterDelimiter())[1]);
+            }
+        } else {
+            if (!var.getName().contains(Fun.getParameterDelimiter())) {
+                return new Var(var.getName().replaceAll(Primer.getPrimeSuffix() + "$", ""));
+            } else {
+                return new Var(var.getName().split(Fun.getParameterDelimiter())[0].replaceAll(Primer.getPrimeSuffix() + "$", "") + Primer.getPrimeSuffix() + var.getName().split(Fun.getParameterDelimiter())[1]);
+            }
+        }
     }
 
     @Override
@@ -212,7 +226,7 @@ public final class Primer implements IPrimerVisitor {
 
     @Override
     public EnumValue visit(EnumValue enumValue) {
-        return new EnumValue(enumValue.getName(), enumValue.getValue());
+        return new EnumValue(enumValue.getName());
     }
 
 }

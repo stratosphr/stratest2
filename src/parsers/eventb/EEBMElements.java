@@ -48,10 +48,11 @@ public final class EEBMElements {
     public static final String EVENT = "event";
     public static final String INITIALISATION = "initialisation";
     public static final String SKIP = "skip";
-    public static final String ASSIGNMENT = "assignment";
     public static final String ASSIGNMENTS = "assignments";
+    public static final String ASSIGNMENT = "assignment";
     public static final String SELECT = "select";
     public static final String IF_THEN_ELSE = "if-then-else";
+    public static final String CHOICE = "choice";
     public static final String ANY = "any";
 
     private EEBMElements() {

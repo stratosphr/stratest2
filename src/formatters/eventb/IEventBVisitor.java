@@ -25,6 +25,8 @@ public interface IEventBVisitor extends IExprVisitor {
 
     String visit(IfThenElse ifThenElse);
 
+    String visit(Choice choice);
+
     String visit(Any any);
 
 }

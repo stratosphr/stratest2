@@ -374,6 +374,13 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    <xs:element name="choice" substitutionGroup="substitution">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="substitution" minOccurs="2" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="any" substitutionGroup="substitution">
         <xs:complexType>
             <xs:all>

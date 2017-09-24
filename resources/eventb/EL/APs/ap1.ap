@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE predicates SYSTEM "/home/gvoiron/IdeaProjects/stratest/src/main/resources/eventb/ebm.dtd">
+
+<predicates>
+    <predicate name="p0">
+        <exists>
+            <quantified-vars>
+                <var name="i"/>
+                <var name="j"/>
+            </quantified-vars>
+            <and>
+                <between>
+                    <var name="i"/>
+                    <int value="1"/>
+                    <const name="n"/>
+                </between>
+                <between>
+                    <var name="j"/>
+                    <int value="1"/>
+                    <const name="n"/>
+                </between>
+                <neq>
+                    <var name="i"/>
+                    <var name="j"/>
+                </neq>
+                <equals>
+                    <fun-call name="bat">
+                        <var name="i"/>
+                    </fun-call>
+                    <int value="1"/>
+                </equals>
+                <equals>
+                    <fun-call name="bat">
+                        <var name="j"/>
+                    </fun-call>
+                    <int value="1"/>
+                </equals>
+                <equals>
+                    <var name="h"/>
+                    <int value="0"/>
+                </equals>
+            </and>
+        </exists>
+    </predicate>
+    <predicate name="p1">
+        <equals>
+            <var name="h"/>
+            <int value="1"/>
+        </equals>
+    </predicate>
+</predicates>

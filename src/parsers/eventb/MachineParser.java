@@ -41,6 +41,7 @@ public final class MachineParser {
 
     public static void parse(File file) {
         MachineParser parser = new MachineParser();
+        Machine.reset();
         XMLDocument parse = XMLParser.parse(file, new File("resources/eventb/eventb.xsd"));
         parser.parseModel(parse.getRoot());
     }
@@ -49,6 +50,7 @@ public final class MachineParser {
         check(root, MODEL);
         List<XMLNode> constsDefsNode = root.getChildren(CONSTS_DEFS);
         List<XMLNode> setsDefsNode = root.getChildren(SETS_DEFS);
+        List<XMLNode> varsDefsNode = root.getChildren(VARS_DEFS);
         List<XMLNode> funsDefsNode = root.getChildren(FUNS_DEFS);
         List<XMLNode> invariantNode = root.getChildren(INVARIANT);
         List<XMLNode> initialisationNode = root.getChildren(INITIALISATION);
@@ -59,6 +61,9 @@ public final class MachineParser {
         }
         if (!setsDefsNode.isEmpty()) {
             parseSetsDefs(setsDefsNode.get(0)).forEach(tuple -> Machine.addSetDef(tuple.getFirst(), tuple.getSecond()));
+        }
+        if (!varsDefsNode.isEmpty()) {
+            parseVarsDefs(varsDefsNode.get(0)).forEach(tuple -> Machine.addVarDef(tuple.getFirst(), tuple.getSecond()));
         }
         if (!funsDefsNode.isEmpty()) {
             parseFunsDefs(funsDefsNode.get(0)).forEach(tuple -> Machine.addFunDef(tuple.getFirst(), tuple.getSecond()));
@@ -72,7 +77,6 @@ public final class MachineParser {
         if (!eventsNode.isEmpty()) {
             parseEvents(eventsNode.get(0)).forEach(Machine::addEvent);
         }
-        System.out.println(Machine.getSingleton().toString());
     }
 
     private LinkedHashSet<Tuple<String, AArithExpr>> parseConstsDefs(XMLNode node) {
@@ -301,7 +305,7 @@ public final class MachineParser {
 
     private EnumValue parseEnumValue(XMLNode node) {
         check(node, ENUM_VALUE);
-        return new EnumValue(node.getAttributes().get(NAME), EnumValue.getUniqueID());
+        return new EnumValue(node.getAttributes().get(NAME));
     }
 
     private ASubstitution parseSubstitution(XMLNode node) {
@@ -312,10 +316,14 @@ public final class MachineParser {
                 return parseAssignments(node);
             case ASSIGNMENT:
                 return parseAssignment(node);
+            case SELECT:
+                return parseSelect(node);
+            case CHOICE:
+                return parseChoice(node);
             case ANY:
                 return parseAny(node);
             default:
-                check(node, SKIP, ASSIGNMENTS);
+                check(node, SKIP, ASSIGNMENTS, ASSIGNMENT, SELECT, CHOICE, ANY);
                 return null;
         }
     }
@@ -333,6 +341,16 @@ public final class MachineParser {
     private ASubstitution parseAssignment(XMLNode node) {
         check(node, ASSIGNMENT);
         return new Assignment(parseAssignable(node.getChildren().get(0)), parseArithExpr(node.getChildren().get(1)));
+    }
+
+    private ASubstitution parseSelect(XMLNode node) {
+        check(node, SELECT);
+        return new Select(parseBoolExpr(node.getChildren().get(0)), parseSubstitution(node.getChildren().get(1)));
+    }
+
+    private ASubstitution parseChoice(XMLNode node) {
+        check(node, CHOICE);
+        return new Choice(node.getChildren().stream().map(this::parseSubstitution).toArray(ASubstitution[]::new));
     }
 
     private ASubstitution parseAny(XMLNode node) {

@@ -4,6 +4,7 @@ import formatters.eventb.exprs.IExprVisitor;
 import formatters.smt.ISMT2Visitor;
 import visitors.primer.IPrimerVisitor;
 
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
 /**
@@ -12,18 +13,13 @@ import java.util.LinkedHashSet;
  */
 public final class EnumValue extends AValue {
 
+    private static LinkedHashMap<String, Int> mapping = new LinkedHashMap<>();
     private static int uniqueID = 0;
     private String name;
-    private final Int value;
 
-    public EnumValue(String name, Int value) {
+    public EnumValue(String name) {
         this.name = name;
-        this.value = value;
-        uniqueID++;
-    }
-
-    public static Int getUniqueID() {
-        return new Int(uniqueID);
+        mapping.putIfAbsent(name, new Int(uniqueID++));
     }
 
     @Override
@@ -61,7 +57,7 @@ public final class EnumValue extends AValue {
     }
 
     public Int getValue() {
-        return value;
+        return mapping.get(name);
     }
 
 }

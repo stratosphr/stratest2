@@ -47,11 +47,11 @@ public final class SMT2Formatter extends AFormatter implements ISMT2Visitor {
                 Collections.reverse(equals);
                 ArithITE ite = new ArithITE(
                         equals.get(0),
-                        new Var(funName + "!" + funDomain.get(funDomain.size() - 1)),
+                        new Var(funName + Fun.getParameterDelimiter() + funDomain.get(funDomain.size() - 1)),
                         new Minus(funCoDomain.iterator().next(), new Int(1))
                 );
                 for (int i = 1; i < equals.subList(1, equals.size()).size() + 1; i++) {
-                    ite = new ArithITE(equals.get(i), new Var(funName + "!" + funDomain.get(funDomain.size() - 1 - i)), ite);
+                    ite = new ArithITE(equals.get(i), new Var(funName + Fun.getParameterDelimiter() + funDomain.get(funDomain.size() - 1 - i)), ite);
                 }
                 formatted.append(formatter.indentRight()).append(formatter.indentLine(ite.accept(formatter))).append(formatter.indentLeft());
                 formatted.append(formatter.indent(")"));

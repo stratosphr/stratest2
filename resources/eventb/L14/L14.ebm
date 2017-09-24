@@ -13,7 +13,7 @@
             </minus>
         </const-def>
         <const-def name="NR">
-            <int value="17"/>
+            <int value="2"/>
         </const-def>
     </consts-defs>
 
@@ -47,7 +47,7 @@
         <fun-def name="Portes">
             <named-set name="Rames"/>
             <enum>
-                <enum-value name="open"/>
+                <enum-value name="opened"/>
                 <enum-value name="closed"/>
                 <enum-value name="closing"/>
             </enum>

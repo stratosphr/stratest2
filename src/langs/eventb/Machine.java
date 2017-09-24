@@ -5,6 +5,7 @@ import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.*;
 import langs.eventb.exprs.sets.ASetExpr;
 import langs.eventb.substitutions.ASubstitution;
+import langs.eventb.substitutions.Skip;
 import utilities.Tuple;
 
 import java.util.*;
@@ -21,9 +22,11 @@ public final class Machine extends AEventBObject {
     private static LinkedHashMap<String, Const> consts = new LinkedHashMap<>();
     private static LinkedHashMap<String, ASetExpr> setsDefs = new LinkedHashMap<>();
     private static LinkedHashMap<String, ASetExpr> sets = new LinkedHashMap<>();
+    private static LinkedHashMap<String, ASetExpr> varsDefs = new LinkedHashMap<>();
+    private static LinkedHashMap<String, Var> vars = new LinkedHashMap<>();
     private static LinkedHashMap<String, Tuple<ASetExpr, ASetExpr>> funsDefs = new LinkedHashMap<>();
-    private static Invariant invariant;
-    private static ASubstitution initialisation;
+    private static Invariant invariant = new Invariant(new True());
+    private static ASubstitution initialisation = new Skip();
     private static LinkedHashSet<Event> events = new LinkedHashSet<>();
     private static LinkedHashSet<AAssignable> assignables = new LinkedHashSet<>();
 
@@ -64,6 +67,12 @@ public final class Machine extends AEventBObject {
         return sets;
     }
 
+    public static void addVarDef(String varName, ASetExpr set) {
+        varsDefs.put(varName, set);
+        vars.put(varName, new Var(varName));
+        assignables.add(vars.get(varName));
+    }
+
     public static void addFunDef(String funName, Tuple<ASetExpr, ASetExpr> domains) {
         funsDefs.put(funName, domains);
         assignables.addAll(new Fun(funName, null).getVars());
@@ -79,12 +88,12 @@ public final class Machine extends AEventBObject {
             And constsConstraints = new And(constsDefs.keySet().stream().map(constName -> new Equals(consts.get(constName), constsDefs.get(constName))).toArray(ABoolExpr[]::new));
             constraints.add(constsConstraints);
         }
-            /*if (!varsDefs.isEmpty()) {
-                And varsConstraints = new And(varsDefs.keySet().stream().map(varName -> new InDomain(vars.get(varName), varsDefs.get(varName))).toArray(ABoolExpr[]::new));
-                constraints.add(varsConstraints);
-            }*/
+        if (!varsDefs.isEmpty()) {
+            And varsConstraints = new And(varsDefs.keySet().stream().map(varName -> new InDomain(vars.get(varName), varsDefs.get(varName))).toArray(ABoolExpr[]::new));
+            constraints.add(varsConstraints);
+        }
         if (!funsDefs.isEmpty()) {
-            And funsConstraints = new And(funsDefs.keySet().stream().map(funName -> funsDefs.get(funName).getFirst().getSet().stream().map(value -> new InDomain(new Var(funName + "!" + value), funsDefs.get(funName).getSecond())).collect(Collectors.toList())).flatMap(Collection::stream).toArray(ABoolExpr[]::new));
+            And funsConstraints = new And(funsDefs.keySet().stream().map(funName -> funsDefs.get(funName).getFirst().getSet().stream().map(value -> new InDomain(new Var(funName + Fun.getParameterDelimiter() + value), funsDefs.get(funName).getSecond())).collect(Collectors.toList())).flatMap(Collection::stream).toArray(ABoolExpr[]::new));
             constraints.add(funsConstraints);
         }
         constraints.add(invariant);
@@ -115,13 +124,28 @@ public final class Machine extends AEventBObject {
         return new Machine();
     }
 
-    public static Set<AAssignable> getAssignables() {
+    public static LinkedHashSet<AAssignable> getAssignables() {
         return assignables;
     }
 
     @Override
     public String accept(IEventBVisitor visitor) {
         return visitor.visit(this);
+    }
+
+    public static void reset() {
+        name = "";
+        constsDefs = new LinkedHashMap<>();
+        consts = new LinkedHashMap<>();
+        setsDefs = new LinkedHashMap<>();
+        sets = new LinkedHashMap<>();
+        varsDefs = new LinkedHashMap<>();
+        vars = new LinkedHashMap<>();
+        funsDefs = new LinkedHashMap<>();
+        invariant = new Invariant(new True());
+        initialisation = new Skip();
+        events = new LinkedHashSet<>();
+        assignables = new LinkedHashSet<>();
     }
 
 }
