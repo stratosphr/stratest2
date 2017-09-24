@@ -39,11 +39,11 @@ public final class SMT2Formatter extends AFormatter implements ISMT2Visitor {
         if (!funsNames.isEmpty()) {
             formatted.append(formatter.line("; FUNS"));
             for (String funName : funsNames) {
-                formatted.append(formatter.line("(define-fun read_" + funName + " ((index! Int)) Int"));
-                Tuple<ASetExpr, ASetExpr> funDomains = Machine.getSingleton().getFunsDefs().get(funName);
+                formatted.append(formatter.line("(define-fun read_" + funName + " ((index" + Fun.getParameterDelimiter() + " Int)) Int"));
+                Tuple<ASetExpr, ASetExpr> funDomains = Machine.getFunsDefs().get(funName);
                 ArrayList<AValue> funDomain = new ArrayList<>(funDomains.getFirst().getSet());
                 ArrayList<AValue> funCoDomain = new ArrayList<>(funDomains.getSecond().getSet());
-                List<ABoolExpr> equals = funDomain.stream().map(value -> new Equals(new Var("index!"), value)).collect(Collectors.toList());
+                List<ABoolExpr> equals = funDomain.stream().map(value -> new Equals(new Var("index" + Fun.getParameterDelimiter()), value)).collect(Collectors.toList());
                 Collections.reverse(equals);
                 ArithITE ite = new ArithITE(
                         equals.get(0),

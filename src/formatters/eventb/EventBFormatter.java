@@ -3,7 +3,6 @@ package formatters.eventb;
 import formatters.eventb.exprs.AExprFormatter;
 import langs.eventb.Event;
 import langs.eventb.Machine;
-import langs.eventb.exprs.arith.Var;
 import langs.eventb.substitutions.*;
 
 import java.util.ArrayList;
@@ -27,13 +26,14 @@ public final class EventBFormatter extends AExprFormatter implements IEventBVisi
 
     @Override
     public String visit(Machine machine) {
-        String formatted = line("MACHINE" + machine.getName());
-        formatted += machine.getConstsDefs().isEmpty() ? "" : line() + indentRight() + indentLine("CONSTS") + indentRight() + machine.getConsts().keySet().stream().map(name -> indentLine(machine.getConsts().get(name).accept(this) + " " + EQ_DEF + " " + machine.getConstsDefs().get(name).accept(this))).collect(Collectors.joining()) + indentLeft() + indentLeft();
-        formatted += machine.getVarsDefs().isEmpty() ? "" : line() + indentRight() + indentLine("VARS") + indentRight() + machine.getVars().keySet().stream().map(name -> indentLine(new Var(name).accept(this) + " " + IN + " " + machine.getVarsDefs().get(name).accept(this))).collect(Collectors.joining()) + indentLeft() + indentLeft();
-        formatted += machine.getFunsDefs().isEmpty() ? "" : line() + indentRight() + indentLine("FUNS") + indentRight() + machine.getFunsDefs().keySet().stream().map(name -> indentLine(name + " : " + machine.getFunsDefs().get(name).getFirst().accept(this) + " -> " + machine.getFunsDefs().get(name).getSecond().accept(this))).collect(Collectors.joining()) + indentLeft() + indentLeft();
-        formatted += line() + indentRight() + indentLine("INVARIANT") + indentRight() + indentLine(machine.getInvariant().accept(this)) + indentLeft() + indentLeft();
-        formatted += line() + indentRight() + indentLine("INITIALISATION") + indentRight() + indentLine(machine.getInitialisation().accept(this)) + indentLeft() + indentLeft();
-        formatted += line() + indentRight() + indentLine("EVENTS") + indentRight() + machine.getEvents().stream().map(event -> indentLine(event.accept(this))).collect(Collectors.joining()) + indentLeft() + indentLeft();
+        String formatted = line("MACHINE " + Machine.getName());
+        formatted += Machine.getConstsDefs().isEmpty() ? "" : line() + indentRight() + indentLine("CONSTS") + indentRight() + Machine.getConsts().keySet().stream().map(name -> indentLine(Machine.getConsts().get(name).accept(this) + " " + EQ_DEF + " " + Machine.getConstsDefs().get(name).accept(this))).collect(Collectors.joining()) + indentLeft() + indentLeft();
+        formatted += Machine.getSetsDefs().isEmpty() ? "" : line() + indentRight() + indentLine("SETS") + indentRight() + Machine.getSets().keySet().stream().map(name -> indentLine(name + " " + EQ_DEF + " " + Machine.getSets().get(name).accept(this))).collect(Collectors.joining()) + indentLeft() + indentLeft();
+        //formatted += machine.getVarsDefs().isEmpty() ? "" : line() + indentRight() + indentLine("VARS") + indentRight() + machine.getVars().keySet().stream().map(name -> indentLine(new Var(name).accept(this) + " " + IN + " " + machine.getVarsDefs().get(name).accept(this))).collect(Collectors.joining()) + indentLeft() + indentLeft();
+        formatted += Machine.getFunsDefs().isEmpty() ? "" : line() + indentRight() + indentLine("FUNS") + indentRight() + Machine.getFunsDefs().keySet().stream().map(name -> indentLine(name + " : " + Machine.getFunsDefs().get(name).getFirst().accept(this) + " -> " + Machine.getFunsDefs().get(name).getSecond().accept(this))).collect(Collectors.joining()) + indentLeft() + indentLeft();
+        formatted += line() + indentRight() + indentLine("INVARIANT") + indentRight() + indentLine(Machine.getInvariant().accept(this)) + indentLeft() + indentLeft();
+        formatted += line() + indentRight() + indentLine("INITIALISATION") + indentRight() + indentLine(Machine.getInitialisation().accept(this)) + indentLeft() + indentLeft();
+        formatted += line() + indentRight() + indentLine("EVENTS") + indentRight() + Machine.getEvents().stream().map(event -> indentLine(event.accept(this))).collect(Collectors.joining()) + indentLeft() + indentLeft();
         return formatted;
     }
 

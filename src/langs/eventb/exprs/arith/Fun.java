@@ -3,8 +3,6 @@ package langs.eventb.exprs.arith;
 import formatters.eventb.exprs.IExprVisitor;
 import formatters.smt.ISMT2Visitor;
 import langs.eventb.Machine;
-import langs.eventb.exprs.sets.ASetExpr;
-import utilities.Tuple;
 import visitors.primer.IPrimerVisitor;
 
 import java.util.Collections;
@@ -22,6 +20,10 @@ public final class Fun extends AAssignable {
     public Fun(String name, AArithExpr operand) {
         super(name);
         this.operand = operand;
+    }
+
+    public static String getParameterDelimiter() {
+        return "!";
     }
 
     @Override
@@ -46,8 +48,7 @@ public final class Fun extends AAssignable {
 
     @Override
     public LinkedHashSet<Var> getVars() {
-        Tuple<ASetExpr, ASetExpr> tuple = Machine.getSingleton().getFunsDefs().get(name);
-        return new LinkedHashSet<>(tuple.getFirst().getSet().stream().map(value -> new Var(name + "!" + value)).collect(Collectors.toList()));
+        return new LinkedHashSet<>(Machine.getFunsDefs().get(name).getFirst().getSet().stream().map(value -> new Var(name + Fun.getParameterDelimiter() + value)).collect(Collectors.toList()));
     }
 
     @Override

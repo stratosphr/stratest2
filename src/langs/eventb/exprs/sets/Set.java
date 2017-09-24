@@ -64,7 +64,7 @@ public final class Set extends ASetExpr {
                 vars.add(new Var("_" + i));
                 equals.add(new Equals(new Var("_" + i), elements.get(i)));
             }
-            Z3.checkSAT(new And(new And(equals.toArray(new ABoolExpr[equals.size()])), new And(Machine.getSingleton().getConstsDefs().keySet().stream().map(constName -> new Equals(Machine.getSingleton().getConsts().get(constName), Machine.getSingleton().getConstsDefs().get(constName))).toArray(ABoolExpr[]::new))));
+            Z3.checkSAT(new And(new And(equals.toArray(new Equals[equals.size()])), new And(Machine.getConstsDefs().keySet().stream().map(constName -> new Equals(Machine.getConsts().get(constName), Machine.getConstsDefs().get(constName))).toArray(ABoolExpr[]::new))));
             Model model = Z3.getModel(vars);
             set = new LinkedHashSet<>(model.values());
         }

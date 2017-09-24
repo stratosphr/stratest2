@@ -56,7 +56,7 @@ public final class Primer implements IPrimerVisitor {
     @Override
     public Fun visit(Fun fun) {
         Fun primed = isPriming ? (inInvariant ? new Fun(fun.getName() + Primer.getPrimeSuffix(), fun.getOperand().accept(this)) : new Fun(fun.getName() + Primer.getPrimeSuffix(), fun.getOperand())) : (inInvariant ? new Fun(fun.getName().replaceAll("_$", ""), fun.getOperand().accept(this)) : new Fun(fun.getName().replaceAll("_$", ""), fun.getOperand()));
-        Machine.getSingleton().getFunsDefs().put(primed.getName(), Machine.getSingleton().getFunsDefs().get(fun.getName()));
+        Machine.getFunsDefs().put(primed.getName(), Machine.getFunsDefs().get(fun.getName()));
         return primed;
     }
 

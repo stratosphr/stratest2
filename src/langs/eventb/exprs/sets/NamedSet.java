@@ -34,7 +34,7 @@ public final class NamedSet extends ASetExpr {
 
     @Override
     public LinkedHashSet<AValue> getSet() {
-        return Machine.getSingleton().getSetsDefs().get(name).getSet();
+        return Machine.getSetsDefs().get(name).getSet();
     }
 
     @Override
