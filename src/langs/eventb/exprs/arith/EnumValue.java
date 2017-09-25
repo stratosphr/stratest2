@@ -14,12 +14,25 @@ import java.util.LinkedHashSet;
 public final class EnumValue extends AValue {
 
     private static LinkedHashMap<String, Int> mapping = new LinkedHashMap<>();
+    private static LinkedHashMap<Int, String> reversedMapping = new LinkedHashMap<>();
     private static int uniqueID = 0;
     private String name;
 
     public EnumValue(String name) {
         this.name = name;
-        mapping.putIfAbsent(name, new Int(uniqueID++));
+        if (!mapping.containsKey(name)) {
+            mapping.putIfAbsent(name, new Int(uniqueID));
+            reversedMapping.putIfAbsent(new Int(uniqueID), name);
+            ++uniqueID;
+        }
+    }
+
+    public static LinkedHashMap<String, Int> getMapping() {
+        return mapping;
+    }
+
+    public static LinkedHashMap<Int, String> getReversedMapping() {
+        return reversedMapping;
     }
 
     @Override

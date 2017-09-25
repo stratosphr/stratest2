@@ -2,10 +2,7 @@ package langs.eventb.exprs.sets;
 
 import formatters.eventb.exprs.IExprVisitor;
 import langs.eventb.Machine;
-import langs.eventb.exprs.arith.AValue;
-import langs.eventb.exprs.arith.Const;
-import langs.eventb.exprs.arith.Fun;
-import langs.eventb.exprs.arith.Var;
+import langs.eventb.exprs.arith.*;
 import visitors.primer.IPrimerVisitor;
 
 import java.util.LinkedHashSet;
@@ -35,6 +32,11 @@ public final class NamedSet extends ASetExpr {
     @Override
     public LinkedHashSet<AValue> getSet() {
         return Machine.getSetsDefs().get(name).getSet();
+    }
+
+    @Override
+    public AValue retrieveValue(Int value) {
+        return Machine.getSetsDefs().containsKey(name) ? Machine.getSetsDefs().get(name).retrieveValue(value) : value;
     }
 
     @Override

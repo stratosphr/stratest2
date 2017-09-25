@@ -2,6 +2,7 @@ package langs.eventb.exprs.sets;
 
 import langs.eventb.exprs.AExpr;
 import langs.eventb.exprs.arith.AValue;
+import langs.eventb.exprs.arith.Int;
 import visitors.primer.Primer;
 
 import java.util.LinkedHashSet;
@@ -23,5 +24,7 @@ public abstract class ASetExpr extends AExpr<ASetExpr> {
     }
 
     public abstract LinkedHashSet<AValue> getSet();
+
+    public abstract AValue retrieveValue(Int value);
 
 }

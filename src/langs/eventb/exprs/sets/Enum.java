@@ -51,6 +51,11 @@ public final class Enum extends ASetExpr {
         return enumValues.stream().map(EnumValue::getValue).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
+    @Override
+    public AValue retrieveValue(Int value) {
+        return new EnumValue(EnumValue.getReversedMapping().get(value));
+    }
+
     public List<EnumValue> getEnumValues() {
         return enumValues;
     }

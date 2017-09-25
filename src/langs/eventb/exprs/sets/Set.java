@@ -71,6 +71,11 @@ public final class Set extends ASetExpr {
         return set;
     }
 
+    @Override
+    public AValue retrieveValue(Int value) {
+        return value;
+    }
+
     public ArrayList<AArithExpr> getElements() {
         return elements;
     }

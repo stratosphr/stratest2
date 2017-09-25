@@ -73,6 +73,10 @@ public final class Machine extends AEventBObject {
         assignables.add(vars.get(varName));
     }
 
+    public static LinkedHashMap<String, ASetExpr> getVarsDefs() {
+        return varsDefs;
+    }
+
     public static LinkedHashMap<String, Var> getVars() {
         return vars;
     }
