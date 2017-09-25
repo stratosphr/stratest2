@@ -75,7 +75,7 @@ public final class Machine extends AEventBObject {
 
     public static void addFunDef(String funName, Tuple<ASetExpr, ASetExpr> domains) {
         funsDefs.put(funName, domains);
-        assignables.addAll(new Fun(funName, null).getVars());
+        assignables.addAll(new Fun(funName, null).getVars().stream().map(var -> new Fun(var.getName().split(Fun.getParameterDelimiter())[0], new Int(Integer.parseInt(var.getName().split(Fun.getParameterDelimiter())[1])))).collect(Collectors.toList()));
     }
 
     public static LinkedHashMap<String, Tuple<ASetExpr, ASetExpr>> getFunsDefs() {
@@ -118,10 +118,6 @@ public final class Machine extends AEventBObject {
 
     public static LinkedHashSet<Event> getEvents() {
         return events;
-    }
-
-    public static Machine getSingleton() {
-        return new Machine();
     }
 
     public static LinkedHashSet<AAssignable> getAssignables() {
