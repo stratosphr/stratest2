@@ -33,7 +33,7 @@ public final class EventBFormatter extends AExprFormatter implements IEventBVisi
         formatted += Machine.getFunsDefs().isEmpty() ? "" : line() + indentRight() + indentLine("FUNS") + indentRight() + Machine.getFunsDefs().keySet().stream().map(name -> indentLine(name + " : " + Machine.getFunsDefs().get(name).getFirst().accept(this) + " -> " + Machine.getFunsDefs().get(name).getSecond().accept(this))).collect(Collectors.joining()) + indentLeft() + indentLeft();
         formatted += line() + indentRight() + indentLine("INVARIANT") + indentRight() + indentLine(Machine.getInvariant().accept(this)) + indentLeft() + indentLeft();
         formatted += line() + indentRight() + indentLine("INITIALISATION") + indentRight() + indentLine(Machine.getInitialisation().accept(this)) + indentLeft() + indentLeft();
-        formatted += line() + indentRight() + indentLine("EVENTS") + indentRight() + Machine.getEvents().stream().map(event -> indentLine(event.accept(this))).collect(Collectors.joining()) + indentLeft() + indentLeft();
+        formatted += line() + indentRight() + indentLine("EVENTS") + indentRight() + Machine.getEvents().values().stream().map(event -> indentLine(event.accept(this))).collect(Collectors.joining()) + indentLeft() + indentLeft();
         return formatted;
     }
 

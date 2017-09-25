@@ -27,7 +27,7 @@ public final class Machine extends AEventBObject {
     private static LinkedHashMap<String, Tuple<ASetExpr, ASetExpr>> funsDefs = new LinkedHashMap<>();
     private static Invariant invariant = new Invariant(new True());
     private static ASubstitution initialisation = new Skip();
-    private static LinkedHashSet<Event> events = new LinkedHashSet<>();
+    private static LinkedHashMap<String, Event> events = new LinkedHashMap<>();
     private static LinkedHashSet<AAssignable> assignables = new LinkedHashSet<>();
 
     private Machine() {
@@ -73,6 +73,10 @@ public final class Machine extends AEventBObject {
         assignables.add(vars.get(varName));
     }
 
+    public static LinkedHashMap<String, Var> getVars() {
+        return vars;
+    }
+
     public static void addFunDef(String funName, Tuple<ASetExpr, ASetExpr> domains) {
         funsDefs.put(funName, domains);
         assignables.addAll(new Fun(funName, null).getVars().stream().map(var -> new Fun(var.getName().split(Fun.getParameterDelimiter())[0], new Int(Integer.parseInt(var.getName().split(Fun.getParameterDelimiter())[1])))).collect(Collectors.toList()));
@@ -113,10 +117,10 @@ public final class Machine extends AEventBObject {
     }
 
     public static void addEvent(Event event) {
-        events.add(event);
+        events.put(event.getName(), event);
     }
 
-    public static LinkedHashSet<Event> getEvents() {
+    public static LinkedHashMap<String, Event> getEvents() {
         return events;
     }
 
@@ -140,7 +144,7 @@ public final class Machine extends AEventBObject {
         funsDefs = new LinkedHashMap<>();
         invariant = new Invariant(new True());
         initialisation = new Skip();
-        events = new LinkedHashSet<>();
+        events = new LinkedHashMap<>();
         assignables = new LinkedHashSet<>();
     }
 

@@ -49,7 +49,7 @@
             <enum>
                 <enum-value name="opened"/>
                 <enum-value name="closed"/>
-                <enum-value name="closing"/>
+                <enum-value name="closedBack"/>
             </enum>
         </fun-def>
         <fun-def name="Mvt">
@@ -97,7 +97,7 @@
                         <fun name="Portes">
                             <var name="R"/>
                         </fun>
-                        <enum-value name="open"/>
+                        <enum-value name="opened"/>
                     </equals>
                     <equals>
                         <fun name="Mvt">
@@ -118,7 +118,7 @@
                         <fun name="Portes">
                             <var name="R"/>
                         </fun>
-                        <enum-value name="closing"/>
+                        <enum-value name="closedBack"/>
                     </equals>
                     <equals>
                         <fun name="Mvt">
@@ -254,9 +254,9 @@
             </assignment>
             <assignment>
                 <fun name="Pos">
-                    <int value="1"/>
+                    <int value="2"/>
                 </fun>
-                <int value="0"/>
+                <int value="1"/>
             </assignment>
             <assignment>
                 <fun name="Dir">
@@ -311,7 +311,7 @@
                         <fun name="Portes">
                             <var name="R"/>
                         </fun>
-                        <enum-value name="closing"/>
+                        <enum-value name="closedBack"/>
                     </equals>
                     <equals>
                         <fun name="Mvt">
@@ -485,7 +485,7 @@
                         <fun name="Portes">
                             <var name="R"/>
                         </fun>
-                        <enum-value name="closing"/>
+                        <enum-value name="closedBack"/>
                     </equals>
                     <or>
                         <and>
@@ -590,7 +590,7 @@
                     <fun name="Portes">
                         <var name="R"/>
                     </fun>
-                    <enum-value name="open"/>
+                    <enum-value name="opened"/>
                 </assignment>
             </any>
         </event>
@@ -607,7 +607,7 @@
                         <fun name="Portes">
                             <var name="R"/>
                         </fun>
-                        <enum-value name="open"/>
+                        <enum-value name="opened"/>
                     </equals>
                     <equals>
                         <fun name="Mvt">
@@ -620,7 +620,7 @@
                     <fun name="Portes">
                         <var name="R"/>
                     </fun>
-                    <enum-value name="closing"/>
+                    <enum-value name="closedBack"/>
                 </assignment>
             </any>
         </event>

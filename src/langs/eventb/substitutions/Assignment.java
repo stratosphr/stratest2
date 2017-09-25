@@ -45,7 +45,7 @@ public final class Assignment extends ASubstitution {
                     if (assignable.getName().equals(this.assignable.getName()) && !alreadyTreatedFuns.contains(assignable.getName())) {
                         alreadyTreatedFuns.add(assignable.getName());
                         Var i = new Var("_i");
-                        Fun fun = new Fun(this.assignable.getName(), i);
+                        Fun fun = new Fun(assignable.getName(), i);
                         constraints.add(new Equals(this.assignable.prime(), value));
                         constraints.add(new ForAll(
                                 new Implies(
@@ -55,6 +55,16 @@ public final class Assignment extends ASubstitution {
                                 new Tuple<>(i, Machine.getFunsDefs().get(assignable.getName()).getFirst())
                         ));
                     }
+                }
+            }
+            for (AAssignable assignable : assignables) {
+                if (assignable instanceof Fun && !assignable.getName().equals(this.assignable.getName())) {
+                    Var i = new Var("_i");
+                    Fun fun = new Fun(assignable.getName(), i);
+                    constraints.add(new ForAll(
+                            new Equals(fun.prime(), fun),
+                            new Tuple<>(i, Machine.getFunsDefs().get(assignable.getName()).getFirst())
+                    ));
                 }
             }
             return new And(constraints.toArray(new ABoolExpr[constraints.size()]));
