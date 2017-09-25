@@ -21,8 +21,8 @@ public final class EnumValue extends AValue {
     public EnumValue(String name) {
         this.name = name;
         if (!mapping.containsKey(name)) {
-            mapping.putIfAbsent(name, new Int(uniqueID));
-            reversedMapping.putIfAbsent(new Int(uniqueID), name);
+            mapping.put(name, new Int(uniqueID));
+            reversedMapping.put(new Int(uniqueID), name);
             ++uniqueID;
         }
     }
