@@ -11,7 +11,7 @@ import langs.eventb.substitutions.*;
 import parsers.xml.XMLDocument;
 import parsers.xml.XMLNode;
 import parsers.xml.XMLParser;
-import utilities.Tuple;
+import utilities.sets.Tuple2;
 
 import java.io.File;
 import java.util.Arrays;
@@ -79,44 +79,44 @@ public final class MachineParser {
         }
     }
 
-    private LinkedHashSet<Tuple<String, AArithExpr>> parseConstsDefs(XMLNode node) {
+    private LinkedHashSet<Tuple2<String, AArithExpr>> parseConstsDefs(XMLNode node) {
         check(node, CONSTS_DEFS);
         return node.getChildren().stream().map(this::parseConstDef).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
-    private Tuple<String, AArithExpr> parseConstDef(XMLNode node) {
+    private Tuple2<String, AArithExpr> parseConstDef(XMLNode node) {
         check(node, CONST_DEF);
-        return new Tuple<>(node.getAttributes().get(NAME), parseArithExpr(node.getChildren().get(0)));
+        return new Tuple2<>(node.getAttributes().get(NAME), parseArithExpr(node.getChildren().get(0)));
     }
 
-    private LinkedHashSet<Tuple<String, ASetExpr>> parseSetsDefs(XMLNode node) {
+    private LinkedHashSet<Tuple2<String, ASetExpr>> parseSetsDefs(XMLNode node) {
         check(node, SETS_DEFS);
         return node.getChildren().stream().map(this::parseSetDef).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
-    private Tuple<String, ASetExpr> parseSetDef(XMLNode node) {
+    private Tuple2<String, ASetExpr> parseSetDef(XMLNode node) {
         check(node, SET_DEF);
-        return new Tuple<>(node.getAttributes().get(NAME), parseSetExpr(node.getChildren().get(0)));
+        return new Tuple2<>(node.getAttributes().get(NAME), parseSetExpr(node.getChildren().get(0)));
     }
 
-    private LinkedHashSet<Tuple<String, ASetExpr>> parseVarsDefs(XMLNode node) {
+    private LinkedHashSet<Tuple2<String, ASetExpr>> parseVarsDefs(XMLNode node) {
         check(node, VARS_DEFS);
         return node.getChildren().stream().map(this::parseVarDef).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
-    private Tuple<String, ASetExpr> parseVarDef(XMLNode node) {
+    private Tuple2<String, ASetExpr> parseVarDef(XMLNode node) {
         check(node, VAR_DEF);
-        return new Tuple<>(node.getAttributes().get(NAME), parseSetExpr(node.getChildren().get(0)));
+        return new Tuple2<>(node.getAttributes().get(NAME), parseSetExpr(node.getChildren().get(0)));
     }
 
-    private LinkedHashSet<Tuple<String, Tuple<ASetExpr, ASetExpr>>> parseFunsDefs(XMLNode node) {
+    private LinkedHashSet<Tuple2<String, Tuple2<ASetExpr, ASetExpr>>> parseFunsDefs(XMLNode node) {
         check(node, FUNS_DEFS);
         return node.getChildren().stream().map(this::parseFunDef).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
-    private Tuple<String, Tuple<ASetExpr, ASetExpr>> parseFunDef(XMLNode node) {
+    private Tuple2<String, Tuple2<ASetExpr, ASetExpr>> parseFunDef(XMLNode node) {
         check(node, FUN_DEF);
-        return new Tuple<>(node.getAttributes().get(NAME), new Tuple<>(parseSetExpr(node.getChildren().get(0)), parseSetExpr(node.getChildren().get(1))));
+        return new Tuple2<>(node.getAttributes().get(NAME), new Tuple2<>(parseSetExpr(node.getChildren().get(0)), parseSetExpr(node.getChildren().get(1))));
     }
 
     private Invariant parseInvariant(XMLNode node) {
@@ -264,7 +264,7 @@ public final class MachineParser {
 
     private ABoolExpr parseForAll(XMLNode node) {
         check(node, FORALL);
-        return new ForAll(parseBoolExpr(node.getChildren().get(1)), parseVarsDefs(node.getChildren().get(0)).stream().map(tuple -> new Tuple<>(new Var(tuple.getFirst()), tuple.getSecond())).toArray((IntFunction<Tuple<Var, ASetExpr>[]>) Tuple[]::new));
+        return new ForAll(parseBoolExpr(node.getChildren().get(1)), parseVarsDefs(node.getChildren().get(0)).stream().map(tuple -> new Tuple2<>(new Var(tuple.getFirst()), tuple.getSecond())).toArray((IntFunction<Tuple2<Var, ASetExpr>[]>) Tuple2[]::new));
     }
 
     private ASetExpr parseSetExpr(XMLNode node) {
@@ -355,7 +355,7 @@ public final class MachineParser {
 
     private ASubstitution parseAny(XMLNode node) {
         check(node, ANY);
-        return new Any(parseBoolExpr(node.getChildren().get(1)), parseSubstitution(node.getChildren().get(2)), parseVarsDefs(node.getChildren().get(0)).stream().map(tuple -> new Tuple<>(new Var(tuple.getFirst()), tuple.getSecond())).toArray((IntFunction<Tuple<Var, ASetExpr>[]>) Tuple[]::new));
+        return new Any(parseBoolExpr(node.getChildren().get(1)), parseSubstitution(node.getChildren().get(2)), parseVarsDefs(node.getChildren().get(0)).stream().map(tuple -> new Tuple2<>(new Var(tuple.getFirst()), tuple.getSecond())).toArray((IntFunction<Tuple2<Var, ASetExpr>[]>) Tuple2[]::new));
     }
 
 }

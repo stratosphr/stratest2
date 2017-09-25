@@ -1,14 +1,16 @@
 package visitors.primer;
 
+import graphs.ConcreteState;
 import langs.eventb.Machine;
 import langs.eventb.exprs.AExpr;
 import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.*;
 import langs.eventb.exprs.sets.*;
 import langs.eventb.exprs.sets.Enum;
-import utilities.Tuple;
+import utilities.sets.Tuple2;
 
 import java.util.LinkedHashSet;
+import java.util.TreeMap;
 import java.util.function.IntFunction;
 
 /**
@@ -175,7 +177,7 @@ public final class Primer implements IPrimerVisitor {
         quantifiedVars = new LinkedHashSet<>();
         quantifiedVars.addAll(oldQuantifiedVariables);
         quantifiedVars.addAll(exists.getQuantifiedVars());
-        Exists primed = new Exists(exists.getExpr().accept(this), exists.getQuantifiedVarsDefs().stream().map(quantifiedVarDef -> new Tuple<>(quantifiedVarDef.getFirst().accept(this), quantifiedVarDef.getSecond().accept(this))).toArray((IntFunction<Tuple<Var, ASetExpr>[]>) Tuple[]::new));
+        Exists primed = new Exists(exists.getExpr().accept(this), exists.getQuantifiedVarsDefs().stream().map(quantifiedVarDef -> new Tuple2<>(quantifiedVarDef.getFirst().accept(this), quantifiedVarDef.getSecond().accept(this))).toArray((IntFunction<Tuple2<Var, ASetExpr>[]>) Tuple2[]::new));
         quantifiedVars = oldQuantifiedVariables;
         return primed;
     }
@@ -186,7 +188,7 @@ public final class Primer implements IPrimerVisitor {
         quantifiedVars = new LinkedHashSet<>();
         quantifiedVars.addAll(oldQuantifiedVariables);
         quantifiedVars.addAll(forAll.getQuantifiedVars());
-        ForAll primed = new ForAll(forAll.getExpr().accept(this), forAll.getQuantifiedVarsDefs().stream().map(quantifiedVarDef -> new Tuple<>(quantifiedVarDef.getFirst().accept(this), quantifiedVarDef.getSecond().accept(this))).toArray((IntFunction<Tuple<Var, ASetExpr>[]>) Tuple[]::new));
+        ForAll primed = new ForAll(forAll.getExpr().accept(this), forAll.getQuantifiedVarsDefs().stream().map(quantifiedVarDef -> new Tuple2<>(quantifiedVarDef.getFirst().accept(this), quantifiedVarDef.getSecond().accept(this))).toArray((IntFunction<Tuple2<Var, ASetExpr>[]>) Tuple2[]::new));
         quantifiedVars = oldQuantifiedVariables;
         return primed;
     }
@@ -227,6 +229,18 @@ public final class Primer implements IPrimerVisitor {
     @Override
     public EnumValue visit(EnumValue enumValue) {
         return new EnumValue(enumValue.getName());
+    }
+
+    @Override
+    public Predicate visit(Predicate predicate) {
+        return new Predicate(predicate.getName(), predicate.getExpr().accept(this));
+    }
+
+    @Override
+    public ConcreteState visit(ConcreteState concreteState) {
+        TreeMap<AAssignable, AValue> state = new TreeMap<>();
+        concreteState.getMapping().keySet().forEach(assignable -> state.put((AAssignable) assignable.accept(this), (AValue) concreteState.getMapping().get(assignable).accept(this)));
+        return new ConcreteState(concreteState.getName(), state);
     }
 
 }

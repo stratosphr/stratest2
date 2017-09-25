@@ -7,7 +7,7 @@ import langs.eventb.exprs.arith.AAssignable;
 import langs.eventb.exprs.arith.Fun;
 import langs.eventb.exprs.arith.Var;
 import langs.eventb.exprs.bool.*;
-import utilities.Tuple;
+import utilities.sets.Tuple2;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -40,7 +40,11 @@ public final class Assignment extends ASubstitution {
             ArrayList<String> alreadyTreatedFuns = new ArrayList<>();
             for (AAssignable assignable : assignables) {
                 if (assignable instanceof Var) {
-                    constraints.add(new Equals(assignable.prime(), assignable));
+                    if (this.assignable.equals(assignable)) {
+                        constraints.add(new Equals(this.assignable.prime(), value));
+                    } else {
+                        constraints.add(new Equals(assignable.prime(), assignable));
+                    }
                 } else if (assignable instanceof Fun) {
                     if (assignable.getName().equals(this.assignable.getName()) && !alreadyTreatedFuns.contains(assignable.getName())) {
                         alreadyTreatedFuns.add(assignable.getName());
@@ -52,7 +56,7 @@ public final class Assignment extends ASubstitution {
                                         new NEQ(i, ((Fun) this.assignable).getOperand()),
                                         new Equals(fun.prime(), fun)
                                 ),
-                                new Tuple<>(i, Machine.getFunsDefs().get(assignable.getName()).getFirst())
+                                new Tuple2<>(i, Machine.getFunsDefs().get(assignable.getName()).getFirst())
                         ));
                     }
                 }
@@ -63,7 +67,7 @@ public final class Assignment extends ASubstitution {
                     Fun fun = new Fun(assignable.getName(), i);
                     constraints.add(new ForAll(
                             new Equals(fun.prime(), fun),
-                            new Tuple<>(i, Machine.getFunsDefs().get(assignable.getName()).getFirst())
+                            new Tuple2<>(i, Machine.getFunsDefs().get(assignable.getName()).getFirst())
                     ));
                 }
             }

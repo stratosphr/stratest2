@@ -4,7 +4,7 @@ import formatters.eventb.exprs.IExprVisitor;
 import formatters.smt.ISMT2Visitor;
 import langs.eventb.exprs.arith.Var;
 import langs.eventb.exprs.sets.ASetExpr;
-import utilities.Tuple;
+import utilities.sets.Tuple2;
 import visitors.primer.IPrimerVisitor;
 
 /**
@@ -14,7 +14,7 @@ import visitors.primer.IPrimerVisitor;
 public final class Exists extends AQuantifier {
 
     @SafeVarargs
-    public Exists(ABoolExpr expr, Tuple<Var, ASetExpr>... quantifiedVarsDefs) {
+    public Exists(ABoolExpr expr, Tuple2<Var, ASetExpr>... quantifiedVarsDefs) {
         super(expr, quantifiedVarsDefs);
     }
 

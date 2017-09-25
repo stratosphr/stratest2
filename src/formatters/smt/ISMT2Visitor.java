@@ -1,5 +1,6 @@
 package formatters.smt;
 
+import graphs.ConcreteState;
 import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.*;
 
@@ -64,5 +65,9 @@ public interface ISMT2Visitor {
     String visit(InDomain inDomain);
 
     String visit(EnumValue enumValue);
+
+    String visit(ConcreteState concreteState);
+
+    String visit(Predicate predicate);
 
 }

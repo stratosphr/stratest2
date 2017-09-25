@@ -6,7 +6,7 @@ import langs.eventb.exprs.bool.*;
 import langs.eventb.exprs.sets.ASetExpr;
 import langs.eventb.substitutions.ASubstitution;
 import langs.eventb.substitutions.Skip;
-import utilities.Tuple;
+import utilities.sets.Tuple2;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -24,7 +24,7 @@ public final class Machine extends AEventBObject {
     private static LinkedHashMap<String, ASetExpr> sets = new LinkedHashMap<>();
     private static LinkedHashMap<String, ASetExpr> varsDefs = new LinkedHashMap<>();
     private static LinkedHashMap<String, Var> vars = new LinkedHashMap<>();
-    private static LinkedHashMap<String, Tuple<ASetExpr, ASetExpr>> funsDefs = new LinkedHashMap<>();
+    private static LinkedHashMap<String, Tuple2<ASetExpr, ASetExpr>> funsDefs = new LinkedHashMap<>();
     private static Invariant invariant = new Invariant(new True());
     private static ASubstitution initialisation = new Skip();
     private static LinkedHashMap<String, Event> events = new LinkedHashMap<>();
@@ -81,12 +81,12 @@ public final class Machine extends AEventBObject {
         return vars;
     }
 
-    public static void addFunDef(String funName, Tuple<ASetExpr, ASetExpr> domains) {
+    public static void addFunDef(String funName, Tuple2<ASetExpr, ASetExpr> domains) {
         funsDefs.put(funName, domains);
         assignables.addAll(new Fun(funName, null).getVars().stream().map(var -> new Fun(var.getName().split(Fun.getParameterDelimiter())[0], new Int(Integer.parseInt(var.getName().split(Fun.getParameterDelimiter())[1])))).collect(Collectors.toList()));
     }
 
-    public static LinkedHashMap<String, Tuple<ASetExpr, ASetExpr>> getFunsDefs() {
+    public static LinkedHashMap<String, Tuple2<ASetExpr, ASetExpr>> getFunsDefs() {
         return funsDefs;
     }
 

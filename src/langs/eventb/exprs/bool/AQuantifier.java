@@ -4,7 +4,7 @@ import langs.eventb.exprs.arith.Const;
 import langs.eventb.exprs.arith.Fun;
 import langs.eventb.exprs.arith.Var;
 import langs.eventb.exprs.sets.ASetExpr;
-import utilities.Tuple;
+import utilities.sets.Tuple2;
 
 import java.util.Arrays;
 import java.util.LinkedHashSet;
@@ -18,12 +18,12 @@ public abstract class AQuantifier extends ABoolExpr {
 
     private final ABoolExpr expr;
     private final LinkedHashSet<Var> quantifiedVars;
-    private final LinkedHashSet<Tuple<Var, ASetExpr>> quantifiedVarsDefs;
+    private final LinkedHashSet<Tuple2<Var, ASetExpr>> quantifiedVarsDefs;
 
     @SafeVarargs
-    AQuantifier(ABoolExpr expr, Tuple<Var, ASetExpr>... quantifiedVarsDefs) {
+    AQuantifier(ABoolExpr expr, Tuple2<Var, ASetExpr>... quantifiedVarsDefs) {
         this.expr = expr;
-        this.quantifiedVars = new LinkedHashSet<>(Arrays.stream(quantifiedVarsDefs).map(Tuple::getFirst).collect(Collectors.toList()));
+        this.quantifiedVars = new LinkedHashSet<>(Arrays.stream(quantifiedVarsDefs).map(Tuple2::getFirst).collect(Collectors.toList()));
         this.quantifiedVarsDefs = new LinkedHashSet<>(Arrays.asList(quantifiedVarsDefs));
     }
 
@@ -50,7 +50,7 @@ public abstract class AQuantifier extends ABoolExpr {
         return quantifiedVars;
     }
 
-    public LinkedHashSet<Tuple<Var, ASetExpr>> getQuantifiedVarsDefs() {
+    public LinkedHashSet<Tuple2<Var, ASetExpr>> getQuantifiedVarsDefs() {
         return quantifiedVarsDefs;
     }
 

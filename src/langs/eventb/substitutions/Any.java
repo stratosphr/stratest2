@@ -7,7 +7,7 @@ import langs.eventb.exprs.bool.ABoolExpr;
 import langs.eventb.exprs.bool.And;
 import langs.eventb.exprs.bool.Exists;
 import langs.eventb.exprs.sets.ASetExpr;
-import utilities.Tuple;
+import utilities.sets.Tuple2;
 
 import java.util.Arrays;
 import java.util.LinkedHashSet;
@@ -23,13 +23,13 @@ public class Any extends ASubstitution {
     private final ABoolExpr condition;
     private final ASubstitution substitution;
     private final LinkedHashSet<Var> quantifiedVars;
-    private final LinkedHashSet<Tuple<Var, ASetExpr>> quantifiedVarsDefs;
+    private final LinkedHashSet<Tuple2<Var, ASetExpr>> quantifiedVarsDefs;
 
     @SafeVarargs
-    public Any(ABoolExpr condition, ASubstitution substitution, Tuple<Var, ASetExpr>... quantifiedVarsDefs) {
+    public Any(ABoolExpr condition, ASubstitution substitution, Tuple2<Var, ASetExpr>... quantifiedVarsDefs) {
         this.condition = condition;
         this.substitution = substitution;
-        this.quantifiedVars = new LinkedHashSet<>(Arrays.stream(quantifiedVarsDefs).map(Tuple::getFirst).collect(Collectors.toList()));
+        this.quantifiedVars = new LinkedHashSet<>(Arrays.stream(quantifiedVarsDefs).map(Tuple2::getFirst).collect(Collectors.toList()));
         this.quantifiedVarsDefs = new LinkedHashSet<>(Arrays.asList(quantifiedVarsDefs));
     }
 
@@ -40,7 +40,7 @@ public class Any extends ASubstitution {
 
     @Override
     public ABoolExpr getPrd(LinkedHashSet<AAssignable> assignables) {
-        return new Exists(new And(condition, substitution.getPrd(assignables.stream().filter(assignable -> !(assignable instanceof Var) || !quantifiedVars.contains(assignable)).collect(Collectors.toCollection(LinkedHashSet::new)))), quantifiedVarsDefs.stream().toArray((IntFunction<Tuple<Var, ASetExpr>[]>) Tuple[]::new));
+        return new Exists(new And(condition, substitution.getPrd(assignables.stream().filter(assignable -> !(assignable instanceof Var) || !quantifiedVars.contains(assignable)).collect(Collectors.toCollection(LinkedHashSet::new)))), quantifiedVarsDefs.stream().toArray((IntFunction<Tuple2<Var, ASetExpr>[]>) Tuple2[]::new));
     }
 
     public ABoolExpr getCondition() {
@@ -55,7 +55,7 @@ public class Any extends ASubstitution {
         return quantifiedVars;
     }
 
-    public LinkedHashSet<Tuple<Var, ASetExpr>> getQuantifiedVarsDefs() {
+    public LinkedHashSet<Tuple2<Var, ASetExpr>> getQuantifiedVarsDefs() {
         return quantifiedVarsDefs;
     }
 

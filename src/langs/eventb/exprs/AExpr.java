@@ -26,17 +26,17 @@ public abstract class AExpr<T extends AExpr> implements IExprVisitable, IPrimerV
     public abstract T prime();
 
     @Override
-    public final int hashCode() {
+    public int hashCode() {
         return toString().hashCode();
     }
 
     @Override
-    public final boolean equals(Object o) {
+    public boolean equals(Object o) {
         return getClass().getName().equals(o.getClass().getName()) && toString().equals(o.toString());
     }
 
     @Override
-    public final int compareTo(AExpr aExpr) {
+    public int compareTo(AExpr aExpr) {
         return toString().compareTo(aExpr.toString());
     }
 

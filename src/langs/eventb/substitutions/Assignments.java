@@ -6,7 +6,7 @@ import langs.eventb.exprs.arith.AAssignable;
 import langs.eventb.exprs.arith.Fun;
 import langs.eventb.exprs.arith.Var;
 import langs.eventb.exprs.bool.*;
-import utilities.Tuple;
+import utilities.sets.Tuple2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,7 +46,7 @@ public final class Assignments extends ASubstitution {
                                     new And(assignments.stream().filter(assignment -> assignment.getAssignable() instanceof Fun && assignment.getAssignable().getName().equals(fun.getName())).map(assignment -> new NEQ(i, ((Fun) assignment.getAssignable()).getOperand())).toArray(ABoolExpr[]::new)),
                                     new Equals(funI.prime(), funI)
                             ),
-                            new Tuple<>(i, Machine.getFunsDefs().get(fun.getName()).getFirst())
+                            new Tuple2<>(i, Machine.getFunsDefs().get(fun.getName()).getFirst())
                     )
             );
         });

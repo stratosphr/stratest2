@@ -1,11 +1,12 @@
 package formatters.smt;
 
 import formatters.AFormatter;
+import graphs.ConcreteState;
 import langs.eventb.Machine;
 import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.*;
 import langs.eventb.exprs.sets.ASetExpr;
-import utilities.Tuple;
+import utilities.sets.Tuple2;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -40,7 +41,7 @@ public final class SMT2Formatter extends AFormatter implements ISMT2Visitor {
             formatted.append(formatter.line("; FUNS"));
             for (String funName : funsNames) {
                 formatted.append(formatter.line("(define-fun read_" + funName + " ((index" + Fun.getParameterDelimiter() + " Int)) Int"));
-                Tuple<ASetExpr, ASetExpr> funDomains = Machine.getFunsDefs().get(funName);
+                Tuple2<ASetExpr, ASetExpr> funDomains = Machine.getFunsDefs().get(funName);
                 ArrayList<AValue> funDomain = new ArrayList<>(funDomains.getFirst().getSet());
                 ArrayList<AValue> funCoDomain = new ArrayList<>(funDomains.getSecond().getSet());
                 List<ABoolExpr> equals = funDomain.stream().map(value -> new Equals(new Var("index" + Fun.getParameterDelimiter()), value)).collect(Collectors.toList());
@@ -202,6 +203,16 @@ public final class SMT2Formatter extends AFormatter implements ISMT2Visitor {
     @Override
     public String visit(EnumValue enumValue) {
         return enumValue.getValue().accept(this);
+    }
+
+    @Override
+    public String visit(Predicate predicate) {
+        return predicate.getExpr().accept(this);
+    }
+
+    @Override
+    public String visit(ConcreteState concreteState) {
+        return concreteState.getExpr().accept(this);
     }
 
 }

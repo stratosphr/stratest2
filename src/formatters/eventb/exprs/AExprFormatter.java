@@ -1,6 +1,7 @@
 package formatters.eventb.exprs;
 
 import formatters.AFormatter;
+import graphs.ConcreteState;
 import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.*;
 import langs.eventb.exprs.bool.GEQ;
@@ -96,7 +97,7 @@ public abstract class AExprFormatter extends AFormatter implements IExprVisitor 
 
     @Override
     public String visit(Equals equals) {
-        return equals.getOperands().stream().map(operand -> operand.accept(this)).collect(Collectors.joining(" = "));
+        return equals.getOperands().stream().map(operand -> operand.accept(this)).collect(Collectors.joining("="));
     }
 
     @Override
@@ -182,6 +183,16 @@ public abstract class AExprFormatter extends AFormatter implements IExprVisitor 
     @Override
     public String visit(EnumValue enumValue) {
         return enumValue.getName();
+    }
+
+    @Override
+    public String visit(Predicate predicate) {
+        return predicate.getName() + " " + EQ_DEF + " " + predicate.getExpr().accept(this);
+    }
+
+    @Override
+    public String visit(ConcreteState concreteState) {
+        return new Predicate(concreteState.getName(), concreteState.getExpr()).accept(this);
     }
 
 }
