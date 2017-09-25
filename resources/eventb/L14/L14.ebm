@@ -47,9 +47,9 @@
         <fun-def name="Portes">
             <named-set name="Rames"/>
             <enum>
-                <enum-value name="opened"/>
-                <enum-value name="closed"/>
-                <enum-value name="closedBack"/>
+                <enum-value name="ouvertes"/>
+                <enum-value name="fermees"/>
+                <enum-value name="refermees"/>
             </enum>
         </fun-def>
         <fun-def name="Mvt">
@@ -82,7 +82,7 @@
                         <fun name="Portes">
                             <var name="R"/>
                         </fun>
-                        <enum-value name="closed"/>
+                        <enum-value name="fermees"/>
                     </equals>
                 </implies>
             </forall>
@@ -97,7 +97,7 @@
                         <fun name="Portes">
                             <var name="R"/>
                         </fun>
-                        <enum-value name="opened"/>
+                        <enum-value name="ouvertes"/>
                     </equals>
                     <equals>
                         <fun name="Mvt">
@@ -118,7 +118,7 @@
                         <fun name="Portes">
                             <var name="R"/>
                         </fun>
-                        <enum-value name="closedBack"/>
+                        <enum-value name="refermees"/>
                     </equals>
                     <equals>
                         <fun name="Mvt">
@@ -286,13 +286,13 @@
                 <fun name="Portes">
                     <int value="1"/>
                 </fun>
-                <enum-value name="closed"/>
+                <enum-value name="fermees"/>
             </assignment>
             <assignment>
                 <fun name="Portes">
                     <int value="2"/>
                 </fun>
-                <enum-value name="closed"/>
+                <enum-value name="fermees"/>
             </assignment>
         </assignments>
     </initialisation>
@@ -311,7 +311,7 @@
                         <fun name="Portes">
                             <var name="R"/>
                         </fun>
-                        <enum-value name="closedBack"/>
+                        <enum-value name="refermees"/>
                     </equals>
                     <equals>
                         <fun name="Mvt">
@@ -384,7 +384,7 @@
                         <fun name="Portes">
                             <var name="R"/>
                         </fun>
-                        <enum-value name="closed"/>
+                        <enum-value name="fermees"/>
                     </assignment>
                     <assignment>
                         <fun name="Mvt">
@@ -485,7 +485,7 @@
                         <fun name="Portes">
                             <var name="R"/>
                         </fun>
-                        <enum-value name="closedBack"/>
+                        <enum-value name="refermees"/>
                     </equals>
                     <or>
                         <and>
@@ -548,7 +548,7 @@
                         <fun name="Portes">
                             <var name="R"/>
                         </fun>
-                        <enum-value name="closed"/>
+                        <enum-value name="fermees"/>
                     </assignment>
                     <assignment>
                         <fun name="Dir">
@@ -577,7 +577,7 @@
                         <fun name="Portes">
                             <var name="R"/>
                         </fun>
-                        <enum-value name="closed"/>
+                        <enum-value name="fermees"/>
                     </equals>
                     <equals>
                         <fun name="Mvt">
@@ -590,7 +590,7 @@
                     <fun name="Portes">
                         <var name="R"/>
                     </fun>
-                    <enum-value name="opened"/>
+                    <enum-value name="ouvertes"/>
                 </assignment>
             </any>
         </event>
@@ -607,7 +607,7 @@
                         <fun name="Portes">
                             <var name="R"/>
                         </fun>
-                        <enum-value name="opened"/>
+                        <enum-value name="ouvertes"/>
                     </equals>
                     <equals>
                         <fun name="Mvt">
@@ -620,7 +620,7 @@
                     <fun name="Portes">
                         <var name="R"/>
                     </fun>
-                    <enum-value name="closedBack"/>
+                    <enum-value name="refermees"/>
                 </assignment>
             </any>
         </event>

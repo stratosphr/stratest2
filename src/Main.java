@@ -16,12 +16,18 @@ public class Main {
                 Machine.getInvariant(),
                 Machine.getInvariant().prime(),
                 Machine.getInvariant().prime().prime(),
+                Machine.getInvariant().prime().prime().prime(),
+                Machine.getInvariant().prime().prime().prime().prime(),
+                Machine.getInvariant().prime().prime().prime().prime().prime(),
                 Machine.getInitialisation().getPrd(Machine.getAssignables()),
-                Machine.getEvents().get("Ouverture_Portes").getSubstitution().getPrd(Machine.getAssignables()).prime()
+                Machine.getEvents().get("Ouverture_Portes").getSubstitution().getPrd(Machine.getAssignables()).prime(),
+                Machine.getEvents().get("Fermeture_Portes").getSubstitution().getPrd(Machine.getAssignables()).prime().prime(),
+                Machine.getEvents().get("Depart_Station").getSubstitution().getPrd(Machine.getAssignables()).prime().prime().prime()
         )));
-        System.out.println(Machine.getEvents().get("Ouverture_Portes").getSubstitution().getPrd(Machine.getAssignables()).prime());
         System.out.println(Z3.getModel(Machine.getAssignables().stream().map(assignable -> (AAssignable) assignable.prime()).collect(Collectors.toCollection(LinkedHashSet::new))));
         System.out.println(Z3.getModel(Machine.getAssignables().stream().map(assignable -> (AAssignable) assignable.prime().prime()).collect(Collectors.toCollection(LinkedHashSet::new))));
+        System.out.println(Z3.getModel(Machine.getAssignables().stream().map(assignable -> (AAssignable) assignable.prime().prime().prime()).collect(Collectors.toCollection(LinkedHashSet::new))));
+        System.out.println(Z3.getModel(Machine.getAssignables().stream().map(assignable -> (AAssignable) assignable.prime().prime().prime().prime()).collect(Collectors.toCollection(LinkedHashSet::new))));
     }
 
 }
