@@ -27,10 +27,6 @@ public final class EnumValue extends AValue {
         }
     }
 
-    public static LinkedHashMap<String, Int> getMapping() {
-        return mapping;
-    }
-
     public static LinkedHashMap<Int, String> getReversedMapping() {
         return reversedMapping;
     }
