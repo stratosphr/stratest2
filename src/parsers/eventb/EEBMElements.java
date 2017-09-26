@@ -7,6 +7,7 @@ package parsers.eventb;
 public final class EEBMElements {
 
     public static final String MODEL = "model";
+    public static final String PREDICATES = "predicates";
     public static final String SETS_DEFS = "sets-defs";
     public static final String SET_DEF = "set-def";
     public static final String CONSTS_DEFS = "consts-defs";
@@ -39,6 +40,7 @@ public final class EEBMElements {
     public static final String EQUIV = "equiv";
     public static final String EXISTS = "exists";
     public static final String FORALL = "forall";
+    public static final String PREDICATE = "predicate";
     public static final String SET = "set";
     public static final String ENUM = "enum";
     public static final String ENUM_VALUE = "enum-value";

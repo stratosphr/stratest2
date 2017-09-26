@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE predicates SYSTEM "/home/gvoiron/IdeaProjects/stratest/src/main/resources/eventb/ebm.dtd">
 
-<predicates>
+<predicates xmlns="ap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="ap ../../ap.xsd">
     <predicate name="p0">
         <equals>
             <var name="h"/>
-            <int value="0"/>
+            <enum-value name="tic"/>
         </equals>
     </predicate>
     <predicate name="p1">
         <exists>
-            <quantified-vars>
-                <var name="i"/>
-                <var name="j"/>
-            </quantified-vars>
+            <vars-defs>
+                <var-def name="i">
+                    <range>
+                        <int value="1"/>
+                        <const name="n"/>
+                    </range>
+                </var-def>
+                <var-def name="j">
+                    <range>
+                        <int value="1"/>
+                        <const name="n"/>
+                    </range>
+                </var-def>
+            </vars-defs>
             <and>
-                <between>
-                    <var name="i"/>
-                    <int value="1"/>
-                    <const name="n"/>
-                </between>
-                <between>
-                    <var name="j"/>
-                    <int value="1"/>
-                    <const name="n"/>
-                </between>
                 <neq>
                     <var name="i"/>
                     <var name="j"/>
                 </neq>
                 <equals>
-                    <fun-call name="bat">
+                    <fun name="bat">
                         <var name="i"/>
-                    </fun-call>
-                    <int value="1"/>
+                    </fun>
+                    <enum-value name="ok"/>
                 </equals>
                 <equals>
-                    <fun-call name="bat">
+                    <fun name="bat">
                         <var name="j"/>
-                    </fun-call>
-                    <int value="1"/>
+                    </fun>
+                    <enum-value name="ok"/>
                 </equals>
             </and>
         </exists>

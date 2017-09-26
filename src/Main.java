@@ -1,21 +1,19 @@
-import algs.FullFSMComputer;
-import formatters.graphs.DefaultGVZFormatter;
-import graphs.ConcreteState;
-import graphs.FSM;
-import langs.eventb.Event;
-import parsers.eventb.MachineParser;
+import langs.eventb.exprs.bool.Predicate;
+import parsers.eventb.EventBParser;
 
 import java.io.File;
-
-import static formatters.graphs.ERankDir.LR;
+import java.util.LinkedHashSet;
 
 public class Main {
 
     public static void main(String[] args) {
-        MachineParser.parse(new File("resources/eventb/EL/EL.ebm"));
-        FSM<ConcreteState, Event> fsm = new FullFSMComputer().compute();
-        //fsm.getTransitions().forEach(concreteTransition -> System.out.println(concreteTransition.toString().replaceAll(TAB, "").replaceAll(NL, " ")));
-        System.out.println(fsm.accept(new DefaultGVZFormatter<>(false, LR)));
+        EventBParser.parseMachine(new File("resources/eventb/L14/L14.ebm"));
+        LinkedHashSet<Predicate> ap1 = EventBParser.parseAPs(new File("resources/eventb/L14/APs/ap1.ap"));
+        LinkedHashSet<Predicate> ap2 = EventBParser.parseAPs(new File("resources/eventb/L14/APs/ap2.ap"));
+        LinkedHashSet<Predicate> ap3 = EventBParser.parseAPs(new File("resources/eventb/L14/APs/ap3.ap"));
+        System.out.println(ap1);
+        System.out.println(ap2);
+        System.out.println(ap3);
     }
 
 }

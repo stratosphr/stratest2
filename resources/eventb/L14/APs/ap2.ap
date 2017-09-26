@@ -1,83 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE predicates SYSTEM "/home/gvoiron/IdeaProjects/stratest/src/main/resources/eventb/ebm.dtd">
 
-<predicates>
+<predicates xmlns="ap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="ap ../../ap.xsd">
 
     <predicate name="p0">
         <equals>
-            <fun-call name="Portes">
+            <fun name="Portes">
                 <int value="1"/>
-            </fun-call>
-            <int value="0"/>
+            </fun>
+            <enum-value name="ouvertes"/>
         </equals>
     </predicate>
 
     <predicate name="p1">
         <exists>
-            <quantified-vars>
-                <var name="R"/>
-            </quantified-vars>
+            <vars-defs>
+                <var-def name="R">
+                    <named-set name="Rames"/>
+                </var-def>
+            </vars-defs>
             <and>
                 <equals>
                     <var name="R"/>
                     <int value="1"/>
                 </equals>
-                <between>
-                    <var name="R"/>
-                    <int value="1"/>
-                    <const name="NR"/>
-                </between>
                 <equals>
-                    <fun-call name="Portes">
+                    <fun name="Portes">
                         <var name="R"/>
-                    </fun-call>
-                    <int value="2"/>
+                    </fun>
+                    <enum-value name="refermees"/>
                 </equals>
                 <equals>
-                    <fun-call name="Mvt">
+                    <fun name="Mvt">
                         <var name="R"/>
-                    </fun-call>
+                    </fun>
                     <int value="0"/>
                 </equals>
                 <or>
                     <neq>
-                        <fun-call name="Pos">
+                        <fun name="Pos">
                             <var name="R"/>
-                        </fun-call>
+                        </fun>
                         <const name="NS1"/>
                     </neq>
                     <neq>
-                        <fun-call name="Dir">
+                        <fun name="Dir">
                             <var name="R"/>
-                        </fun-call>
+                        </fun>
                         <int value="1"/>
                     </neq>
                 </or>
                 <or>
                     <neq>
-                        <fun-call name="Pos">
+                        <fun name="Pos">
                             <var name="R"/>
-                        </fun-call>
+                        </fun>
                         <int value="0"/>
                     </neq>
                     <neq>
-                        <fun-call name="Dir">
+                        <fun name="Dir">
                             <var name="R"/>
-                        </fun-call>
+                        </fun>
                         <int value="-1"/>
                     </neq>
                 </or>
                 <forall>
-                    <quantified-vars>
-                        <var name="R1"/>
-                    </quantified-vars>
+                    <vars-defs>
+                        <var-def name="R1">
+                            <named-set name="Rames"/>
+                        </var-def>
+                    </vars-defs>
                     <implies>
                         <and>
-                            <between>
-                                <var name="R1"/>
-                                <int value="1"/>
-                                <const name="NR"/>
-                            </between>
                             <neq>
                                 <var name="R1"/>
                                 <var name="R"/>
@@ -85,20 +78,20 @@
                         </and>
                         <or>
                             <neq>
-                                <fun-call name="Pos">
+                                <fun name="Pos">
                                     <var name="R1"/>
-                                </fun-call>
-                                <fun-call name="Pos">
+                                </fun>
+                                <fun name="Pos">
                                     <var name="R"/>
-                                </fun-call>
+                                </fun>
                             </neq>
                             <neq>
-                                <fun-call name="Dir">
+                                <fun name="Dir">
                                     <var name="R1"/>
-                                </fun-call>
-                                <fun-call name="Dir">
+                                </fun>
+                                <fun name="Dir">
                                     <var name="R"/>
-                                </fun-call>
+                                </fun>
                             </neq>
                         </or>
                     </implies>
@@ -109,62 +102,54 @@
 
     <predicate name="p2">
         <exists>
-            <quantified-vars>
-                <var name="R"/>
-            </quantified-vars>
+            <vars-defs>
+                <var-def name="R">
+                    <named-set name="Rames"/>
+                </var-def>
+            </vars-defs>
             <and>
                 <equals>
                     <var name="R"/>
                     <int value="1"/>
                 </equals>
-                <between>
-                    <var name="R"/>
-                    <int value="1"/>
-                    <const name="NR"/>
-                </between>
                 <equals>
-                    <fun-call name="Mvt">
+                    <fun name="Mvt">
                         <var name="R"/>
-                    </fun-call>
+                    </fun>
                     <int value="1"/>
                 </equals>
                 <forall>
-                    <quantified-vars>
-                        <var name="R1"/>
-                    </quantified-vars>
+                    <vars-defs>
+                        <var-def name="R1">
+                            <named-set name="Rames"/>
+                        </var-def>
+                    </vars-defs>
                     <implies>
-                        <and>
-                            <between>
-                                <var name="R1"/>
-                                <int value="1"/>
-                                <const name="NR"/>
-                            </between>
-                            <neq>
-                                <var name="R1"/>
-                                <var name="R"/>
-                            </neq>
-                        </and>
+                        <neq>
+                            <var name="R1"/>
+                            <var name="R"/>
+                        </neq>
                         <or>
                             <neq>
-                                <fun-call name="Pos">
+                                <fun name="Pos">
                                     <var name="R1"/>
-                                </fun-call>
+                                </fun>
                                 <plus>
-                                    <fun-call name="Pos">
+                                    <fun name="Pos">
                                         <var name="R"/>
-                                    </fun-call>
-                                    <fun-call name="Dir">
+                                    </fun>
+                                    <fun name="Dir">
                                         <var name="R"/>
-                                    </fun-call>
+                                    </fun>
                                 </plus>
                             </neq>
                             <neq>
-                                <fun-call name="Dir">
+                                <fun name="Dir">
                                     <var name="R1"/>
-                                </fun-call>
-                                <fun-call name="Dir">
+                                </fun>
+                                <fun name="Dir">
                                     <var name="R"/>
-                                </fun-call>
+                                </fun>
                             </neq>
                         </or>
                     </implies>

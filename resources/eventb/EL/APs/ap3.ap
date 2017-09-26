@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE predicates SYSTEM "/home/gvoiron/IdeaProjects/stratest/src/main/resources/eventb/ebm.dtd">
 
 <predicates xmlns="ap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="ap ../../ap.xsd">
     <predicate name="p0">
+        <equals>
+            <var name="h"/>
+            <enum-value name="tic"/>
+        </equals>
+    </predicate>
+    <predicate name="p1">
         <exists>
             <vars-defs>
                 <var-def name="i">
@@ -34,17 +41,25 @@
                     </fun>
                     <enum-value name="ok"/>
                 </equals>
-                <equals>
-                    <var name="h"/>
-                    <enum-value name="tic"/>
-                </equals>
             </and>
         </exists>
     </predicate>
-    <predicate name="p1">
-        <equals>
-            <var name="h"/>
-            <enum-value name="tac"/>
-        </equals>
+    <predicate name="p2">
+        <exists>
+            <vars-defs>
+                <var-def name="i">
+                    <range>
+                        <int value="1"/>
+                        <const name="n"/>
+                    </range>
+                </var-def>
+            </vars-defs>
+            <equals>
+                <fun name="bat">
+                    <var name="i"/>
+                </fun>
+                <enum-value name="ko"/>
+            </equals>
+        </exists>
     </predicate>
 </predicates>

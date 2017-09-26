@@ -28,9 +28,9 @@ import static parsers.eventb.EEBMElements.*;
  * Created by gvoiron on 20/09/17.
  * Time : 16:01
  */
-public final class MachineParser {
+public final class EventBParser {
 
-    private MachineParser() {
+    private EventBParser() {
     }
 
     private void check(XMLNode node, String... expected) throws Error {
@@ -39,11 +39,17 @@ public final class MachineParser {
         }
     }
 
-    public static void parse(File file) {
-        MachineParser parser = new MachineParser();
+    public static void parseMachine(File file) {
         Machine.reset();
+        EventBParser parser = new EventBParser();
         XMLDocument parse = XMLParser.parse(file, new File("resources/eventb/eventb.xsd"));
         parser.parseModel(parse.getRoot());
+    }
+
+    public static LinkedHashSet<Predicate> parseAPs(File file) {
+        EventBParser parser = new EventBParser();
+        XMLDocument parse = XMLParser.parse(file, new File("resources/eventb/ap.xsd"));
+        return parser.parsePredicates(parse.getRoot());
     }
 
     private void parseModel(XMLNode root) {
@@ -77,6 +83,11 @@ public final class MachineParser {
         if (!eventsNode.isEmpty()) {
             parseEvents(eventsNode.get(0)).forEach(Machine::addEvent);
         }
+    }
+
+    private LinkedHashSet<Predicate> parsePredicates(XMLNode root) {
+        check(root, PREDICATES);
+        return root.getChildren().stream().map(this::parsePredicate).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
     private LinkedHashSet<Tuple2<String, AArithExpr>> parseConstsDefs(XMLNode node) {
@@ -231,8 +242,12 @@ public final class MachineParser {
                 return parseImplies(node);
             case FORALL:
                 return parseForAll(node);
+            case EXISTS:
+                return parseExists(node);
+            case PREDICATE:
+                return parsePredicate(node);
             default:
-                check(node, AND, IMPLIES, FORALL, EQUALS);
+                check(node, AND, OR, EQUALS, NEQ, IMPLIES, FORALL, EXISTS, PREDICATE);
                 return null;
         }
     }
@@ -262,9 +277,19 @@ public final class MachineParser {
         return new Implies(parseBoolExpr(node.getChildren().get(0)), parseBoolExpr(node.getChildren().get(1)));
     }
 
+    private ABoolExpr parseExists(XMLNode node) {
+        check(node, EXISTS);
+        return new Exists(parseBoolExpr(node.getChildren().get(1)), parseVarsDefs(node.getChildren().get(0)).stream().map(tuple -> new Tuple2<>(new Var(tuple.getFirst()), tuple.getSecond())).toArray((IntFunction<Tuple2<Var, ASetExpr>[]>) Tuple2[]::new));
+    }
+
     private ABoolExpr parseForAll(XMLNode node) {
         check(node, FORALL);
         return new ForAll(parseBoolExpr(node.getChildren().get(1)), parseVarsDefs(node.getChildren().get(0)).stream().map(tuple -> new Tuple2<>(new Var(tuple.getFirst()), tuple.getSecond())).toArray((IntFunction<Tuple2<Var, ASetExpr>[]>) Tuple2[]::new));
+    }
+
+    private Predicate parsePredicate(XMLNode node) {
+        check(node, PREDICATE);
+        return new Predicate(node.getAttributes().get(NAME), parseBoolExpr(node.getChildren().get(0)));
     }
 
     private ASetExpr parseSetExpr(XMLNode node) {
