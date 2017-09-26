@@ -1,5 +1,6 @@
 package visitors.primer;
 
+import graphs.AbstractState;
 import graphs.ConcreteState;
 import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.*;
@@ -78,8 +79,10 @@ public interface IPrimerVisitor {
 
     EnumValue visit(EnumValue enumValue);
 
-    ConcreteState visit(ConcreteState concreteState);
-
     Predicate visit(Predicate predicate);
+
+    AbstractState visit(AbstractState abstractState);
+
+    ConcreteState visit(ConcreteState concreteState);
 
 }

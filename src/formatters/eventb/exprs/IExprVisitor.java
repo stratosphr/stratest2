@@ -1,5 +1,6 @@
 package formatters.eventb.exprs;
 
+import graphs.AbstractState;
 import graphs.ConcreteState;
 import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.*;
@@ -78,8 +79,10 @@ public interface IExprVisitor {
 
     String visit(EnumValue enumValue);
 
-    String visit(ConcreteState concreteState);
-
     String visit(Predicate predicate);
+
+    String visit(AbstractState abstractState);
+
+    String visit(ConcreteState concreteState);
 
 }

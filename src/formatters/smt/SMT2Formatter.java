@@ -1,6 +1,7 @@
 package formatters.smt;
 
 import formatters.AFormatter;
+import graphs.AbstractState;
 import graphs.ConcreteState;
 import langs.eventb.Machine;
 import langs.eventb.exprs.arith.*;
@@ -208,6 +209,11 @@ public final class SMT2Formatter extends AFormatter implements ISMT2Visitor {
     @Override
     public String visit(Predicate predicate) {
         return predicate.getExpr().accept(this);
+    }
+
+    @Override
+    public String visit(AbstractState abstractState) {
+        return abstractState.getExpr().accept(this);
     }
 
     @Override

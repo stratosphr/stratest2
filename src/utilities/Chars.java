@@ -17,6 +17,7 @@ public final class Chars {
     public static final String IMPLIES = "⇒";
     public static final String EQUIV = "<=>";
     public static final String NEQ = "≠";
+    public static final String LNOT = "¬";
 
     private Chars() {
     }

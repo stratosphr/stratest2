@@ -1,6 +1,7 @@
 package formatters.eventb.exprs;
 
 import formatters.AFormatter;
+import graphs.AbstractState;
 import graphs.ConcreteState;
 import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.*;
@@ -11,6 +12,7 @@ import langs.eventb.exprs.sets.Enum;
 import langs.eventb.exprs.sets.NamedSet;
 import langs.eventb.exprs.sets.Range;
 import langs.eventb.exprs.sets.Set;
+import utilities.Chars;
 
 import java.util.stream.Collectors;
 
@@ -82,7 +84,7 @@ public abstract class AExprFormatter extends AFormatter implements IExprVisitor 
 
     @Override
     public String visit(Not not) {
-        return "(" + not.getOperand().accept(this) + ")";
+        return Chars.LNOT + "(" + not.getOperand().accept(this) + ")";
     }
 
     @Override
@@ -188,6 +190,11 @@ public abstract class AExprFormatter extends AFormatter implements IExprVisitor 
     @Override
     public String visit(Predicate predicate) {
         return predicate.getName() + " " + EQ_DEF + " " + predicate.getExpr().accept(this).replaceAll(NL, ", ").replaceAll(TAB, "").replaceAll("[(], ", "(").replaceAll(", [)]", ")");
+    }
+
+    @Override
+    public String visit(AbstractState abstractState) {
+        return new Predicate(abstractState.getName(), abstractState.getExpr()).accept(this);
     }
 
     @Override

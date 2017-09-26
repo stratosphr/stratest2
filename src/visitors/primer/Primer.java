@@ -1,5 +1,6 @@
 package visitors.primer;
 
+import graphs.AbstractState;
 import graphs.ConcreteState;
 import langs.eventb.Machine;
 import langs.eventb.exprs.AExpr;
@@ -234,6 +235,13 @@ public final class Primer implements IPrimerVisitor {
     @Override
     public Predicate visit(Predicate predicate) {
         return new Predicate(predicate.getName(), predicate.getExpr().accept(this));
+    }
+
+    @Override
+    public AbstractState visit(AbstractState abstractState) {
+        TreeMap<ABoolExpr, Boolean> state = new TreeMap<>();
+        abstractState.getMapping().keySet().forEach(assignable -> state.put(assignable.accept(this), abstractState.getMapping().get(assignable)));
+        return new AbstractState(abstractState.getName(), state);
     }
 
     @Override
