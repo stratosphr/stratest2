@@ -12,6 +12,10 @@ public class ConcreteTransition extends ATransition<ConcreteState, Event> {
         super(source, event, target);
     }
 
+    public Event getEvent() {
+        return getLabel();
+    }
+
     @Override
     public String toString() {
         return source + " -[ " + label.getName() + " ]-> " + target;

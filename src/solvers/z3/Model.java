@@ -14,6 +14,16 @@ import java.util.TreeMap;
  */
 public final class Model extends TreeMap<AAssignable, AValue> {
 
+    public int getStep(AAssignable assignable) {
+        int step = 0;
+        AAssignable unprimedAssignable = assignable;
+        while (unprimedAssignable.getName().endsWith(Primer.getPrimeSuffix())) {
+            unprimedAssignable = (AAssignable) unprimedAssignable.unprime();
+            ++step;
+        }
+        return step;
+    }
+
     Model(Context context, com.microsoft.z3.Model model, Set<AAssignable> assignables) {
         for (AAssignable assignable : assignables) {
             //put(assignable, new Int(Integer.parseInt(model.eval(context.mkIntConst(assignable instanceof Var ? assignable.getName() : assignable.getName() + Fun.getParameterDelimiter() + ((Fun) assignable).getOperand()), true).toString())));
@@ -23,9 +33,9 @@ public final class Model extends TreeMap<AAssignable, AValue> {
             }
             Int value = new Int(Integer.parseInt(model.eval(context.mkIntConst(assignable instanceof Var ? assignable.getName() : assignable.getName() + Fun.getParameterDelimiter() + ((Fun) assignable).getOperand()), true).toString()));
             if (assignable instanceof Var) {
-                put(assignable, Machine.getVarsDefs().containsKey(unprimedAssignable.getName()) ? Machine.getVarsDefs().get(unprimedAssignable.getName()).retrieveValue(value) : value);
+                put(unprimedAssignable, Machine.getVarsDefs().containsKey(unprimedAssignable.getName()) ? Machine.getVarsDefs().get(unprimedAssignable.getName()).retrieveValue(value) : value);
             } else {
-                put(assignable, Machine.getFunsDefs().containsKey(unprimedAssignable.getName()) ? Machine.getFunsDefs().get(unprimedAssignable.getName()).getSecond().retrieveValue(value) : value);
+                put(unprimedAssignable, Machine.getFunsDefs().containsKey(unprimedAssignable.getName()) ? Machine.getFunsDefs().get(unprimedAssignable.getName()).getSecond().retrieveValue(value) : value);
             }
         }
     }

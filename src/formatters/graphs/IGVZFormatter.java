@@ -1,7 +1,7 @@
 package formatters.graphs;
 
+import graphs.AFSM;
 import graphs.AState;
-import graphs.FSM;
 
 /**
  * Created by gvoiron on 26/09/17.
@@ -9,6 +9,6 @@ import graphs.FSM;
  */
 public interface IGVZFormatter<S extends AState, L> {
 
-    String visit(FSM<S, L> fsm);
+    String visit(AFSM<S, L> fsm);
 
 }

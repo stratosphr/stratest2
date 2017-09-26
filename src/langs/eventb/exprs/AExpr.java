@@ -36,13 +36,13 @@ public abstract class AExpr<T extends AExpr> implements IExprVisitable, IPrimerV
     }
 
     @Override
-    public int compareTo(AExpr aExpr) {
-        return toString().compareTo(aExpr.toString());
+    public final String toString() {
+        return ExprFormatter.format(this);
     }
 
     @Override
-    public final String toString() {
-        return ExprFormatter.format(this);
+    public int compareTo(AExpr expr) {
+        return toString().compareTo(expr.toString());
     }
 
 }

@@ -16,10 +16,10 @@ public final class DefaultGVZFormatter<S extends AState> extends AGVZFormatter<S
 
     @Override
     public GVZState formatInitialState(S initialState) {
-        GVZState invisible = new GVZState("__invisible__").setShape("point");
+        GVZState invisible = new GVZState("__invisible__").setShape("point").setColor("forestgreen");
         GVZState initial = formatReachedState(initialState).setPenWidth(3).setComment("Initial");
         states.add(invisible);
-        edges.add(new GVZEdge(invisible, initial));
+        edges.add(new GVZEdge(invisible, initial).setColor("forestgreen"));
         return initial;
     }
 

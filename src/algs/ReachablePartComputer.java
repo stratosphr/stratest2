@@ -1,8 +1,8 @@
 package algs;
 
+import graphs.AFSM;
 import graphs.AState;
 import graphs.ATransition;
-import graphs.FSM;
 import utilities.sets.Tuple2;
 
 import java.util.ArrayList;
@@ -15,16 +15,14 @@ import java.util.LinkedHashSet;
  */
 public final class ReachablePartComputer<S extends AState, L> extends AComputer<Tuple2<LinkedHashSet<S>, ArrayList<ATransition<S, L>>>> {
 
-    private FSM<S, L> fsm;
+    private AFSM<S, L> fsm;
     private final LinkedHashMap<S, ArrayList<ATransition<S, L>>> adjacency;
 
-    public ReachablePartComputer(FSM<S, L> fsm) {
+    public ReachablePartComputer(AFSM<S, L> fsm) {
         this.fsm = fsm;
         this.adjacency = new LinkedHashMap<>();
-        fsm.getTransitions().forEach(transition -> {
-            adjacency.putIfAbsent(transition.getSource(), new ArrayList<>());
-            adjacency.get(transition.getSource()).add(transition);
-        });
+        fsm.getStates().forEach(s -> adjacency.put(s, new ArrayList<>()));
+        fsm.getTransitions().forEach(transition -> adjacency.get(transition.getSource()).add(transition));
     }
 
     @Override

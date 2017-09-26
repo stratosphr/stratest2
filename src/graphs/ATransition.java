@@ -39,8 +39,6 @@ public abstract class ATransition<S, L> {
     }
 
     @Override
-    public String toString() {
-        return source + " -[ " + label + " ]-> " + target;
-    }
+    public abstract String toString();
 
 }

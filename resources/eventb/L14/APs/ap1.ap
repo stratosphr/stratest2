@@ -20,6 +20,10 @@
             </vars-defs>
             <and>
                 <equals>
+                    <var name="R"/>
+                    <int value="1"/>
+                </equals>
+                <equals>
                     <fun name="Portes">
                         <var name="R"/>
                     </fun>

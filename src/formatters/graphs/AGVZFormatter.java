@@ -2,9 +2,9 @@ package formatters.graphs;
 
 import algs.ReachablePartComputer;
 import formatters.AFormatter;
+import graphs.AFSM;
 import graphs.AState;
 import graphs.ATransition;
-import graphs.FSM;
 import utilities.sets.Tuple2;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public abstract class AGVZFormatter<S extends AState, L> extends AFormatter impl
     }
 
     @Override
-    public String visit(FSM<S, L> fsm) {
+    public String visit(AFSM<S, L> fsm) {
         Tuple2<LinkedHashSet<S>, ArrayList<ATransition<S, L>>> rchblPart = new ReachablePartComputer<>(fsm).compute();
         fsm.getInitialStates().forEach(state -> states.add(formatInitialState(state)));
         rchblPart.getFirst().stream().filter(state -> !fsm.getInitialStates().contains(state)).forEach(state -> states.add(formatReachedState(state)));
