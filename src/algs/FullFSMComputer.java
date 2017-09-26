@@ -23,11 +23,11 @@ import java.util.stream.Collectors;
  * Created by gvoiron on 25/09/17.
  * Time : 15:47
  */
-public final class FullFSMComputer extends AComputer<FSM<ConcreteState, ConcreteTransition>> {
+public final class FullFSMComputer extends AComputer<FSM<ConcreteState, Event>> {
 
 
     @Override
-    protected FSM<ConcreteState, ConcreteTransition> run() {
+    protected FSM<ConcreteState, Event> run() {
         LinkedHashSet<ConcreteState> initialStates = new LinkedHashSet<>();
         LinkedHashSet<ConcreteState> states = new LinkedHashSet<>();
         LinkedHashSet<ConcreteTransition> transitions = new LinkedHashSet<>();
@@ -46,7 +46,6 @@ public final class FullFSMComputer extends AComputer<FSM<ConcreteState, Concrete
         while (!lastReached.isEmpty()) {
             ConcreteState c = lastReached.iterator().next();
             lastReached.remove(c);
-            System.out.println(lastReached.size() + " - " + states.size());
             for (Event e : Machine.getEvents().values()) {
                 while (Z3.checkSAT(new And(
                         Machine.getInvariant(),

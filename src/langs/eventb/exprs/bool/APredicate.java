@@ -13,8 +13,8 @@ import java.util.LinkedHashSet;
  */
 public abstract class APredicate extends ABoolExpr {
 
-    private String name;
-    private ABoolExpr expr;
+    private final String name;
+    private final ABoolExpr expr;
 
     public APredicate(String name, ABoolExpr expr) {
         this.name = name;

@@ -187,12 +187,12 @@ public abstract class AExprFormatter extends AFormatter implements IExprVisitor 
 
     @Override
     public String visit(Predicate predicate) {
-        return predicate.getName() + " " + EQ_DEF + " " + predicate.getExpr().accept(this);
+        return predicate.getName() + " " + EQ_DEF + " " + predicate.getExpr().accept(this).replaceAll(NL, "").replaceAll(TAB, ", ").replaceAll("[(], ", "(");
     }
 
     @Override
     public String visit(ConcreteState concreteState) {
-        return new Predicate(concreteState.getName(), concreteState.getExpr()).accept(this);
+        return new Predicate(concreteState.getName(), concreteState.getExpr()).accept(this).replaceAll("and[(]", "").replaceAll("[)]$", "");
     }
 
 }

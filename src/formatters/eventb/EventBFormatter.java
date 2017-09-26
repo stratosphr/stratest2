@@ -74,7 +74,7 @@ public final class EventBFormatter extends AExprFormatter implements IEventBVisi
 
     @Override
     public String visit(Any any) {
-        return line("ANY") + indentRight() + any.getQuantifiedVarsDefs().stream().map(tuple -> indentLine(tuple.getFirst().accept(this) + " " + IN + " " + tuple.getSecond().accept(this))).collect(Collectors.joining()) + indentLeft() + indentLine("WHERE") + indentRight() + indentLine(any.getCondition().accept(this)) + indentLeft() + indentLine("THEN") + indentRight() + indentLine(any.getSubstitution().accept(this)) + indentLeft() + indent("END");
+        return line("ANY") + indentRight() + any.getQuantifiedVarsDefs().keySet().stream().map(var -> indentLine(var.accept(this) + " " + IN + " " + any.getQuantifiedVarsDefs().get(var).accept(this))).collect(Collectors.joining()) + indentLeft() + indentLine("WHERE") + indentRight() + indentLine(any.getCondition().accept(this)) + indentLeft() + indentLine("THEN") + indentRight() + indentLine(any.getSubstitution().accept(this)) + indentLeft() + indent("END");
     }
 
 }

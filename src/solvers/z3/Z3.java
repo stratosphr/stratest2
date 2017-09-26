@@ -16,8 +16,8 @@ import java.util.Set;
 public final class Z3 {
 
     private static boolean modelAvailable = false;
-    private static Context context = new Context();
-    private static Solver solver = context.mkSolver();
+    private final static Context context = new Context();
+    private final static Solver solver = context.mkSolver();
 
     private Z3() {
     }

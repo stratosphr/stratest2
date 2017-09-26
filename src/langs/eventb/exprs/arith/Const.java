@@ -13,7 +13,7 @@ import java.util.LinkedHashSet;
  */
 public final class Const extends AValue {
 
-    private String name;
+    private final String name;
 
     public Const(String name) {
         this.name = name;

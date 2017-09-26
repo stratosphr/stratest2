@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  */
 public final class Set extends ASetExpr {
 
-    private ArrayList<AArithExpr> elements;
+    private final ArrayList<AArithExpr> elements;
     private LinkedHashSet<AValue> set;
 
     public Set(AArithExpr... elements) {

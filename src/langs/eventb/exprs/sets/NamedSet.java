@@ -13,7 +13,7 @@ import java.util.LinkedHashSet;
  */
 public final class NamedSet extends ASetExpr {
 
-    private String name;
+    private final String name;
 
     public NamedSet(String name) {
         this.name = name;

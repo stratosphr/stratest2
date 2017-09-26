@@ -12,7 +12,7 @@ import java.util.LinkedHashSet;
  */
 public final class Int extends AValue {
 
-    private Integer value;
+    private final Integer value;
 
     public Int(Integer value) {
         this.value = value;

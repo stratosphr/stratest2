@@ -13,10 +13,10 @@ import java.util.LinkedHashSet;
  */
 public final class EnumValue extends AValue {
 
-    private static LinkedHashMap<String, Int> mapping = new LinkedHashMap<>();
-    private static LinkedHashMap<Int, String> reversedMapping = new LinkedHashMap<>();
+    private final static LinkedHashMap<String, Int> mapping = new LinkedHashMap<>();
+    private final static LinkedHashMap<Int, String> reversedMapping = new LinkedHashMap<>();
     private static int uniqueID = 0;
-    private String name;
+    private final String name;
 
     public EnumValue(String name) {
         this.name = name;
