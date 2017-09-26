@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
  */
 public final class GVZState extends AGVZNode<GVZState> {
 
-    private String name;
+    private final String name;
 
     public GVZState(String name) {
         this.name = name;

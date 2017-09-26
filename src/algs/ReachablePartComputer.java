@@ -15,7 +15,7 @@ import java.util.LinkedHashSet;
  */
 public final class ReachablePartComputer<S extends AState, L> extends AComputer<Tuple2<LinkedHashSet<S>, ArrayList<ATransition<S, L>>>> {
 
-    private AFSM<S, L> fsm;
+    private final AFSM<S, L> fsm;
     private final LinkedHashMap<S, ArrayList<ATransition<S, L>>> adjacency;
 
     public ReachablePartComputer(AFSM<S, L> fsm) {
