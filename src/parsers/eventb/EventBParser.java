@@ -4,6 +4,7 @@ import langs.eventb.Event;
 import langs.eventb.Machine;
 import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.*;
+import langs.eventb.exprs.bool.GT;
 import langs.eventb.exprs.bool.NEQ;
 import langs.eventb.exprs.sets.*;
 import langs.eventb.exprs.sets.Enum;
@@ -230,6 +231,8 @@ public final class EventBParser {
 
     private ABoolExpr parseBoolExpr(XMLNode node) {
         switch (node.getName()) {
+            case NOT:
+                return parseNot(node);
             case AND:
                 return parseAnd(node);
             case OR:
@@ -238,6 +241,8 @@ public final class EventBParser {
                 return parseEquals(node);
             case NEQ:
                 return parseNEQ(node);
+            case GT:
+                return parseGT(node);
             case IMPLIES:
                 return parseImplies(node);
             case FORALL:
@@ -247,9 +252,14 @@ public final class EventBParser {
             case PREDICATE:
                 return parsePredicate(node);
             default:
-                check(node, AND, OR, EQUALS, NEQ, IMPLIES, FORALL, EXISTS, PREDICATE);
+                check(node, NOT, AND, OR, EQUALS, NEQ, GT, IMPLIES, FORALL, EXISTS, PREDICATE);
                 return null;
         }
+    }
+
+    private ABoolExpr parseNot(XMLNode node) {
+        check(node, NOT);
+        return new Not(parseBoolExpr(node.getChildren().get(0)));
     }
 
     private ABoolExpr parseAnd(XMLNode node) {
@@ -270,6 +280,11 @@ public final class EventBParser {
     private ABoolExpr parseNEQ(XMLNode node) {
         check(node, NEQ);
         return new NEQ(parseArithExpr(node.getChildren().get(0)), parseArithExpr(node.getChildren().get(1)));
+    }
+
+    private ABoolExpr parseGT(XMLNode node) {
+        check(node, GT);
+        return new GT(parseArithExpr(node.getChildren().get(0)), parseArithExpr(node.getChildren().get(1)));
     }
 
     private ABoolExpr parseImplies(XMLNode node) {
@@ -343,12 +358,14 @@ public final class EventBParser {
                 return parseAssignment(node);
             case SELECT:
                 return parseSelect(node);
+            case IF_THEN_ELSE:
+                return parseIfThenElse(node);
             case CHOICE:
                 return parseChoice(node);
             case ANY:
                 return parseAny(node);
             default:
-                check(node, SKIP, ASSIGNMENTS, ASSIGNMENT, SELECT, CHOICE, ANY);
+                check(node, SKIP, ASSIGNMENTS, ASSIGNMENT, SELECT, IF_THEN_ELSE, CHOICE, ANY);
                 return null;
         }
     }
@@ -371,6 +388,11 @@ public final class EventBParser {
     private ASubstitution parseSelect(XMLNode node) {
         check(node, SELECT);
         return new Select(parseBoolExpr(node.getChildren().get(0)), parseSubstitution(node.getChildren().get(1)));
+    }
+
+    private ASubstitution parseIfThenElse(XMLNode node) {
+        check(node, IF_THEN_ELSE);
+        return new IfThenElse(parseBoolExpr(node.getChildren().get(0)), parseSubstitution(node.getChildren().get(1)), parseSubstitution(node.getChildren().get(2)));
     }
 
     private ASubstitution parseChoice(XMLNode node) {

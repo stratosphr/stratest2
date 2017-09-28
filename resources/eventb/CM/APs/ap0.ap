@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<predicates xmlns="ap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="ap ../../ap.xsd">
+    <predicate name="p0">
+        <equals>
+            <var name="Status"/>
+            <enum-value name="off"/>
+        </equals>
+    </predicate>
+    <predicate name="p1">
+        <equals>
+            <var name="Status"/>
+            <enum-value name="on"/>
+        </equals>
+    </predicate>
+    <predicate name="p2">
+        <or>
+            <and>
+                <equals>
+                    <var name="Status"/>
+                    <enum-value name="on"/>
+                </equals>
+                <equals>
+                    <var name="AskChange"/>
+                    <int value="0"/>
+                </equals>
+                <equals>
+                    <var name="AskCoffee"/>
+                    <int value="0"/>
+                </equals>
+                <equals>
+                    <var name="Balance"/>
+                    <int value="0"/>
+                </equals>
+            </and>
+            <equals>
+                <var name="Status"/>
+                <enum-value name="error"/>
+            </equals>
+        </or>
+    </predicate>
+</predicates>

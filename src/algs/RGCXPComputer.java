@@ -189,11 +189,13 @@ public final class RGCXPComputer extends AComputer<ATS> {
                 System.out.println(TAB + ap.toString().replaceAll(NL, " ").replaceAll(TAB, "") + " = " + value);
             });
         });*/
+        LinkedHashSet<ConcreteState> TRCS = new LinkedHashSet<>(RCS);
         Status status;
         LinkedHashSet<Event> events = eventsOrderingFunction.apply(new LinkedHashSet<>(Machine.getEvents().values()));
         while (!RCS.isEmpty()) {
             ConcreteState c = RCS.iterator().next();
             RCS.remove(c);
+            TRCS.add(c);
             if (variantsMapping.get(c) == null) {
                 throw new Error(c.toString());
             }
@@ -212,7 +214,8 @@ public final class RGCXPComputer extends AComputer<ATS> {
                         ));
                         if (status == SATISFIABLE) {
                             ConcreteState c_ = concreteState(q_, Z3.getModel(Machine.getAssignables().stream().map(assignable -> (AAssignable) assignable.prime()).collect(Collectors.toCollection(LinkedHashSet::new))));
-                            if (!ats.getCTS().getC().contains(c_) || !ats.getCTS().getKappa().get(c_).equals(GREEN)) {
+                            //if (!ats.getCTS().getC().contains(c_) || !ats.getCTS().getKappa().get(c_).equals(GREEN)) {
+                            if (!TRCS.contains(c_)) {
                                 //System.out.println(c + " " + e.getName() + " " + c_);
                                 if (Z3.checkSAT(new And(
                                         Machine.getInvariant(),
@@ -252,6 +255,15 @@ public final class RGCXPComputer extends AComputer<ATS> {
                                     RCS.clear();
                                     RCS.add(c_);
                                     RCS.addAll(tmpRCS);
+                                }
+                            } else {
+                                if (c.getName().startsWith("c46") && c_.getName().startsWith("c58")) {
+                                    System.out.println(ats.getCTS().getC().contains(c_));
+                                    System.out.println(ats.getCTS().getKappa().get(c_));
+                                    System.out.println(c);
+                                    System.out.println(e.getName());
+                                    System.out.println(c_);
+                                    System.out.println(relevancePredicate.getVariantC_(c, c_, variantsMapping));
                                 }
                             }
                             ats.getCTS().getC().add(c_);
