@@ -35,6 +35,11 @@ public final class IfThenElse extends ASubstitution {
         return new Or(new And(condition, thenPart.getPrd(assignables)), new And(new Not(condition), elsePart.getPrd(assignables)));
     }
 
+    @Override
+    public ASubstitution clone() {
+        return new IfThenElse(condition.clone(), thenPart.clone(), elsePart.clone());
+    }
+
     public ABoolExpr getCondition() {
         return condition;
     }

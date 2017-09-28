@@ -3,6 +3,7 @@ package algs;
 import graphs.AFSM;
 import graphs.AState;
 import graphs.ATransition;
+import utilities.ICloneable;
 import utilities.sets.Tuple2;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.LinkedHashSet;
  * Created by gvoiron on 26/09/17.
  * Time : 13:26
  */
-public final class ReachablePartComputer<S extends AState, L> extends AComputer<Tuple2<LinkedHashSet<S>, ArrayList<ATransition<S, L>>>> {
+public final class ReachablePartComputer<S extends AState, L extends ICloneable> extends AComputer<Tuple2<LinkedHashSet<S>, ArrayList<ATransition<S, L>>>> {
 
     private final AFSM<S, L> fsm;
     private final LinkedHashMap<S, ArrayList<ATransition<S, L>>> adjacency;

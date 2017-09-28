@@ -55,6 +55,11 @@ public final class Or extends ABoolExpr {
         return operands.stream().map(AExpr::getFuns).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
+    @Override
+    public ABoolExpr clone() {
+        return new Or(operands.stream().map(AExpr::clone).toArray(ABoolExpr[]::new));
+    }
+
     public LinkedHashSet<ABoolExpr> getOperands() {
         return operands;
     }

@@ -58,6 +58,11 @@ public final class NEQ extends ABoolExpr {
         return Stream.of(left, right).map(AExpr::getFuns).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
+    @Override
+    public ABoolExpr clone() {
+        return new NEQ(left.clone(), right.clone());
+    }
+
     public AArithExpr getLeft() {
         return left;
     }

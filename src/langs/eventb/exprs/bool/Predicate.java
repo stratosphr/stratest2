@@ -29,4 +29,9 @@ public final class Predicate extends APredicate {
         return visitor.visit(this);
     }
 
+    @Override
+    public ABoolExpr clone() {
+        return new Predicate(name, expr.clone());
+    }
+
 }

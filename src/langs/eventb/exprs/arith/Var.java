@@ -33,6 +33,11 @@ public final class Var extends AAssignable {
     }
 
     @Override
+    public AAssignable clone() {
+        return new Var(name);
+    }
+
+    @Override
     public LinkedHashSet<Const> getConsts() {
         return new LinkedHashSet<>();
     }

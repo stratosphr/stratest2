@@ -53,4 +53,9 @@ public final class Const extends AValue {
         return name;
     }
 
+    @Override
+    public AValue clone() {
+        return new Const(name);
+    }
+
 }

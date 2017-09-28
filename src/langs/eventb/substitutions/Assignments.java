@@ -1,6 +1,7 @@
 package langs.eventb.substitutions;
 
 import formatters.eventb.IEventBVisitor;
+import langs.eventb.AEventBObject;
 import langs.eventb.Machine;
 import langs.eventb.exprs.arith.AAssignable;
 import langs.eventb.exprs.arith.Fun;
@@ -55,6 +56,11 @@ public final class Assignments extends ASubstitution {
 
     public LinkedHashSet<Assignment> getAssignments() {
         return assignments;
+    }
+
+    @Override
+    public Assignments clone() {
+        return new Assignments(assignments.stream().map(AEventBObject::clone).toArray(Assignment[]::new));
     }
 
 }

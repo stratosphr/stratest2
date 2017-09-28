@@ -56,6 +56,11 @@ public final class Equiv extends ABoolExpr {
         return Stream.of(left.getFuns(), right.getFuns()).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
+    @Override
+    public ABoolExpr clone() {
+        return new Equiv(left.clone(), right.clone());
+    }
+
     public ABoolExpr getLeft() {
         return left;
     }

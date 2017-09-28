@@ -11,7 +11,7 @@ import java.util.TreeMap;
  */
 public abstract class AState<K extends Comparable, V> extends APredicate {
 
-    private final TreeMap<K, V> mapping;
+    protected final TreeMap<K, V> mapping;
 
     public AState(String name, ABoolExpr expr, TreeMap<K, V> mapping) {
         super(name, expr);
@@ -21,5 +21,8 @@ public abstract class AState<K extends Comparable, V> extends APredicate {
     public TreeMap<K, V> getMapping() {
         return mapping;
     }
+
+    @Override
+    public abstract AState clone();
 
 }

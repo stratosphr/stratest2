@@ -30,4 +30,9 @@ public final class Event extends AEventBObject {
         return substitution;
     }
 
+    @Override
+    public Event clone() {
+        return new Event(name, substitution.clone());
+    }
+
 }

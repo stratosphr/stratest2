@@ -1,10 +1,12 @@
 package algs.outputs;
 
+import utilities.ICloneable;
+
 /**
  * Created by gvoiron on 18/06/17.
  * Time : 20:44
  */
-public final class ATS {
+public final class ATS implements ICloneable<ATS> {
 
     private final MTS mts;
     private final CTS cts;
@@ -20,6 +22,11 @@ public final class ATS {
 
     public CTS getCTS() {
         return cts;
+    }
+
+    @Override
+    public ATS clone() {
+        return new ATS(mts.clone(), cts.clone());
     }
 
 }

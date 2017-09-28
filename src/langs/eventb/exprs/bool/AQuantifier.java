@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
  */
 public abstract class AQuantifier extends ABoolExpr {
 
-    private final ABoolExpr expr;
+    protected final ABoolExpr expr;
     private final LinkedHashSet<Var> quantifiedVars;
-    private final LinkedHashSet<Tuple2<Var, ASetExpr>> quantifiedVarsDefs;
+    protected final LinkedHashSet<Tuple2<Var, ASetExpr>> quantifiedVarsDefs;
 
     @SafeVarargs
     AQuantifier(ABoolExpr expr, Tuple2<Var, ASetExpr>... quantifiedVarsDefs) {

@@ -68,4 +68,9 @@ public final class ArithITE extends AArithExpr {
         return elsePart;
     }
 
+    @Override
+    public AArithExpr clone() {
+        return new ArithITE(condition.clone(), thenPart.clone(), elsePart.clone());
+    }
+
 }

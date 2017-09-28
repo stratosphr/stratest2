@@ -58,6 +58,11 @@ public final class InDomain extends ABoolExpr {
         return Stream.of(expr.getFuns(), domain.getFuns()).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
+    @Override
+    public ABoolExpr clone() {
+        return new InDomain(expr.clone(), domain.clone());
+    }
+
     public AArithExpr getExpr() {
         return expr;
     }

@@ -1,5 +1,6 @@
 package formatters.eventb.exprs;
 
+import algs.heuristics.relevance.RelevancePredicate;
 import formatters.AFormatter;
 import graphs.AbstractState;
 import graphs.ConcreteState;
@@ -200,6 +201,11 @@ public abstract class AExprFormatter extends AFormatter implements IExprVisitor 
     @Override
     public String visit(ConcreteState concreteState) {
         return new Predicate(concreteState.getName(), concreteState.getExpr()).accept(this).replaceAll("and[(]", "").replaceAll("[)]$", "");
+    }
+
+    @Override
+    public String visit(RelevancePredicate relevancePredicate) {
+        return relevancePredicate.getExpr().accept(this);
     }
 
 }

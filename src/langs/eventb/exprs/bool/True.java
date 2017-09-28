@@ -45,4 +45,9 @@ public final class True extends ABoolExpr {
         return new LinkedHashSet<>();
     }
 
+    @Override
+    public ABoolExpr clone() {
+        return new True();
+    }
+
 }

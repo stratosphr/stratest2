@@ -52,4 +52,9 @@ public final class Int extends AValue {
         return value;
     }
 
+    @Override
+    public AValue clone() {
+        return new Int(value);
+    }
+
 }

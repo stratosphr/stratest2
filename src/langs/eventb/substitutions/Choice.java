@@ -30,6 +30,11 @@ public final class Choice extends ASubstitution {
         return new Or(substitutions.stream().map(substitution -> substitution.getPrd(assignables)).toArray(ABoolExpr[]::new));
     }
 
+    @Override
+    public ASubstitution clone() {
+        return new Choice(substitutions.stream().map(ASubstitution::clone).toArray(ASubstitution[]::new));
+    }
+
     public LinkedHashSet<ASubstitution> getSubstitutions() {
         return substitutions;
     }

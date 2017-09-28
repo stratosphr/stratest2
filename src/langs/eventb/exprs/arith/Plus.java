@@ -5,6 +5,7 @@ import formatters.smt.ISMT2Visitor;
 import langs.eventb.exprs.AExpr;
 import visitors.primer.IPrimerVisitor;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -16,10 +17,10 @@ import java.util.stream.Collectors;
  */
 public final class Plus extends AArithExpr {
 
-    private final LinkedHashSet<AArithExpr> operands;
+    private final ArrayList<AArithExpr> operands;
 
     public Plus(AArithExpr... operands) {
-        this.operands = new LinkedHashSet<>(Arrays.asList(operands));
+        this.operands = new ArrayList<>(Arrays.asList(operands));
     }
 
     @Override
@@ -52,8 +53,13 @@ public final class Plus extends AArithExpr {
         return operands.stream().map(AExpr::getFuns).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
-    public LinkedHashSet<AArithExpr> getOperands() {
+    public ArrayList<AArithExpr> getOperands() {
         return operands;
+    }
+
+    @Override
+    public AArithExpr clone() {
+        return new Plus(operands.stream().map(AArithExpr::clone).toArray(AArithExpr[]::new));
     }
 
 }

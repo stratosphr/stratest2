@@ -1,5 +1,7 @@
 package visitors.primer;
 
+import algs.heuristics.relevance.AAtomicPredicate;
+import algs.heuristics.relevance.RelevancePredicate;
 import graphs.AbstractState;
 import graphs.ConcreteState;
 import langs.eventb.Machine;
@@ -249,6 +251,11 @@ public final class Primer implements IPrimerVisitor {
         TreeMap<AAssignable, AValue> state = new TreeMap<>();
         concreteState.getMapping().keySet().forEach(assignable -> state.put((AAssignable) assignable.accept(this), (AValue) concreteState.getMapping().get(assignable).accept(this)));
         return new ConcreteState(concreteState.getName(), state);
+    }
+
+    @Override
+    public RelevancePredicate visit(RelevancePredicate relevancePredicate) {
+        return new RelevancePredicate(relevancePredicate.getAtomicPredicates().toArray(new AAtomicPredicate[relevancePredicate.getAtomicPredicates().size()]));
     }
 
 }

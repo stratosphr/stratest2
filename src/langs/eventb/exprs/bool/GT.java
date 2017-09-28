@@ -57,6 +57,11 @@ public final class GT extends ABoolExpr {
         return Stream.of(left.getFuns(), right.getFuns()).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
+    @Override
+    public ABoolExpr clone() {
+        return new GT(left.clone(), right.clone());
+    }
+
     public AArithExpr getLeft() {
         return left;
     }

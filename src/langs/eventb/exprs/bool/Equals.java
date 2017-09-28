@@ -56,6 +56,11 @@ public final class Equals extends ABoolExpr {
         return operands.stream().map(AExpr::getFuns).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
+    @Override
+    public ABoolExpr clone() {
+        return new Equals(operands.stream().map(AArithExpr::clone).toArray(AArithExpr[]::new));
+    }
+
     public LinkedHashSet<AArithExpr> getOperands() {
         return operands;
     }

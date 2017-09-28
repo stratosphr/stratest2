@@ -83,4 +83,9 @@ public final class Assignment extends ASubstitution {
         return value;
     }
 
+    @Override
+    public Assignment clone() {
+        return new Assignment(assignable.clone(), value.clone());
+    }
+
 }

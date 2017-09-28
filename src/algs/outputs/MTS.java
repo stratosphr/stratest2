@@ -6,6 +6,7 @@ import graphs.AbstractTransition;
 import langs.eventb.Event;
 
 import java.util.LinkedHashSet;
+import java.util.stream.Collectors;
 
 /**
  * Created by gvoiron on 18/06/17.
@@ -46,6 +47,11 @@ public final class MTS extends AFSM<AbstractState, Event> {
 
     public LinkedHashSet<AbstractTransition> getDeltaPlus() {
         return deltaPlus;
+    }
+
+    @Override
+    public MTS clone() {
+        return new MTS(new LinkedHashSet<>(q0.stream().map(AbstractState::clone).collect(Collectors.toList())), new LinkedHashSet<>(q.stream().map(AbstractState::clone).collect(Collectors.toList())), new LinkedHashSet<>(delta.stream().map(AbstractTransition::clone).collect(Collectors.toList())), new LinkedHashSet<>(deltaMinus.stream().map(AbstractTransition::clone).collect(Collectors.toList())), new LinkedHashSet<>(deltaPlus.stream().map(AbstractTransition::clone).collect(Collectors.toList())));
     }
 
 }

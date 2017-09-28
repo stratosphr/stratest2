@@ -1,5 +1,6 @@
 package langs.eventb;
 
+import formatters.eventb.IEventBVisitable;
 import formatters.eventb.IEventBVisitor;
 import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.*;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
  * Created by gvoiron on 21/09/17.
  * Time : 09:49
  */
-public final class Machine extends AEventBObject {
+public final class Machine implements IEventBVisitable {
 
     private static String name = "";
     private static LinkedHashMap<String, AArithExpr> constsDefs = new LinkedHashMap<>();

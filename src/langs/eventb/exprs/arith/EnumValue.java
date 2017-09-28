@@ -69,4 +69,9 @@ public final class EnumValue extends AValue {
         return mapping.get(name);
     }
 
+    @Override
+    public AValue clone() {
+        return new EnumValue(name);
+    }
+
 }

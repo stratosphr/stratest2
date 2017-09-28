@@ -268,7 +268,7 @@
                 <fun name="Dir">
                     <int value="2"/>
                 </fun>
-                <int value="1"/>
+                <int value="-1"/>
             </assignment>
             <assignment>
                 <fun name="Mvt">

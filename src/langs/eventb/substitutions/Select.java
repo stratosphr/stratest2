@@ -31,6 +31,11 @@ public final class Select extends ASubstitution {
         return new And(condition, substitution.getPrd(assignables));
     }
 
+    @Override
+    public ASubstitution clone() {
+        return new Select(condition.clone(), substitution.clone());
+    }
+
     public ABoolExpr getCondition() {
         return condition;
     }

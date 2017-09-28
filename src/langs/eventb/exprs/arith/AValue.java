@@ -5,4 +5,8 @@ package langs.eventb.exprs.arith;
  * Time : 23:26
  */
 public abstract class AValue extends AArithExpr {
+
+    @Override
+    public abstract AValue clone();
+
 }

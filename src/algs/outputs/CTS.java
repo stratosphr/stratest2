@@ -9,6 +9,7 @@ import langs.eventb.Event;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.stream.Collectors;
 
 /**
  * Created by gvoiron on 18/06/17.
@@ -49,6 +50,15 @@ public final class CTS extends AFSM<ConcreteState, Event> {
 
     public LinkedHashSet<ConcreteTransition> getDeltaC() {
         return deltaC;
+    }
+
+    @Override
+    public CTS clone() {
+        LinkedHashMap<ConcreteState, AbstractState> alpha = new LinkedHashMap<>();
+        LinkedHashMap<ConcreteState, EConcreteStateColor> kappa = new LinkedHashMap<>();
+        this.alpha.forEach((concreteState, abstractState) -> alpha.put(concreteState.clone(), abstractState.clone()));
+        this.kappa.forEach((concreteState, color) -> kappa.put(concreteState.clone(), color));
+        return new CTS(new LinkedHashSet<>(c0.stream().map(ConcreteState::clone).collect(Collectors.toList())), new LinkedHashSet<>(c.stream().map(ConcreteState::clone).collect(Collectors.toList())), alpha, kappa, new LinkedHashSet<>(deltaC.stream().map(ConcreteTransition::clone).collect(Collectors.toList())));
     }
 
 }

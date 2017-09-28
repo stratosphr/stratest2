@@ -56,6 +56,11 @@ public final class Set extends ASetExpr {
     }
 
     @Override
+    public ASetExpr clone() {
+        return new Set(elements.stream().map(AArithExpr::clone).toArray(AArithExpr[]::new));
+    }
+
+    @Override
     public LinkedHashSet<AValue> getSet() {
         if (set == null) {
             LinkedHashSet<AAssignable> vars = new LinkedHashSet<>();

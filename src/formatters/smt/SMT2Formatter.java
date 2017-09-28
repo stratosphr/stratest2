@@ -1,5 +1,6 @@
 package formatters.smt;
 
+import algs.heuristics.relevance.RelevancePredicate;
 import formatters.AFormatter;
 import graphs.AbstractState;
 import graphs.ConcreteState;
@@ -219,6 +220,11 @@ public final class SMT2Formatter extends AFormatter implements ISMT2Visitor {
     @Override
     public String visit(ConcreteState concreteState) {
         return concreteState.getExpr().accept(this);
+    }
+
+    @Override
+    public String visit(RelevancePredicate relevancePredicate) {
+        return relevancePredicate.getExpr().accept(this);
     }
 
 }

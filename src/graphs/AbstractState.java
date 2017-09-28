@@ -34,4 +34,11 @@ public final class AbstractState extends AState<ABoolExpr, Boolean> {
         return visitor.visit(this);
     }
 
+    @Override
+    public AbstractState clone() {
+        TreeMap<ABoolExpr, Boolean> mapping = new TreeMap<>();
+        this.mapping.forEach((expr1, aBoolean) -> mapping.put(expr1.clone(), aBoolean));
+        return new AbstractState(name, mapping);
+    }
+
 }

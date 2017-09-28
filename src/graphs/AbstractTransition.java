@@ -21,4 +21,9 @@ public final class AbstractTransition extends ATransition<AbstractState, Event> 
         return source + " -[ " + label.getName() + " ]-> " + target;
     }
 
+    @Override
+    public AbstractTransition clone() {
+        return new AbstractTransition(source.clone(), label.clone(), target.clone());
+    }
+
 }

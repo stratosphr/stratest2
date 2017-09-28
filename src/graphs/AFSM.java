@@ -2,6 +2,7 @@ package graphs;
 
 import formatters.graphs.IGVZFormattable;
 import formatters.graphs.IGVZFormatter;
+import utilities.ICloneable;
 
 import java.util.LinkedHashSet;
 
@@ -9,9 +10,9 @@ import java.util.LinkedHashSet;
  * Created by gvoiron on 25/09/17.
  * Time : 15:54
  */
-public abstract class AFSM<S extends AState, L> implements IGVZFormattable<S, L> {
+public abstract class AFSM<S extends AState, L extends ICloneable> implements IGVZFormattable<S, L>, ICloneable<AFSM<S, L>> {
 
-    private final LinkedHashSet<S> initialStates;
+    protected final LinkedHashSet<S> initialStates;
     private final LinkedHashSet<S> states;
     private final LinkedHashSet<? extends ATransition<S, L>> transitions;
 
@@ -40,5 +41,8 @@ public abstract class AFSM<S extends AState, L> implements IGVZFormattable<S, L>
     public String accept(IGVZFormatter<S, L> formatter) {
         return formatter.visit(this);
     }
+
+    @Override
+    public abstract AFSM<S, L> clone();
 
 }

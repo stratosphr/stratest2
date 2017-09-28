@@ -54,6 +54,11 @@ public final class NamedSet extends ASetExpr {
         return new LinkedHashSet<>();
     }
 
+    @Override
+    public ASetExpr clone() {
+        return new NamedSet(name);
+    }
+
     public String getName() {
         return name;
     }

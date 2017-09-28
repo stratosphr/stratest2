@@ -5,6 +5,7 @@ import formatters.AFormatter;
 import graphs.AFSM;
 import graphs.AState;
 import graphs.ATransition;
+import utilities.ICloneable;
 import utilities.sets.Tuple2;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
  * Created by gvoiron on 26/09/17.
  * Time : 12:41
  */
-public abstract class AGVZFormatter<S extends AState, L> extends AFormatter implements IGVZFormatter<S, L> {
+public abstract class AGVZFormatter<S extends AState, L extends ICloneable> extends AFormatter implements IGVZFormatter<S, L> {
 
     protected final boolean useFullLabels;
     protected final ERankDir rankDir;

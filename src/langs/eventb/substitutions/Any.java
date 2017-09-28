@@ -43,6 +43,11 @@ public class Any extends ASubstitution {
         return new Exists(new And(condition, substitution.getPrd(assignables.stream().filter(assignable -> !(assignable instanceof Var) || !quantifiedVarsDefs.keySet().contains(assignable)).collect(Collectors.toCollection(LinkedHashSet::new)))), quantifiedVarsDefs.keySet().stream().map(var -> new Tuple2<>(var, quantifiedVarsDefs.get(var))).toArray((IntFunction<Tuple2<Var, ASetExpr>[]>) Tuple2[]::new));
     }
 
+    @Override
+    public ASubstitution clone() {
+        return new Any(condition.clone(), substitution.clone(), quantifiedVarsDefs.keySet().stream().map(var -> new Tuple2<>(var.clone(), quantifiedVarsDefs.get(var).clone())).toArray((IntFunction<Tuple2<Var, ASetExpr>[]>) Tuple2[]::new));
+    }
+
     public ABoolExpr getCondition() {
         return condition;
     }

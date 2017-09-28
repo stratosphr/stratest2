@@ -21,4 +21,9 @@ public class ConcreteTransition extends ATransition<ConcreteState, Event> {
         return source + " -[ " + label.getName() + " ]-> " + target;
     }
 
+    @Override
+    public ConcreteTransition clone() {
+        return new ConcreteTransition(source.clone(), label.clone(), target.clone());
+    }
+
 }

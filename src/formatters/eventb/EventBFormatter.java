@@ -1,5 +1,6 @@
 package formatters.eventb;
 
+import algs.heuristics.relevance.RelevancePredicate;
 import formatters.eventb.exprs.AExprFormatter;
 import langs.eventb.Event;
 import langs.eventb.Machine;
@@ -69,12 +70,17 @@ public final class EventBFormatter extends AExprFormatter implements IEventBVisi
 
     @Override
     public String visit(Choice choice) {
-        return null;
+        return line("CHOICE") + choice.getSubstitutions().stream().map(substitution -> indentRight() + indentLine(substitution.toString())).collect(Collectors.joining(indentLeft() + indentLine("OR"))) + indentLeft() + indentLine("END");
     }
 
     @Override
     public String visit(Any any) {
         return line("ANY") + indentRight() + any.getQuantifiedVarsDefs().keySet().stream().map(var -> indentLine(var.accept(this) + " " + IN + " " + any.getQuantifiedVarsDefs().get(var).accept(this))).collect(Collectors.joining()) + indentLeft() + indentLine("WHERE") + indentRight() + indentLine(any.getCondition().accept(this)) + indentLeft() + indentLine("THEN") + indentRight() + indentLine(any.getSubstitution().accept(this)) + indentLeft() + indent("END");
+    }
+
+    @Override
+    public String visit(RelevancePredicate relevancePredicate) {
+        return relevancePredicate.getExpr().accept(this);
     }
 
 }

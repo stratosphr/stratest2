@@ -51,6 +51,11 @@ public final class Invariant extends ABoolExpr {
         return expr.getFuns();
     }
 
+    @Override
+    public ABoolExpr clone() {
+        return new Invariant(expr.clone());
+    }
+
     public ABoolExpr getExpr() {
         return expr;
     }

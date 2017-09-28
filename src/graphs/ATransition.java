@@ -1,10 +1,12 @@
 package graphs;
 
+import utilities.ICloneable;
+
 /**
  * Created by gvoiron on 25/09/17.
  * Time : 16:08
  */
-public abstract class ATransition<S, L> {
+public abstract class ATransition<S, L extends ICloneable> implements ICloneable<ATransition<S, L>> {
 
     protected final S source;
     protected final L label;
@@ -40,5 +42,8 @@ public abstract class ATransition<S, L> {
 
     @Override
     public abstract String toString();
+
+    @Override
+    public abstract ATransition<S, L> clone();
 
 }

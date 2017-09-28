@@ -58,6 +58,11 @@ public final class Range extends ASetExpr {
     }
 
     @Override
+    public ASetExpr clone() {
+        return new Range(lowerBound.clone(), upperBound.clone());
+    }
+
+    @Override
     public LinkedHashSet<AValue> getSet() {
         if (set == null) {
             Var varLowerBound = new Var("_lowerBound");

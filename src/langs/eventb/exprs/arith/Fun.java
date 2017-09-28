@@ -60,4 +60,9 @@ public final class Fun extends AAssignable {
         return operand;
     }
 
+    @Override
+    public AAssignable clone() {
+        return new Fun(name, operand.clone());
+    }
+
 }

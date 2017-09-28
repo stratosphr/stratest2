@@ -20,4 +20,7 @@ public abstract class AArithExpr extends AExpr<AArithExpr> implements ISMT2Visit
         return Primer.unprime(this);
     }
 
+    @Override
+    public abstract AArithExpr clone();
+
 }

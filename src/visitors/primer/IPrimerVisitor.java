@@ -1,5 +1,6 @@
 package visitors.primer;
 
+import algs.heuristics.relevance.RelevancePredicate;
 import graphs.AbstractState;
 import graphs.ConcreteState;
 import langs.eventb.exprs.arith.*;
@@ -84,5 +85,7 @@ public interface IPrimerVisitor {
     AbstractState visit(AbstractState abstractState);
 
     ConcreteState visit(ConcreteState concreteState);
+
+    RelevancePredicate visit(RelevancePredicate relevancePredicate);
 
 }

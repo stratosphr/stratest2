@@ -1,5 +1,6 @@
 package formatters.eventb.exprs;
 
+import algs.heuristics.relevance.RelevancePredicate;
 import graphs.AbstractState;
 import graphs.ConcreteState;
 import langs.eventb.exprs.arith.*;
@@ -84,5 +85,7 @@ public interface IExprVisitor {
     String visit(AbstractState abstractState);
 
     String visit(ConcreteState concreteState);
+
+    String visit(RelevancePredicate relevancePredicate);
 
 }

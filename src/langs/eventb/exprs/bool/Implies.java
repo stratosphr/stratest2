@@ -56,6 +56,11 @@ public final class Implies extends ABoolExpr {
         return Stream.of(condition.getFuns(), thenPart.getFuns()).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
+    @Override
+    public ABoolExpr clone() {
+        return new Implies(condition.clone(), thenPart.clone());
+    }
+
     public ABoolExpr getCondition() {
         return condition;
     }

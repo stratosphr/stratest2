@@ -58,6 +58,11 @@ public final class BoolITE extends ABoolExpr {
         return Stream.of(condition.getFuns(), thenPart.getFuns(), elsePart.getFuns()).flatMap(Collection::stream).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
+    @Override
+    public ABoolExpr clone() {
+        return new BoolITE(condition.clone(), thenPart.clone(), elsePart.clone());
+    }
+
     public ABoolExpr getCondition() {
         return condition;
     }

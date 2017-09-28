@@ -51,6 +51,11 @@ public final class Not extends ABoolExpr {
         return operand.getFuns();
     }
 
+    @Override
+    public ABoolExpr clone() {
+        return new Not(operand.clone());
+    }
+
     public ABoolExpr getOperand() {
         return operand;
     }

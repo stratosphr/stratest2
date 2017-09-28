@@ -47,6 +47,11 @@ public final class Enum extends ASetExpr {
     }
 
     @Override
+    public ASetExpr clone() {
+        return new Enum(enumValues.stream().map(AValue::clone).toArray(EnumValue[]::new));
+    }
+
+    @Override
     public LinkedHashSet<AValue> getSet() {
         return enumValues.stream().map(EnumValue::getValue).collect(Collectors.toCollection(LinkedHashSet::new));
     }

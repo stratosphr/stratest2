@@ -5,6 +5,7 @@ import formatters.eventb.exprs.IExprVisitable;
 import langs.eventb.exprs.arith.Const;
 import langs.eventb.exprs.arith.Fun;
 import langs.eventb.exprs.arith.Var;
+import utilities.ICloneable;
 import visitors.primer.IPrimerVisitable;
 
 import java.util.LinkedHashSet;
@@ -13,7 +14,7 @@ import java.util.LinkedHashSet;
  * Created by gvoiron on 14/09/17.
  * Time : 11:41
  */
-public abstract class AExpr<T extends AExpr> implements IExprVisitable, IPrimerVisitable<T>, Comparable<AExpr> {
+public abstract class AExpr<T extends AExpr> implements IExprVisitable, IPrimerVisitable<T>, ICloneable<T>, Comparable<AExpr> {
 
     public abstract LinkedHashSet<Const> getConsts();
 
@@ -44,5 +45,8 @@ public abstract class AExpr<T extends AExpr> implements IExprVisitable, IPrimerV
     public int compareTo(AExpr expr) {
         return toString().compareTo(expr.toString());
     }
+
+    @Override
+    public abstract T clone();
 
 }

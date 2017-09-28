@@ -16,4 +16,7 @@ public abstract class AAssignable extends AArithExpr {
         return name;
     }
 
+    @Override
+    public abstract AAssignable clone();
+
 }
