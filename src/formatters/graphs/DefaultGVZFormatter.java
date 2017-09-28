@@ -4,11 +4,13 @@ import graphs.AState;
 import graphs.ATransition;
 import langs.eventb.Event;
 
+import java.util.stream.Collectors;
+
 /**
  * Created by gvoiron on 26/09/17.
  * Time : 13:05
  */
-public final class DefaultGVZFormatter<S extends AState> extends AGVZFormatter<S, Event> {
+public final class DefaultGVZFormatter<S extends AState<?, ?>> extends AGVZFormatter<S, Event> {
 
     public DefaultGVZFormatter(boolean useFullLabels, ERankDir rankDir) {
         super(useFullLabels, rankDir);
@@ -25,7 +27,8 @@ public final class DefaultGVZFormatter<S extends AState> extends AGVZFormatter<S
 
     @Override
     public GVZState formatReachedState(S reachedState) {
-        return new GVZState(reachedState.getName()).setLabel(useFullLabels ? reachedState : reachedState.getName()).setShape("box").setStyle("rounded, filled").setColor("forestgreen").setFillColor("limegreen").setColor("forestgreen");
+        String markers = reachedState.getMarkers().keySet().stream().map(o -> o + "=" + reachedState.getMarkers().get(o)).collect(Collectors.joining());
+        return new GVZState(reachedState.getName()).setLabel(useFullLabels ? reachedState + (markers.isEmpty() ? "" : "\\n" + markers) : reachedState.getName() + (markers.isEmpty() ? "" : "\\n" + markers)).setShape("box").setStyle("rounded, filled").setColor("forestgreen").setFillColor("limegreen").setColor("forestgreen");
     }
 
     @Override

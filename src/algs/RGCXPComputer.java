@@ -163,6 +163,7 @@ public final class RGCXPComputer extends AComputer<ATS> {
         for (ConcreteState c : rchblPart.getFirst()) {
             if (Z3.checkSAT(new And(Machine.getInvariant(), c, new Equals(variant, relevancePredicate.getVariantC0(c, variantsMapping)), new GEQ(relevancePredicate.getVariantC0(c, variantsMapping), new Int(0)))) == SATISFIABLE) {
                 AValue aValue = Z3.getModel(new LinkedHashSet<>(Collections.singletonList(variant))).get(variant);
+                c.addMarker("V", aValue + " (CXP)");
                 //System.out.println("# " + aValue);
                 variantsMapping.put(c, new LinkedHashMap<>());
                 for (AAtomicPredicate ap : relevancePredicate.getAtomicPredicates()) {
@@ -218,7 +219,7 @@ public final class RGCXPComputer extends AComputer<ATS> {
                                         new GEQ(variant, new Int(0))
                                 )) == SATISFIABLE) {
                                     AValue aValue = Z3.getModel(new LinkedHashSet<>(Collections.singletonList(variant))).get(variant);
-                                    c_.setName(c_.getName() + "_" + aValue);
+                                    c_.addMarker("V", aValue);
                                     //System.out.println(c.getName() + " " + e.getName() + " " + c_.getName());
                                     //System.out.println("# " + aValue);
                                     variantsMapping.put(c_, new LinkedHashMap<>());
