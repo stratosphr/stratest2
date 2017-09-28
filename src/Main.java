@@ -1,60 +1,79 @@
-import algs.AbstractStatesComputer;
-import algs.CXPComputer;
-import algs.FullFSMComputer;
-import algs.RGCXPComputer;
+import algs.heuristics.DefaultAbstractStatesOrderingFunction;
+import algs.heuristics.DefaultEventsOrderingFunction;
 import algs.heuristics.relevance.*;
-import algs.outputs.ATS;
-import formatters.graphs.DefaultGVZFormatter;
-import graphs.AbstractState;
-import graphs.ConcreteState;
-import graphs.FSM;
-import langs.eventb.Event;
-import langs.eventb.exprs.arith.EnumValue;
-import langs.eventb.exprs.arith.Fun;
-import langs.eventb.exprs.arith.Int;
-import langs.eventb.exprs.arith.Var;
+import formatters.eventb.EventBFormatter;
+import langs.eventb.Machine;
+import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.Equals;
-import langs.eventb.exprs.bool.Predicate;
 import parsers.eventb.EventBParser;
 
-import java.io.File;
-import java.util.LinkedHashSet;
-
-import static formatters.graphs.ERankDir.LR;
+import static algs.statistics.Saver.save;
+import static utilities.Resources.*;
 
 public class Main {
 
     public static void main(String[] args) {
-        EventBParser.parseMachine(new File("resources/eventb/CM/CM.ebm"));
-        LinkedHashSet<Predicate> ap = EventBParser.parseAPs(new File("resources/eventb/CM/APs/ap0.ap"));
-        LinkedHashSet<AbstractState> as = new AbstractStatesComputer(ap).compute();
-        ATS cxp = new CXPComputer(as).compute();
+        /*ev_ap1();
+        ev_ap2();
+        ev_ap3();
+        cm_ap1();
+        cm_ap2(); // Relevance may be improved (AT = 36% with relevance, AT = 40% with true)
+        ca_ap1();
+        ca_ap2();
+        el_ap0();
+        el_ap1();
+        el_ap2();
+        el_ap4();
+        ph_ap1();
+        ph_ap2();
+        ph_ap3();
+        ph_ap4();
+        l14_ap1();
+        l14_ap2();
+        l14_ap3();*/
+        el_ap0();
+        ca_ap1();
+        ca_ap2();
     }
 
-    public void cm() {
-        EventBParser.parseMachine(new File("resources/eventb/CM/CM.ebm"));
-        LinkedHashSet<Predicate> ap = EventBParser.parseAPs(new File("resources/eventb/CM/APs/ap0.ap"));
-        LinkedHashSet<AbstractState> as = new AbstractStatesComputer(ap).compute();
-        ATS cxp = new CXPComputer(as).compute();
-        RelevancePredicate relevancePredicate = new RelevancePredicate(
+    public static RelevancePredicate el() {
+        return new RelevancePredicate(
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(1)), new EnumValue("ok"), new EnumValue("ko")),
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(2)), new EnumValue("ok"), new EnumValue("ko")),
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(3)), new EnumValue("ok"), new EnumValue("ko")),
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(4)), new EnumValue("ok"), new EnumValue("ko")),
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(5)), new EnumValue("ok"), new EnumValue("ko")),
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(6)), new EnumValue("ok"), new EnumValue("ko"))
+        );
+    }
+
+    public static RelevancePredicate ev() {
+        return new RelevancePredicate(
+                new AtomicPredicateEnumSet(new Fun("PE", new Var("Pos")), new EnumValue("ouvertes"), new EnumValue("fermees")),
+                new AtomicPredicateEnumSet(new Fun("PE", new Var("Pos")), new EnumValue("fermees"), new EnumValue("ouvertes")),
+                new AtomicPredicateEnumSet(new Var("PC"), new EnumValue("fermees"), new EnumValue("ouvertes")),
+                new AtomicPredicateEnumSet(new Var("PC"), new EnumValue("ouvertes"), new EnumValue("refermees")),
+                new AtomicPredicateEnumSet(new Var("Dir"), new Int(1), new Int(-1)),
+                new AtomicPredicateMultiImpliesV2(
+                        new AtomicPredicateImplies(new Equals(new Var("Dir"), new Int(1)), new AtomicPredicateGT(new Var("Pos"))),
+                        new AtomicPredicateImplies(new Equals(new Var("Dir"), new Int(-1)), new AtomicPredicateLT(new Var("Pos")))
+                ),
+                new AtomicPredicateEnumSet(new Fun("BM", new Plus(new Var("Pos"), new Int(1))), new Int(0), new Int(1)),
+                new AtomicPredicateEnumSet(new Fun("BD", new Minus(new Var("Pos"), new Int(1))), new Int(0), new Int(1))
+        );
+        // Full : > 2570
+    }
+
+    public static RelevancePredicate cm() {
+        return new RelevancePredicate(
                 new AtomicPredicateGT(new Var("Balance")),
                 new AtomicPredicateLT(new Var("CoffeeLeft")),
                 new AtomicPredicateEnumSet(new Var("AskCoffee"), new Int(0), new Int(1))
         );
-        ATS rgcxp = new RGCXPComputer(cxp, relevancePredicate, 1000).compute();
-        FSM<ConcreteState, Event> full = new FullFSMComputer().compute();
-        System.out.println(cxp.getCTS().accept(new DefaultGVZFormatter<>(true, LR)));
-        System.out.println(rgcxp.getCTS().accept(new DefaultGVZFormatter<>(true, LR)));
-        System.out.println(full.accept(new DefaultGVZFormatter<>(true, LR)));
-        System.out.println(rgcxp.getCTS().getC().size());
-        System.out.println(full.getStates().size());
     }
 
-    public void l14() {
-        EventBParser.parseMachine(new File("resources/eventb/L14/L14.ebm"));
-        LinkedHashSet<Predicate> ap2 = EventBParser.parseAPs(new File("resources/eventb/L14/APs/ap1.ap"));
-        LinkedHashSet<AbstractState> as2 = new AbstractStatesComputer(ap2).compute();
-        RelevancePredicate relevancePredicate = new RelevancePredicate(
+    public static RelevancePredicate l14() {
+        return new RelevancePredicate(
                 new AtomicPredicateEnumSet(new Fun("Mvt", new Int(1)), new Int(0), new Int(1)),
                 new AtomicPredicateMultiImpliesV2(
                         new AtomicPredicateImplies(new Equals(new Fun("Dir", new Int(1)), new Int(1)), new AtomicPredicateGT(new Fun("Pos", new Int(1)))),
@@ -75,14 +94,167 @@ public class Main {
                 new AtomicPredicateEnumSet(new Fun("Portes", new Int(2)), new EnumValue("ouvertes"), new EnumValue("refermees"))
 
         );
-        ATS cxp = new CXPComputer(as2).compute();
-        ATS rgcxp = new RGCXPComputer(cxp, relevancePredicate, 1000).compute();
-        System.out.println(rgcxp.getCTS().accept(new DefaultGVZFormatter<>(true, LR)));
-        FSM<ConcreteState, Event> full = new FullFSMComputer().compute();
-        System.out.println(rgcxp.getCTS().getC().size());
-        System.out.println(full.getStates().size());
-        /*System.out.println(cxp.getCTS().accept(new DefaultGVZFormatter<>(true, ERankDir.LR)));
-        System.out.println(rgcxp.getCTS().accept(new DefaultGVZFormatter<>(true, ERankDir.LR)));*/
+    }
+
+    private static RelevancePredicate ca() {
+        return new RelevancePredicate(
+                // ************************* //
+                new AtomicPredicateLT(new Var("Us")),
+                new AtomicPredicateGT(new Var("AC")),
+                new AtomicPredicateGT(new Var("De")),
+                // ************************* //
+                new AtomicPredicateLT(new Var("Lo")),
+                new AtomicPredicateGT(new Var("Gl")),
+                // ************************* //
+                new AtomicPredicateLT(new Var("AC"))
+                // ************************* //
+        );
+    }
+
+    private static RelevancePredicate ph() {
+        return new RelevancePredicate(
+                new AtomicPredicateGT(new Var("Enum"))
+        );
+    }
+
+    private static void ca_ap1() {
+        //save("1_true", EventBParser.parseMachine(EBM_CA), EventBParser.parseAPs(AP_CA_1), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(), new True(), 7000);
+        EventBParser.parseMachine(EBM_CA);
+        save("1_rel", EventBParser.parseAPs(AP_CA_1), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+                ca(),
+                7000
+        );
+    }
+
+    private static void ca_ap2() {
+        EventBParser.parseMachine(EBM_CA);
+        save("2_rel", EventBParser.parseAPs(AP_CA_2), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+                ca(),
+                7000
+        );
+    }
+
+    private static void cm_ap1() {
+        EventBParser.parseMachine(EBM_CM);
+        save("1", EventBParser.parseAPs(AP_CM_1), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+                cm(),
+                7000);
+    }
+
+    private static void cm_ap2() {
+        EventBParser.parseMachine(EBM_CM);
+        save("2", EventBParser.parseAPs(AP_CM_2), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+                cm(),
+                7000);
+    }
+
+    private static void el_ap0() {
+        EventBParser.parseMachine(EBM_EL);
+        System.out.println(EventBFormatter.format(new Machine()));
+        System.exit(42);
+        save("0_rel", EventBParser.parseAPs(AP_EL_0), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+                el(),
+                7000
+        );
+    }
+
+    private static void el_ap1() {
+        EventBParser.parseMachine(EBM_EL);
+        save("1_rel", EventBParser.parseAPs(AP_EL_1), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+                el(),
+                7000
+        );
+    }
+
+    private static void el_ap2() {
+        EventBParser.parseMachine(EBM_EL);
+        save("2_rel", EventBParser.parseAPs(AP_EL_2), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+                el(),
+                7000
+        );
+    }
+
+    private static void el_ap4() {
+        EventBParser.parseMachine(EBM_EL);
+        save("4_rel", EventBParser.parseAPs(AP_EL_4), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+                el(),
+                7000
+        );
+    }
+
+    private static void ev_ap1() {
+        // True + limit ~= 2750 for 100%
+        EventBParser.parseMachine(EBM_EV);
+        save("1_rel", EventBParser.parseAPs(AP_EV_1), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+                ev(),
+                1500
+        );
+    }
+
+    private static void ev_ap2() {
+        EventBParser.parseMachine(EBM_EV);
+        save("2", EventBParser.parseAPs(AP_EV_2), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+                ev(),
+                7000
+        );
+    }
+
+    private static void ev_ap3() {
+        EventBParser.parseMachine(EBM_EV);
+        save("3_rel", EventBParser.parseAPs(AP_EV_3), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+                ev(),
+                7000
+        );
+    }
+
+    private static void l14_ap1() {
+        EventBParser.parseMachine(EBM_L14);
+        save("1_rel", EventBParser.parseAPs(AP_L14_1), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+                l14(),
+                7000
+        );
+    }
+
+    private static void l14_ap2() {
+        EventBParser.parseMachine(EBM_L14);
+        save("2", EventBParser.parseAPs(AP_L14_2), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+                l14(),
+                7000);
+    }
+
+    private static void l14_ap3() {
+        EventBParser.parseMachine(EBM_L14);
+        save("3", EventBParser.parseAPs(AP_L14_3), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+                l14(),
+                7000);
+    }
+
+    private static void ph_ap1() {
+        EventBParser.parseMachine(EBM_PH);
+        save("1", EventBParser.parseAPs(AP_PH_1), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+                ph(),
+                7000);
+    }
+
+    private static void ph_ap2() {
+        EventBParser.parseMachine(EBM_PH);
+        save("2", EventBParser.parseAPs(AP_PH_2), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+                ph(),
+                7000);
+    }
+
+    private static void ph_ap3() {
+        EventBParser.parseMachine(EBM_PH);
+        save("3", EventBParser.parseAPs(AP_PH_3), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+                ph(),
+                7000);
+    }
+
+    private static void ph_ap4() {
+        EventBParser.parseMachine(EBM_PH);
+        save("4", EventBParser.parseAPs(AP_PH_4), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+                ph(),
+                7000);
     }
 
 }

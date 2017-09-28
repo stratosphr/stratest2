@@ -1,0 +1,2293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MACHINE name="Elevator">
+
+    <VARIABLES>
+        <CVariable val="PC"/> <!-- Portes de la cabine -->
+        <CVariable val="Pos"/> <!-- Position -->
+        <CVariable val="Dir"/> <!-- Direction -->
+        <CVariable val="PE0"/> <!-- Portes aux étages -->
+        <CVariable val="PE1"/> <!-- Portes aux étages -->
+        <CVariable val="PE2"/> <!-- Portes aux étages -->
+        <CVariable val="PE3"/> <!-- Portes aux étages -->
+        <CVariable val="PE4"/> <!-- Portes aux étages -->
+        <CVariable val="PE5"/> <!-- Portes aux étages -->
+        <CVariable val="PE6"/> <!-- Portes aux étages -->
+        <CVariable val="PE7"/> <!-- Portes aux étages -->
+        <CVariable val="PE8"/> <!-- Portes aux étages -->
+        <CVariable val="BC0"/> <!-- Bouton cabine -->
+        <CVariable val="BC1"/> <!-- Bouton cabine -->
+        <CVariable val="BC2"/> <!-- Bouton cabine -->
+        <CVariable val="BC3"/> <!-- Bouton cabine -->
+        <CVariable val="BC4"/> <!-- Bouton cabine -->
+        <CVariable val="BC5"/> <!-- Bouton cabine -->
+        <CVariable val="BC6"/> <!-- Bouton cabine -->
+        <CVariable val="BC7"/> <!-- Bouton cabine -->
+        <CVariable val="BC8"/> <!-- Bouton cabine -->
+        <CVariable val="BM0"/> <!-- Bouton à l'étage (Montée) -->
+        <CVariable val="BM1"/> <!-- Bouton à l'étage (Montée) -->
+        <CVariable val="BM2"/> <!-- Bouton à l'étage (Montée) -->
+        <CVariable val="BM3"/> <!-- Bouton à l'étage (Montée) -->
+        <CVariable val="BM4"/> <!-- Bouton à l'étage (Montée) -->
+        <CVariable val="BM5"/> <!-- Bouton à l'étage (Montée) -->
+        <CVariable val="BM6"/> <!-- Bouton à l'étage (Montée) -->
+        <CVariable val="BM7"/> <!-- Bouton à l'étage (Montée) -->
+        <CVariable val="BM8"/> <!-- Bouton à l'étage (Montée) -->
+        <CVariable val="BD0"/> <!-- Bouton à l'étage (Descente) -->
+        <CVariable val="BD1"/> <!-- Bouton à l'étage (Descente) -->
+        <CVariable val="BD2"/> <!-- Bouton à l'étage (Descente) -->
+        <CVariable val="BD3"/> <!-- Bouton à l'étage (Descente) -->
+        <CVariable val="BD4"/> <!-- Bouton à l'étage (Descente) -->
+        <CVariable val="BD5"/> <!-- Bouton à l'étage (Descente) -->
+        <CVariable val="BD6"/> <!-- Bouton à l'étage (Descente) -->
+        <CVariable val="BD7"/> <!-- Bouton à l'étage (Descente) -->
+        <CVariable val="BD8"/> <!-- Bouton à l'étage (Descente) -->
+    </VARIABLES>
+
+    <INVARIANT>
+        <CAnd>
+        </CAnd>
+    </INVARIANT>
+
+    <INITIALISATION>
+
+        <CMultipleAssignment>
+            <CAssignment>
+                <CVariable val="Pos"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="Dir"/>
+                <CNumber val="1"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="PC"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="BC0"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="BC1"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="BC2"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="BC3"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="BC4"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="BC5"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="BC6"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="BC7"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="BC8"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="BM0"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="BM1"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="BM2"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="BM3"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="BM4"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="BM5"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="BM6"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="BM7"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="BM8"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="BD0"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="BD1"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="BD2"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="BD3"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="BD4"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="BD5"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="BD6"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="BD7"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="BD8"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="PE0"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="PE2"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="PE3"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="PE4"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="PE5"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="PE6"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="PE7"/>
+                <CNumber val="0"/>
+            </CAssignment>
+            <CAssignment>
+                <CVariable val="PE8"/>
+                <CNumber val="0"/>
+            </CAssignment>
+        </CMultipleAssignment>
+
+    </INITIALISATION>
+
+    <EVENTS>
+
+        <!-- Appel_Montee_Etages -->
+        <Event name="Appel_Montee_Etages">
+            <CNDChoice>
+                <CSelect>
+                    <CEquals>
+                        <CVariable val="BM0"/>
+                        <CNumber val="0"/>
+                    </CEquals>
+                    <CAssignment>
+                        <CVariable val="BM0"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CEquals>
+                        <CVariable val="BM1"/>
+                        <CNumber val="0"/>
+                    </CEquals>
+                    <CAssignment>
+                        <CVariable val="BM1"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CEquals>
+                        <CVariable val="BM2"/>
+                        <CNumber val="0"/>
+                    </CEquals>
+                    <CAssignment>
+                        <CVariable val="BM2"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CEquals>
+                        <CVariable val="BM3"/>
+                        <CNumber val="0"/>
+                    </CEquals>
+                    <CAssignment>
+                        <CVariable val="BM3"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CEquals>
+                        <CVariable val="BM4"/>
+                        <CNumber val="0"/>
+                    </CEquals>
+                    <CAssignment>
+                        <CVariable val="BM4"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CEquals>
+                        <CVariable val="BM5"/>
+                        <CNumber val="0"/>
+                    </CEquals>
+                    <CAssignment>
+                        <CVariable val="BM6"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CEquals>
+                        <CVariable val="BM7"/>
+                        <CNumber val="0"/>
+                    </CEquals>
+                    <CAssignment>
+                        <CVariable val="BM7"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+            </CNDChoice>
+        </Event>
+
+        <!-- Appel_Descente_Etages -->
+        <Event name="Appel_Descente_Etages">
+            <CNDChoice>
+                <CSelect>
+                    <CEquals>
+                        <CVariable val="BD0"/>
+                        <CNumber val="0"/>
+                    </CEquals>
+                    <CAssignment>
+                        <CVariable val="BD0"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CEquals>
+                        <CVariable val="BD1"/>
+                        <CNumber val="0"/>
+                    </CEquals>
+                    <CAssignment>
+                        <CVariable val="BD1"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CEquals>
+                        <CVariable val="BD2"/>
+                        <CNumber val="0"/>
+                    </CEquals>
+                    <CAssignment>
+                        <CVariable val="BD2"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CEquals>
+                        <CVariable val="BD3"/>
+                        <CNumber val="0"/>
+                    </CEquals>
+                    <CAssignment>
+                        <CVariable val="BD3"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CEquals>
+                        <CVariable val="BD4"/>
+                        <CNumber val="0"/>
+                    </CEquals>
+                    <CAssignment>
+                        <CVariable val="BD4"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CEquals>
+                        <CVariable val="BD5"/>
+                        <CNumber val="0"/>
+                    </CEquals>
+                    <CAssignment>
+                        <CVariable val="BD5"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CEquals>
+                        <CVariable val="BD6"/>
+                        <CNumber val="0"/>
+                    </CEquals>
+                    <CAssignment>
+                        <CVariable val="BD6"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CEquals>
+                        <CVariable val="BD7"/>
+                        <CNumber val="0"/>
+                    </CEquals>
+                    <CAssignment>
+                        <CVariable val="BD7"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CEquals>
+                        <CVariable val="BD8"/>
+                        <CNumber val="0"/>
+                    </CEquals>
+                    <CAssignment>
+                        <CVariable val="BD8"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+            </CNDChoice>
+        </Event>
+
+        <!-- Appel_Montee_Cabine -->
+        <Event name="Appel_Montee_Cabine">
+            <CNDChoice>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC1"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC1"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC2"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC2"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC3"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC3"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC4"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC4"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC5"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC5"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC6"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC6"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC7"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC7"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC8"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC8"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC2"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC2"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC3"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC3"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC4"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC4"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC5"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC5"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC6"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC6"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC7"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC7"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC8"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC8"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="2"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC3"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC3"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="2"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC4"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC4"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="2"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC5"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC5"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="2"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC6"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC6"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="2"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC7"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC7"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="2"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC8"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC8"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="3"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC4"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC4"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="3"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC5"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC5"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="3"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC6"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC6"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="3"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC7"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC7"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="3"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC8"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC8"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="4"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC5"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC5"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="4"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC6"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC6"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="4"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC7"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC7"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="4"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC8"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC8"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="5"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC6"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC6"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="5"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC7"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC7"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="5"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC8"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC8"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="6"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC7"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC7"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="6"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC8"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC8"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="7"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC8"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC8"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+            </CNDChoice>
+        </Event>
+
+        <!-- Appel_Descente_Cabine -->
+        <Event name="Appel_Descente_Cabine">
+            <CNDChoice>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC0"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC0"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="2"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC1"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC1"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="2"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC0"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC0"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="3"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC2"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC2"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="3"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC1"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC1"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="3"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC0"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC0"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="4"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC3"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC3"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="4"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC2"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC2"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="4"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC1"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC1"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="4"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC0"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC0"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="5"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC4"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC4"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="5"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC3"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC3"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="5"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC2"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC2"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="5"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC1"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC1"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="5"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC0"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC0"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="6"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC5"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC5"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="6"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC4"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC4"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="6"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC3"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC3"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="6"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC2"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC2"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="6"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC1"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC1"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="6"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC0"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC0"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="7"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC6"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC6"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="7"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC5"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC5"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="7"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC4"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC4"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="7"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC3"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC3"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="7"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC2"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC2"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="7"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC1"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC1"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="7"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC0"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC0"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="8"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC7"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC7"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="8"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC6"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC6"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="8"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC5"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC5"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="8"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC4"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC4"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="8"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC3"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC3"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="8"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC2"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC2"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="8"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC1"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC1"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="8"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="BC0"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="BC0"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+            </CNDChoice>
+        </Event>
+
+        <Event name="Ouverture_Portes_Cabine">
+            <CNDChoice>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE0"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PC"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE1"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PC"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="2"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE2"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PC"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="3"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE3"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PC"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="4"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE4"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PC"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="5"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE5"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PC"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="6"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE6"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PC"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="7"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE7"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PC"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="8"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE8"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PC"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+            </CNDChoice>
+        </Event>
+
+        <!-- Fermeture_Portes_Cabine -->
+        <Event name="Fermeture_Portes_Cabine">
+            <CNDChoice>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE0"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PC"/>
+                        <CNumber val="2"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE1"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PC"/>
+                        <CNumber val="2"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="2"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE2"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PC"/>
+                        <CNumber val="2"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="3"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE3"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PC"/>
+                        <CNumber val="2"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="4"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE4"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PC"/>
+                        <CNumber val="2"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="5"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE5"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PC"/>
+                        <CNumber val="2"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="6"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE6"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PC"/>
+                        <CNumber val="2"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="7"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE7"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PC"/>
+                        <CNumber val="2"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="8"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE8"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PC"/>
+                        <CNumber val="2"/>
+                    </CAssignment>
+                </CSelect>
+            </CNDChoice>
+        </Event>
+
+        <!-- Ouverture_Portes_Etages -->
+        <Event name="Ouverture_Portes_Etages">
+            <CNDChoice>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE0"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PE0"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE1"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PE1"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="2"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE2"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PE2"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="3"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE3"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PE3"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="4"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE4"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PE4"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="5"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE5"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PE5"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="6"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE6"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PE6"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="7"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE7"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PE7"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="8"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE8"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PE8"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+            </CNDChoice>
+        </Event>
+
+        <!-- Fermeture_Portes_Etages -->
+        <Event name="Fermeture_Portes_Etages">
+            <CNDChoice>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="0"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE0"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="2"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PE0"/>
+                        <CNumber val="0"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE1"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="2"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PE1"/>
+                        <CNumber val="0"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="2"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE2"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="2"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PE2"/>
+                        <CNumber val="0"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="3"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE3"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="2"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PE3"/>
+                        <CNumber val="0"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="4"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE4"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="2"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PE4"/>
+                        <CNumber val="0"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="5"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE5"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="2"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PE5"/>
+                        <CNumber val="0"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="6"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE6"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="2"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PE6"/>
+                        <CNumber val="1"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="7"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE7"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="2"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PE7"/>
+                        <CNumber val="0"/>
+                    </CAssignment>
+                </CSelect>
+                <CSelect>
+                    <CAnd>
+                        <CEquals>
+                            <CVariable val="Pos"/>
+                            <CNumber val="8"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PE8"/>
+                            <CNumber val="1"/>
+                        </CEquals>
+                        <CEquals>
+                            <CVariable val="PC"/>
+                            <CNumber val="2"/>
+                        </CEquals>
+                    </CAnd>
+                    <CAssignment>
+                        <CVariable val="PE8"/>
+                        <CNumber val="0"/>
+                    </CAssignment>
+                </CSelect>
+            </CNDChoice>
+        </Event>
+
+    </EVENTS>
+
+</MACHINE>

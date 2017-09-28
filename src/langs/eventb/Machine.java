@@ -31,7 +31,7 @@ public final class Machine implements IEventBVisitable {
     private static LinkedHashMap<String, Event> events = new LinkedHashMap<>();
     private static LinkedHashSet<AAssignable> assignables = new LinkedHashSet<>();
 
-    private Machine() {
+    public Machine() {
     }
 
     public static void setName(String name) {

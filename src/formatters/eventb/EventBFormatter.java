@@ -4,6 +4,7 @@ import algs.heuristics.relevance.RelevancePredicate;
 import formatters.eventb.exprs.AExprFormatter;
 import langs.eventb.Event;
 import langs.eventb.Machine;
+import langs.eventb.exprs.arith.Var;
 import langs.eventb.substitutions.*;
 
 import java.util.ArrayList;
@@ -30,11 +31,11 @@ public final class EventBFormatter extends AExprFormatter implements IEventBVisi
         String formatted = line("MACHINE " + Machine.getName());
         formatted += Machine.getConstsDefs().isEmpty() ? "" : line() + indentRight() + indentLine("CONSTS") + indentRight() + Machine.getConsts().keySet().stream().map(name -> indentLine(Machine.getConsts().get(name).accept(this) + " " + EQ_DEF + " " + Machine.getConstsDefs().get(name).accept(this))).collect(Collectors.joining()) + indentLeft() + indentLeft();
         formatted += Machine.getSetsDefs().isEmpty() ? "" : line() + indentRight() + indentLine("SETS") + indentRight() + Machine.getSets().keySet().stream().map(name -> indentLine(name + " " + EQ_DEF + " " + Machine.getSets().get(name).accept(this))).collect(Collectors.joining()) + indentLeft() + indentLeft();
-        //formatted += machine.getVarsDefs().isEmpty() ? "" : line() + indentRight() + indentLine("VARS") + indentRight() + machine.getVars().keySet().stream().map(name -> indentLine(new Var(name).accept(this) + " " + IN + " " + machine.getVarsDefs().get(name).accept(this))).collect(Collectors.joining()) + indentLeft() + indentLeft();
+        formatted += Machine.getVarsDefs().isEmpty() ? "" : line() + indentRight() + indentLine("VARS") + indentRight() + Machine.getVars().keySet().stream().map(name -> indentLine(new Var(name).accept(this) + " " + IN + " " + Machine.getVarsDefs().get(name).accept(this))).collect(Collectors.joining()) + indentLeft() + indentLeft();
         formatted += Machine.getFunsDefs().isEmpty() ? "" : line() + indentRight() + indentLine("FUNS") + indentRight() + Machine.getFunsDefs().keySet().stream().map(name -> indentLine(name + " : " + Machine.getFunsDefs().get(name).getFirst().accept(this) + " -> " + Machine.getFunsDefs().get(name).getSecond().accept(this))).collect(Collectors.joining()) + indentLeft() + indentLeft();
         formatted += line() + indentRight() + indentLine("INVARIANT") + indentRight() + indentLine(Machine.getInvariant().accept(this)) + indentLeft() + indentLeft();
         formatted += line() + indentRight() + indentLine("INITIALISATION") + indentRight() + indentLine(Machine.getInitialisation().accept(this)) + indentLeft() + indentLeft();
-        formatted += line() + indentRight() + indentLine("EVENTS") + indentRight() + Machine.getEvents().values().stream().map(event -> indentLine(event.accept(this))).collect(Collectors.joining()) + indentLeft() + indentLeft();
+        formatted += line() + indentRight() + indentLine("EVENTS") + line() + indentRight() + Machine.getEvents().values().stream().map(event -> indentLine(event.accept(this))).collect(Collectors.joining());
         return formatted;
     }
 
@@ -70,7 +71,7 @@ public final class EventBFormatter extends AExprFormatter implements IEventBVisi
 
     @Override
     public String visit(Choice choice) {
-        return line("CHOICE") + choice.getSubstitutions().stream().map(substitution -> indentRight() + indentLine(substitution.toString())).collect(Collectors.joining(indentLeft() + indentLine("OR"))) + indentLeft() + indentLine("END");
+        return line("CHOICE") + indentRight() + choice.getSubstitutions().stream().map(substitution -> indentLine(substitution.accept(this))).collect(Collectors.joining(indentLeft() + indentLine("OR") + indentRight())) + indentLeft() + indent("END");
     }
 
     @Override

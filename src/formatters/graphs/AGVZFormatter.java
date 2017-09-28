@@ -33,7 +33,7 @@ public abstract class AGVZFormatter<S extends AState, L extends ICloneable> exte
 
     @Override
     public String visit(AFSM<S, L> fsm) {
-        Tuple2<LinkedHashSet<S>, ArrayList<ATransition<S, L>>> rchblPart = new ReachablePartComputer<>(fsm).compute();
+        Tuple2<LinkedHashSet<S>, ArrayList<ATransition<S, L>>> rchblPart = new ReachablePartComputer<>(fsm).compute().getResult();
         fsm.getInitialStates().forEach(state -> states.add(formatInitialState(state)));
         rchblPart.getFirst().stream().filter(state -> !fsm.getInitialStates().contains(state)).forEach(state -> states.add(formatReachedState(state)));
         fsm.getStates().stream().filter(state -> !rchblPart.getFirst().contains(state)).forEach(state -> states.add(formatUnreachedState(state)));

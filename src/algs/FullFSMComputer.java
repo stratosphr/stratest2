@@ -46,7 +46,7 @@ public final class FullFSMComputer extends AComputer<FSM<ConcreteState, Event>> 
         while (!lastReached.isEmpty()) {
             ConcreteState c = lastReached.iterator().next();
             lastReached.remove(c);
-            if (states.size() % 50 == 0) {
+            if (states.size() % 5 == 0) {
                 System.out.println("#Full: " + states.size());
             }
             for (Event e : Machine.getEvents().values()) {

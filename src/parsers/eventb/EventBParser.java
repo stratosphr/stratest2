@@ -4,7 +4,10 @@ import langs.eventb.Event;
 import langs.eventb.Machine;
 import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.*;
+import langs.eventb.exprs.bool.GEQ;
 import langs.eventb.exprs.bool.GT;
+import langs.eventb.exprs.bool.LEQ;
+import langs.eventb.exprs.bool.LT;
 import langs.eventb.exprs.bool.NEQ;
 import langs.eventb.exprs.sets.*;
 import langs.eventb.exprs.sets.Enum;
@@ -241,8 +244,14 @@ public final class EventBParser {
                 return parseEquals(node);
             case NEQ:
                 return parseNEQ(node);
+            case LEQ:
+                return parseLEQ(node);
+            case LT:
+                return parseLT(node);
             case GT:
                 return parseGT(node);
+            case GEQ:
+                return parseGEQ(node);
             case IMPLIES:
                 return parseImplies(node);
             case FORALL:
@@ -282,9 +291,24 @@ public final class EventBParser {
         return new NEQ(parseArithExpr(node.getChildren().get(0)), parseArithExpr(node.getChildren().get(1)));
     }
 
+    private ABoolExpr parseLT(XMLNode node) {
+        check(node, LT);
+        return new LT(parseArithExpr(node.getChildren().get(0)), parseArithExpr(node.getChildren().get(1)));
+    }
+
+    private ABoolExpr parseLEQ(XMLNode node) {
+        check(node, LEQ);
+        return new LEQ(parseArithExpr(node.getChildren().get(0)), parseArithExpr(node.getChildren().get(1)));
+    }
+
     private ABoolExpr parseGT(XMLNode node) {
         check(node, GT);
         return new GT(parseArithExpr(node.getChildren().get(0)), parseArithExpr(node.getChildren().get(1)));
+    }
+
+    private ABoolExpr parseGEQ(XMLNode node) {
+        check(node, GEQ);
+        return new GEQ(parseArithExpr(node.getChildren().get(0)), parseArithExpr(node.getChildren().get(1)));
     }
 
     private ABoolExpr parseImplies(XMLNode node) {

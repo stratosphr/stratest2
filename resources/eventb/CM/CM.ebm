@@ -11,7 +11,7 @@
             <int value="200"/>
         </const-def>
         <const-def name="MaxCoffee">
-            <int value="20"/>
+            <int value="5"/>
         </const-def>
     </consts-defs>
 

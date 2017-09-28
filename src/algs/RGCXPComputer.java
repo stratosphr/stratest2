@@ -159,7 +159,7 @@ public final class RGCXPComputer extends AComputer<ATS> {
 
     @Override
     protected ATS run() {
-        Tuple2<LinkedHashSet<ConcreteState>, ArrayList<ATransition<ConcreteState, Event>>> rchblPart = new ReachablePartComputer<>(ats.getCTS()).compute();
+        Tuple2<LinkedHashSet<ConcreteState>, ArrayList<ATransition<ConcreteState, Event>>> rchblPart = new ReachablePartComputer<>(ats.getCTS()).compute().getResult();
         LinkedHashSet<ConcreteState> RCS = new LinkedHashSet<>();
         Var variant = new Var("_variant");
         for (ConcreteState c : rchblPart.getFirst()) {

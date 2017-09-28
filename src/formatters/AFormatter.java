@@ -29,7 +29,7 @@ public abstract class AFormatter {
         return "";
     }
 
-    private String indentation() {
+    protected String indentation() {
         return String.join("", Collections.nCopies(indentation, TAB));
     }
 
