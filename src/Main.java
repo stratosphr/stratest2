@@ -1,8 +1,6 @@
 import algs.heuristics.DefaultAbstractStatesOrderingFunction;
 import algs.heuristics.DefaultEventsOrderingFunction;
 import algs.heuristics.relevance.*;
-import formatters.eventb.EventBFormatter;
-import langs.eventb.Machine;
 import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.Equals;
 import parsers.eventb.EventBParser;
@@ -61,7 +59,7 @@ public class Main {
                 new AtomicPredicateEnumSet(new Fun("BM", new Plus(new Var("Pos"), new Int(1))), new Int(0), new Int(1)),
                 new AtomicPredicateEnumSet(new Fun("BD", new Minus(new Var("Pos"), new Int(1))), new Int(0), new Int(1))
         );
-        // Full : > 2570
+        // Full : = 2944
     }
 
     public static RelevancePredicate cm() {
@@ -150,8 +148,6 @@ public class Main {
 
     private static void el_ap0() {
         EventBParser.parseMachine(EBM_EL);
-        System.out.println(EventBFormatter.format(new Machine()));
-        System.exit(42);
         save("0_rel", EventBParser.parseAPs(AP_EL_0), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 el(),
                 7000
@@ -183,7 +179,7 @@ public class Main {
     }
 
     private static void ev_ap1() {
-        // True + limit ~= 2750 for 100%
+        // 2944 with full
         EventBParser.parseMachine(EBM_EV);
         save("1_rel", EventBParser.parseAPs(AP_EV_1), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 ev(),
