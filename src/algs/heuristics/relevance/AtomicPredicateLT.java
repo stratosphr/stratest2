@@ -21,7 +21,7 @@ public class AtomicPredicateLT extends AAtomicPredicate {
     }
 
     @Override
-    public AArithExpr getVariantC0(ConcreteState c, LinkedHashMap<ConcreteState, LinkedHashMap<AAtomicPredicate, AValue>> variantsMapping) {
+    public AArithExpr getVariantC0(ConcreteState c) {
         return new Minus(assignable, assignable instanceof Var ? Machine.getVarsDefs().get(assignable.getName()).getSet().iterator().next() : Machine.getFunsDefs().get(assignable.getName()).getSecond().getSet().iterator().next());
     }
 

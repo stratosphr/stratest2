@@ -163,17 +163,17 @@ public final class RGCXPComputer extends AComputer<ATS> {
         LinkedHashSet<ConcreteState> RCS = new LinkedHashSet<>();
         Var variant = new Var("_variant");
         for (ConcreteState c : rchblPart.getFirst()) {
-            if (Z3.checkSAT(new And(Machine.getInvariant(), c, new Equals(variant, relevancePredicate.getVariantC0(c, variantsMapping)), new GEQ(relevancePredicate.getVariantC0(c, variantsMapping), new Int(0)))) == SATISFIABLE) {
+            if (Z3.checkSAT(new And(Machine.getInvariant(), c, new Equals(variant, relevancePredicate.getVariantC0(c)), new GEQ(relevancePredicate.getVariantC0(c), new Int(0)))) == SATISFIABLE) {
                 AValue aValue = Z3.getModel(new LinkedHashSet<>(Collections.singletonList(variant))).get(variant);
                 c.setMarker("V", aValue + " (CXP)");
                 //System.out.println("# " + aValue);
                 variantsMapping.put(c, new LinkedHashMap<>());
                 for (AAtomicPredicate ap : relevancePredicate.getAtomicPredicates()) {
-                    Z3.checkSAT(new And(Machine.getInvariant(), c, new Equals(variant, ap.getVariantC0(c, variantsMapping))));
+                    Z3.checkSAT(new And(Machine.getInvariant(), c, new Equals(variant, ap.getVariantC0(c))));
                     variantsMapping.get(c).put(ap, Z3.getModel(new LinkedHashSet<>(Collections.singletonList(variant))).get(variant));
                     if (ap instanceof AtomicPredicateMultiImplies) {
                         ((AtomicPredicateMultiImplies) ap).getImplies().forEach(imply -> {
-                            Z3.checkSAT(new And(Machine.getInvariant(), c, new Equals(variant, imply.getThenPart().getVariantC0(c, variantsMapping))));
+                            Z3.checkSAT(new And(Machine.getInvariant(), c, new Equals(variant, imply.getThenPart().getVariantC0(c))));
                             variantsMapping.get(c).put(imply.getThenPart(), Z3.getModel(new LinkedHashSet<>(Collections.singletonList(variant))).get(variant));
                         });
                     }

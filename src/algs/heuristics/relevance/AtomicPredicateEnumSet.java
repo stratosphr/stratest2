@@ -26,7 +26,7 @@ public final class AtomicPredicateEnumSet extends AAtomicPredicate {
     }
 
     @Override
-    public AArithExpr getVariantC0(ConcreteState c, LinkedHashMap<ConcreteState, LinkedHashMap<AAtomicPredicate, AValue>> variantsMapping) {
+    public AArithExpr getVariantC0(ConcreteState c) {
         return new Int(assignable instanceof Var ? Machine.getVarsDefs().get(assignable.getName()).getSet().size() : Machine.getFunsDefs().get(assignable.getName()).getSecond().getSet().size());
     }
 

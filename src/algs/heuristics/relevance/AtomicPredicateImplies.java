@@ -24,7 +24,7 @@ public final class AtomicPredicateImplies extends AAtomicPredicate {
     }
 
     @Override
-    public AArithExpr getVariantC0(ConcreteState c, LinkedHashMap<ConcreteState, LinkedHashMap<AAtomicPredicate, AValue>> variantsMapping) {
+    public AArithExpr getVariantC0(ConcreteState c) {
         System.err.println("HereC0");
         System.exit(42);
         return null;

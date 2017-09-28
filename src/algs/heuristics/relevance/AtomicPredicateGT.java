@@ -23,7 +23,7 @@ public class AtomicPredicateGT extends AAtomicPredicate {
     }
 
     @Override
-    public AArithExpr getVariantC0(ConcreteState c, LinkedHashMap<ConcreteState, LinkedHashMap<AAtomicPredicate, AValue>> variantsMapping) {
+    public AArithExpr getVariantC0(ConcreteState c) {
         ASetExpr set;
         if (assignable instanceof Var) {
             set = Machine.getVarsDefs().get(assignable.getName());

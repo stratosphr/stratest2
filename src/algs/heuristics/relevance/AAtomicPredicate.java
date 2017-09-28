@@ -22,7 +22,7 @@ public abstract class AAtomicPredicate extends ABoolExpr {
         this.expr = expr;
     }
 
-    public abstract AArithExpr getVariantC0(ConcreteState c, LinkedHashMap<ConcreteState, LinkedHashMap<AAtomicPredicate, AValue>> variantsMapping);
+    public abstract AArithExpr getVariantC0(ConcreteState c);
 
     public abstract AArithExpr getVariantC_(ConcreteState c, ConcreteState c_, LinkedHashMap<ConcreteState, LinkedHashMap<AAtomicPredicate, AValue>> variantsMapping);
 

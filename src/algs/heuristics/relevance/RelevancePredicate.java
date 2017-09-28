@@ -73,8 +73,8 @@ public final class RelevancePredicate extends ABoolExpr {
         return atomicPredicates;
     }
 
-    public Plus getVariantC0(ConcreteState c, LinkedHashMap<ConcreteState, LinkedHashMap<AAtomicPredicate, AValue>> variantsMapping) {
-        return new Plus(atomicPredicates.stream().map(aAtomicPredicate -> aAtomicPredicate.getVariantC0(c, variantsMapping)).toArray(AArithExpr[]::new));
+    public Plus getVariantC0(ConcreteState c) {
+        return new Plus(atomicPredicates.stream().map(aAtomicPredicate -> aAtomicPredicate.getVariantC0(c)).toArray(AArithExpr[]::new));
     }
 
     public Plus getVariantC_(ConcreteState c, ConcreteState c_, LinkedHashMap<ConcreteState, LinkedHashMap<AAtomicPredicate, AValue>> variantsMapping) {

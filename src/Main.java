@@ -4,6 +4,8 @@ import algs.FullFSMComputer;
 import algs.RGCXPComputer;
 import algs.heuristics.relevance.*;
 import algs.outputs.ATS;
+import formatters.graphs.DefaultGVZFormatter;
+import formatters.graphs.ERankDir;
 import graphs.AbstractState;
 import graphs.ConcreteState;
 import graphs.FSM;
@@ -26,7 +28,7 @@ public class Main {
         LinkedHashSet<AbstractState> as2 = new AbstractStatesComputer(ap2).compute();
         RelevancePredicate relevancePredicate = new RelevancePredicate(
                 new AtomicPredicateEnumSet(new Fun("Mvt", new Int(1)), new Int(0), new Int(1)),
-                new AtomicPredicateMultiImplies(
+                new AtomicPredicateMultiImpliesV2(
                         new AtomicPredicateImplies(new Equals(new Fun("Dir", new Int(1)), new Int(1)), new AtomicPredicateGT(new Fun("Pos", new Int(1)))),
                         new AtomicPredicateImplies(new Equals(new Fun("Dir", new Int(1)), new Int(-1)), new AtomicPredicateLT(new Fun("Pos", new Int(1))))
                 ),
@@ -35,7 +37,7 @@ public class Main {
                 new AtomicPredicateEnumSet(new Fun("Portes", new Int(1)), new EnumValue("fermees"), new EnumValue("ouvertes")),
                 new AtomicPredicateEnumSet(new Fun("Portes", new Int(1)), new EnumValue("ouvertes"), new EnumValue("refermees")),
                 new AtomicPredicateEnumSet(new Fun("Mvt", new Int(2)), new Int(0), new Int(1)),
-                new AtomicPredicateMultiImplies(
+                new AtomicPredicateMultiImpliesV2(
                         new AtomicPredicateImplies(new Equals(new Fun("Dir", new Int(2)), new Int(1)), new AtomicPredicateGT(new Fun("Pos", new Int(2)))),
                         new AtomicPredicateImplies(new Equals(new Fun("Dir", new Int(2)), new Int(-1)), new AtomicPredicateLT(new Fun("Pos", new Int(2))))
                 ),
@@ -47,6 +49,7 @@ public class Main {
         );
         ATS cxp = new CXPComputer(as2).compute();
         ATS rgcxp = new RGCXPComputer(cxp, relevancePredicate, 1000).compute();
+        System.out.println(rgcxp.getCTS().accept(new DefaultGVZFormatter<>(true, ERankDir.LR)));
         FSM<ConcreteState, Event> full = new FullFSMComputer().compute();
         System.out.println(rgcxp.getCTS().getC().size());
         System.out.println(full.getStates().size());

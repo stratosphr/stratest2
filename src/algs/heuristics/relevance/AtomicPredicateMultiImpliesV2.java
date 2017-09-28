@@ -5,6 +5,8 @@ import graphs.ConcreteState;
 import langs.eventb.Machine;
 import langs.eventb.exprs.arith.AArithExpr;
 import langs.eventb.exprs.arith.AValue;
+import langs.eventb.exprs.arith.Int;
+import langs.eventb.exprs.arith.Minus;
 import langs.eventb.exprs.bool.And;
 import solvers.z3.Z3;
 
@@ -16,11 +18,11 @@ import java.util.LinkedHashSet;
  * Created by gvoiron on 26/09/17.
  * Time : 23:10
  */
-public class AtomicPredicateMultiImplies extends AAtomicPredicate {
+public class AtomicPredicateMultiImpliesV2 extends AAtomicPredicate {
 
     private final LinkedHashSet<AtomicPredicateImplies> implies;
 
-    public AtomicPredicateMultiImplies(AtomicPredicateImplies... implies) {
+    public AtomicPredicateMultiImpliesV2(AtomicPredicateImplies... implies) {
         super(new And(implies));
         this.implies = new LinkedHashSet<>(Arrays.asList(implies));
     }
@@ -41,18 +43,7 @@ public class AtomicPredicateMultiImplies extends AAtomicPredicate {
 
     @Override
     public AArithExpr getVariantC_(ConcreteState c, ConcreteState c_, LinkedHashMap<ConcreteState, LinkedHashMap<AAtomicPredicate, AValue>> variantsMapping) {
-        for (AtomicPredicateImplies ap : implies) {
-            if (Z3.checkSAT(new And(
-                    Machine.getInvariant(),
-                    Machine.getInvariant().prime(),
-                    c,
-                    c_.prime(),
-                    new And(ap.getCondition(), ap.getThenPart())
-            )) == Status.SATISFIABLE) {
-                return ap.getThenPart().getVariantC_(c, c_, variantsMapping);
-            }
-        }
-        return variantsMapping.get(c).get(this);
+        return new Minus(variantsMapping.get(c).get(this), new Int(1));
     }
 
     public LinkedHashSet<AtomicPredicateImplies> getImplies() {
@@ -60,8 +51,8 @@ public class AtomicPredicateMultiImplies extends AAtomicPredicate {
     }
 
     @Override
-    public AtomicPredicateMultiImplies clone() {
-        return new AtomicPredicateMultiImplies(implies.stream().map(AtomicPredicateImplies::clone).toArray(AtomicPredicateImplies[]::new));
+    public AtomicPredicateMultiImpliesV2 clone() {
+        return new AtomicPredicateMultiImpliesV2(implies.stream().map(AtomicPredicateImplies::clone).toArray(AtomicPredicateImplies[]::new));
     }
 
 }
