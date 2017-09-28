@@ -18,11 +18,14 @@ public final class ReachablePartComputer<S extends AState, L extends ICloneable>
 
     private final AFSM<S, L> fsm;
     private final LinkedHashMap<S, ArrayList<ATransition<S, L>>> adjacency;
+    private final LinkedHashMap<S, S> states;
 
     public ReachablePartComputer(AFSM<S, L> fsm) {
         this.fsm = fsm;
         this.adjacency = new LinkedHashMap<>();
+        this.states = new LinkedHashMap<>();
         fsm.getStates().forEach(s -> adjacency.put(s, new ArrayList<>()));
+        fsm.getStates().forEach(s -> states.put(s, s));
         fsm.getTransitions().forEach(transition -> adjacency.get(transition.getSource()).add(transition));
     }
 
@@ -38,7 +41,7 @@ public final class ReachablePartComputer<S extends AState, L extends ICloneable>
         if (reachableStates.add(startState)) {
             adjacency.get(startState).forEach(transition -> {
                 reachableTransitions.add(transition);
-                run_(transition.getTarget(), reachableStates, reachableTransitions);
+                run_(states.get(transition.getTarget()), reachableStates, reachableTransitions);
             });
         }
     }

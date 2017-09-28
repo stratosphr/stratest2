@@ -27,7 +27,7 @@ public final class DefaultGVZFormatter<S extends AState<?, ?>> extends AGVZForma
 
     @Override
     public GVZState formatReachedState(S reachedState) {
-        String markers = reachedState.getMarkers().keySet().stream().map(o -> o + "=" + reachedState.getMarkers().get(o)).collect(Collectors.joining());
+        String markers = reachedState.getMarkers().keySet().stream().map(key -> key + "=" + reachedState.getMarkers().get(key)).collect(Collectors.joining());
         return new GVZState(reachedState.getName()).setLabel(useFullLabels ? reachedState + (markers.isEmpty() ? "" : "\\n" + markers) : reachedState.getName() + (markers.isEmpty() ? "" : "\\n" + markers)).setShape("box").setStyle("rounded, filled").setColor("forestgreen").setFillColor("limegreen").setColor("forestgreen");
     }
 

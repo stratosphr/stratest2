@@ -14,31 +14,26 @@ import java.util.stream.Collectors;
  */
 public final class MTS extends AFSM<AbstractState, Event> {
 
-    private final LinkedHashSet<AbstractState> q0;
-    private final LinkedHashSet<AbstractState> q;
-    private final LinkedHashSet<AbstractTransition> delta;
     private final LinkedHashSet<AbstractTransition> deltaMinus;
     private final LinkedHashSet<AbstractTransition> deltaPlus;
 
     public MTS(LinkedHashSet<AbstractState> q0, LinkedHashSet<AbstractState> q, LinkedHashSet<AbstractTransition> delta, LinkedHashSet<AbstractTransition> deltaMinus, LinkedHashSet<AbstractTransition> deltaPlus) {
         super(q0, q, delta);
-        this.q0 = q0;
-        this.q = q;
-        this.delta = delta;
         this.deltaMinus = deltaMinus;
         this.deltaPlus = deltaPlus;
     }
 
     public LinkedHashSet<AbstractState> getQ0() {
-        return q0;
+        return getInitialStates();
     }
 
     public LinkedHashSet<AbstractState> getQ() {
-        return q;
+        return getStates();
     }
 
+    @SuppressWarnings("unchecked")
     public LinkedHashSet<AbstractTransition> getDelta() {
-        return delta;
+        return (LinkedHashSet<AbstractTransition>) getTransitions();
     }
 
     public LinkedHashSet<AbstractTransition> getDeltaMinus() {
@@ -51,7 +46,7 @@ public final class MTS extends AFSM<AbstractState, Event> {
 
     @Override
     public MTS clone() {
-        return new MTS(new LinkedHashSet<>(q0.stream().map(AbstractState::clone).collect(Collectors.toList())), new LinkedHashSet<>(q.stream().map(AbstractState::clone).collect(Collectors.toList())), new LinkedHashSet<>(delta.stream().map(AbstractTransition::clone).collect(Collectors.toList())), new LinkedHashSet<>(deltaMinus.stream().map(AbstractTransition::clone).collect(Collectors.toList())), new LinkedHashSet<>(deltaPlus.stream().map(AbstractTransition::clone).collect(Collectors.toList())));
+        return new MTS(new LinkedHashSet<>(getQ0().stream().map(AbstractState::clone).collect(Collectors.toList())), new LinkedHashSet<>(getQ().stream().map(AbstractState::clone).collect(Collectors.toList())), new LinkedHashSet<>(getDelta().stream().map(AbstractTransition::clone).collect(Collectors.toList())), new LinkedHashSet<>(deltaMinus.stream().map(AbstractTransition::clone).collect(Collectors.toList())), new LinkedHashSet<>(deltaPlus.stream().map(AbstractTransition::clone).collect(Collectors.toList())));
     }
 
 }

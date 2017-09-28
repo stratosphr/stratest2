@@ -40,7 +40,9 @@ public final class ConcreteState extends AState<AAssignable, AValue> {
     public ConcreteState clone() {
         TreeMap<AAssignable, AValue> mapping = new TreeMap<>();
         this.mapping.forEach((assignable, value) -> mapping.put(assignable.clone(), value.clone()));
-        return new ConcreteState(name, mapping);
+        ConcreteState clone = new ConcreteState(name, mapping);
+        markers.forEach(clone::setMarker);
+        return clone;
     }
 
     public void setName(String name) {

@@ -13,7 +13,9 @@ import graphs.*;
 import langs.eventb.Event;
 import langs.eventb.Machine;
 import langs.eventb.exprs.arith.*;
-import langs.eventb.exprs.bool.*;
+import langs.eventb.exprs.bool.And;
+import langs.eventb.exprs.bool.Equals;
+import langs.eventb.exprs.bool.GEQ;
 import solvers.z3.Model;
 import solvers.z3.Z3;
 import utilities.sets.Tuple2;
@@ -163,7 +165,7 @@ public final class RGCXPComputer extends AComputer<ATS> {
         for (ConcreteState c : rchblPart.getFirst()) {
             if (Z3.checkSAT(new And(Machine.getInvariant(), c, new Equals(variant, relevancePredicate.getVariantC0(c, variantsMapping)), new GEQ(relevancePredicate.getVariantC0(c, variantsMapping), new Int(0)))) == SATISFIABLE) {
                 AValue aValue = Z3.getModel(new LinkedHashSet<>(Collections.singletonList(variant))).get(variant);
-                c.addMarker("V", aValue + " (CXP)");
+                c.setMarker("V", aValue + " (CXP)");
                 //System.out.println("# " + aValue);
                 variantsMapping.put(c, new LinkedHashMap<>());
                 for (AAtomicPredicate ap : relevancePredicate.getAtomicPredicates()) {
@@ -192,6 +194,9 @@ public final class RGCXPComputer extends AComputer<ATS> {
         while (!RCS.isEmpty()) {
             ConcreteState c = RCS.iterator().next();
             RCS.remove(c);
+            if (variantsMapping.get(c) == null) {
+                throw new Error(c.toString());
+            }
             AbstractState q = ats.getCTS().getAlpha().get(c);
             System.out.println(RCS.size());
             for (AbstractState q_ : abstractStatesOrderingFunction.apply(new Tuple2<>(q, ats.getMTS().getQ()))) {
@@ -203,7 +208,6 @@ public final class RGCXPComputer extends AComputer<ATS> {
                                 c,
                                 e.getSubstitution().getPrd(Machine.getAssignables()),
                                 q_.prime(),
-                                new Not(new Or(ats.getCTS().getDeltaC().stream().filter(concreteTransition -> concreteTransition.getSource().equals(c) && concreteTransition.getEvent().equals(e)).map(ATransition::getTarget).toArray(ABoolExpr[]::new))).prime(),
                                 relevancePredicate
                         ));
                         if (status == SATISFIABLE) {
@@ -218,8 +222,11 @@ public final class RGCXPComputer extends AComputer<ATS> {
                                         new Equals(variant, relevancePredicate.getVariantC_(c, c_, variantsMapping)),
                                         new GEQ(variant, new Int(0))
                                 )) == SATISFIABLE) {
+                                    /*if (c.getName().startsWith("c21")) {
+                                        throw new Error(2 + " " + c.getName() + " " + e.getName() + " " + c_.getName() + " " + c_.getMarkers());
+                                    }*/
                                     AValue aValue = Z3.getModel(new LinkedHashSet<>(Collections.singletonList(variant))).get(variant);
-                                    c_.addMarker("V", aValue);
+                                    c_.setMarker("V", aValue);
                                     //System.out.println(c.getName() + " " + e.getName() + " " + c_.getName());
                                     //System.out.println("# " + aValue);
                                     variantsMapping.put(c_, new LinkedHashMap<>());

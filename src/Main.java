@@ -4,8 +4,6 @@ import algs.FullFSMComputer;
 import algs.RGCXPComputer;
 import algs.heuristics.relevance.*;
 import algs.outputs.ATS;
-import formatters.graphs.DefaultGVZFormatter;
-import formatters.graphs.ERankDir;
 import graphs.AbstractState;
 import graphs.ConcreteState;
 import graphs.FSM;
@@ -50,12 +48,10 @@ public class Main {
         ATS cxp = new CXPComputer(as2).compute();
         ATS rgcxp = new RGCXPComputer(cxp, relevancePredicate, 1000).compute();
         FSM<ConcreteState, Event> full = new FullFSMComputer().compute();
-        System.out.println(full.getStates().size());
         System.out.println(rgcxp.getCTS().getC().size());
-        System.out.println(cxp.getCTS().accept(new DefaultGVZFormatter<>(true, ERankDir.LR)));
-        System.out.println(rgcxp.getCTS().accept(new DefaultGVZFormatter<>(true, ERankDir.LR)));
-        System.out.println(cxp.getCTS().accept(new DefaultGVZFormatter<>(false, ERankDir.LR)));
-        System.out.println(rgcxp.getCTS().accept(new DefaultGVZFormatter<>(false, ERankDir.LR)));
+        System.out.println(full.getStates().size());
+        /*System.out.println(cxp.getCTS().accept(new DefaultGVZFormatter<>(true, ERankDir.LR)));
+        System.out.println(rgcxp.getCTS().accept(new DefaultGVZFormatter<>(true, ERankDir.LR)));*/
     }
 
 }

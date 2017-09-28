@@ -28,7 +28,7 @@ public abstract class AState<K extends Comparable, V> extends APredicate {
     @Override
     public abstract AState clone();
 
-    public void addMarker(String key, Object value) {
+    public void setMarker(String key, Object value) {
         markers.put(key, value);
     }
 
