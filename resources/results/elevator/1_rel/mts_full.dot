@@ -1,0 +1,39 @@
+digraph g {
+
+	rankdir="LR"
+
+	__invisible__[shape="point", color="forestgreen"]
+	q1[label="q1 ≝ and(¬(p0 ≝ PC=ouvertes), p2 ≝ and(PE(Pos)=fermees, PC=fermees), ¬(p1 ≝ and(Pos < LF, Pos ≥ 0, PC=refermees, PE(Pos)=fermees, Dir=1, or(∃(etage ∈ (Pos + 1)..LF).(BM(etage)=1), ∃(etage ∈ (Pos + 1)..LF).(BC(etage)=1)))))", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen", penwidth=3] // Initial
+	q0[label="q0 ≝ and(¬(p0 ≝ PC=ouvertes), ¬(p2 ≝ and(PE(Pos)=fermees, PC=fermees)), ¬(p1 ≝ and(Pos < LF, Pos ≥ 0, PC=refermees, PE(Pos)=fermees, Dir=1, or(∃(etage ∈ (Pos + 1)..LF).(BM(etage)=1), ∃(etage ∈ (Pos + 1)..LF).(BC(etage)=1)))))", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
+	q2[label="q2 ≝ and(¬(p0 ≝ PC=ouvertes), ¬(p2 ≝ and(PE(Pos)=fermees, PC=fermees)), p1 ≝ and(Pos < LF, Pos ≥ 0, PC=refermees, PE(Pos)=fermees, Dir=1, or(∃(etage ∈ (Pos + 1)..LF).(BM(etage)=1), ∃(etage ∈ (Pos + 1)..LF).(BC(etage)=1))))", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
+	q4[label="q4 ≝ and(p0 ≝ PC=ouvertes, ¬(p2 ≝ and(PE(Pos)=fermees, PC=fermees)), ¬(p1 ≝ and(Pos < LF, Pos ≥ 0, PC=refermees, PE(Pos)=fermees, Dir=1, or(∃(etage ∈ (Pos + 1)..LF).(BM(etage)=1), ∃(etage ∈ (Pos + 1)..LF).(BC(etage)=1)))))", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
+
+	__invisible__ -> q1[color="forestgreen"]
+	q1 -> q1[label="Appel_Descente_Cabine", color="forestgreen"]
+	q1 -> q1[label="Appel_Descente_Etage", color="forestgreen"]
+	q1 -> q1[label="Appel_Montee_Cabine", color="forestgreen"]
+	q1 -> q1[label="Appel_Montee_Etage", color="forestgreen"]
+	q1 -> q0[label="Ouverture_Portes_Etage", color="forestgreen"]
+	q0 -> q0[label="Appel_Descente_Cabine", color="forestgreen"]
+	q0 -> q0[label="Appel_Descente_Etage", color="forestgreen"]
+	q0 -> q0[label="Appel_Montee_Cabine", color="forestgreen"]
+	q0 -> q0[label="Appel_Montee_Etage", color="forestgreen"]
+	q0 -> q0[label="Changement_Direction", color="forestgreen"]
+	q0 -> q0[label="Fermeture_Portes_Etage", color="forestgreen"]
+	q0 -> q1[label="Descente_Cabine", color="forestgreen"]
+	q0 -> q2[label="Appel_Montee_Cabine", color="forestgreen"]
+	q2 -> q2[label="Appel_Descente_Cabine", color="forestgreen"]
+	q2 -> q2[label="Appel_Descente_Etage", color="forestgreen"]
+	q2 -> q2[label="Appel_Montee_Cabine", color="forestgreen"]
+	q2 -> q2[label="Appel_Montee_Etage", color="forestgreen"]
+	q2 -> q1[label="Montee_Cabine", color="forestgreen"]
+	q0 -> q2[label="Appel_Montee_Etage", color="forestgreen"]
+	q0 -> q2[label="Fermeture_Portes_Etage", color="forestgreen"]
+	q0 -> q4[label="Ouverture_Portes_Cabine", color="forestgreen"]
+	q4 -> q4[label="Appel_Descente_Cabine", color="forestgreen"]
+	q4 -> q4[label="Appel_Descente_Etage", color="forestgreen"]
+	q4 -> q4[label="Appel_Montee_Cabine", color="forestgreen"]
+	q4 -> q4[label="Appel_Montee_Etage", color="forestgreen"]
+	q4 -> q0[label="Fermeture_Portes_Cabine", color="forestgreen"]
+
+}

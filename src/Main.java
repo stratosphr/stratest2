@@ -17,14 +17,9 @@ import static utilities.Resources.*;
 public class Main {
 
     public static void main(String[] args) {
-        ev_ap1();
-        ev_ap2();
-        ev_ap3();
         cm_ap0();
         cm_ap1();
         cm_ap2(); // Relevance may be improved (AT = 36% with relevance, AT = 40% with true)
-        ca_ap1();
-        ca_ap2();
         el_ap0();
         el_ap1();
         el_ap2();
@@ -33,9 +28,14 @@ public class Main {
         ph_ap2();
         ph_ap3();
         ph_ap4();
+        ca_ap1();
+        ca_ap2();
         l14_ap1();
         l14_ap2();
         l14_ap3();
+        ev_ap1();
+        ev_ap2();
+        ev_ap3();
         ComputerResult<FSM<ConcreteState, Event>> full;
         EventBParser.parseMachine(EBM_EL);
         full = new FullFSMComputer().compute();

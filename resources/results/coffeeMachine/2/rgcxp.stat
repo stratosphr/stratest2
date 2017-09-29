@@ -1,0 +1,73 @@
+Results for RGCXP (in 01:07.599):
+
+NB_EV: 11
+
+NB_AP: 3
+
+NB_AS: 5
+
+NB_AT: 26
+
+NB_RCHD_AS: 5
+
+COV_AS: 100.0 %
+
+NB_RCHD_AT: 12
+
+COV_AT: 46.15384615384615 %
+
+NB_CS: 182
+
+NB_RCHD_CS: 140
+
+NB_CT: 206
+
+NB_RCHD_CT: 180
+
+RHO_CS: 36.4
+
+RHO_CT: 17.166666666666668
+
+SET_RCHD_AS:
+	q1 ≝ and(¬(p1 ≝ Status=on), p2 ≝ and(Status=off, CoffeeLeft > 0, or(MaxPot > Pot, MaxPot=Pot)), ¬(p0 ≝ and(Status=off, or(Pot > (MaxPot - 50), Pot=(MaxPot - 50)))))
+	q2 ≝ and(p1 ≝ Status=on, ¬(p2 ≝ and(Status=off, CoffeeLeft > 0, or(MaxPot > Pot, MaxPot=Pot))), ¬(p0 ≝ and(Status=off, or(Pot > (MaxPot - 50), Pot=(MaxPot - 50)))))
+	q0 ≝ and(¬(p1 ≝ Status=on), ¬(p2 ≝ and(Status=off, CoffeeLeft > 0, or(MaxPot > Pot, MaxPot=Pot))), ¬(p0 ≝ and(Status=off, or(Pot > (MaxPot - 50), Pot=(MaxPot - 50)))))
+	q4 ≝ and(¬(p1 ≝ Status=on), ¬(p2 ≝ and(Status=off, CoffeeLeft > 0, or(MaxPot > Pot, MaxPot=Pot))), p0 ≝ and(Status=off, or(Pot > (MaxPot - 50), Pot=(MaxPot - 50))))
+	q5 ≝ and(¬(p1 ≝ Status=on), p2 ≝ and(Status=off, CoffeeLeft > 0, or(MaxPot > Pot, MaxPot=Pot)), p0 ≝ and(Status=off, or(Pot > (MaxPot - 50), Pot=(MaxPot - 50))))
+
+
+SET_RCHD_AT:
+	q1 -[ addCoffee ]-> q1
+	q1 -[ powerUp ]-> q2
+	q2 -[ changeBack ]-> q2
+	q2 -[ changeReq ]-> q2
+	q2 -[ coffeeReq ]-> q2
+	q2 -[ insert100 ]-> q2
+	q2 -[ insert50 ]-> q2
+	q2 -[ autoOut ]-> q0
+	q2 -[ powerDown ]-> q1
+	q2 -[ powerDown ]-> q5
+	q0 -[ powerDown ]-> q1
+	q0 -[ powerDown ]-> q4
+
+
+SET_UNRCHD_AS:
+
+
+SET_UNRCHD_AT:
+	q2 -[ serveCoffee ]-> q2
+	q2 -[ powerDown ]-> q0
+	q2 -[ serveCoffee ]-> q0
+	q2 -[ powerDown ]-> q4
+	q0 -[ powerDown ]-> q0
+	q0 -[ addCoffee ]-> q1
+	q0 -[ powerDown ]-> q5
+	q4 -[ addCoffee ]-> q4
+	q4 -[ takePot ]-> q0
+	q4 -[ takePot ]-> q1
+	q4 -[ addCoffee ]-> q5
+	q5 -[ addCoffee ]-> q5
+	q5 -[ takePot ]-> q1
+	q5 -[ powerUp ]-> q2
+
+

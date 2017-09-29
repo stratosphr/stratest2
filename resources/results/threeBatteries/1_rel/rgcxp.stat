@@ -1,4 +1,4 @@
-Results for RGCXP (in 00:04.089):
+Results for RGCXP (in 00:03.771):
 
 NB_EV: 4
 
@@ -16,17 +16,17 @@ NB_RCHD_AT: 9
 
 COV_AT: 100.0 %
 
-NB_CS: 57
+NB_CS: 46
 
-NB_RCHD_CS: 43
+NB_RCHD_CS: 36
 
-NB_CT: 55
+NB_CT: 51
 
-NB_RCHD_CT: 48
+NB_RCHD_CT: 44
 
-RHO_CS: 19.0
+RHO_CS: 15.333333333333334
 
-RHO_CT: 6.111111111111111
+RHO_CT: 5.666666666666667
 
 SET_RCHD_AS:
 	q1 ≝ and(p1 ≝ h=tac, ¬(p0 ≝ ∃(i ∈ 1..n, j ∈ 1..n).(and(i ≠ j, bat(i)=ok, bat(j)=ok, h=tic))))

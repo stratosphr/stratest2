@@ -1,0 +1,73 @@
+Results for RGCXP (in 03:43.240):
+
+NB_EV: 5
+
+NB_AP: 3
+
+NB_AS: 4
+
+NB_AT: 27
+
+NB_RCHD_AS: 4
+
+COV_AS: 100.0 %
+
+NB_RCHD_AT: 26
+
+COV_AT: 96.29629629629629 %
+
+NB_CS: 137
+
+NB_RCHD_CS: 134
+
+NB_CT: 235
+
+NB_RCHD_CT: 232
+
+RHO_CS: 34.25
+
+RHO_CT: 9.038461538461538
+
+SET_RCHD_AS:
+	q0 ≝ and(¬(p0 ≝ Portes(1)=ouvertes), ¬(p2 ≝ ∃(R ∈ Rames).(and(R=1, Mvt(R)=1, ∀(R1 ∈ 1..NR).(and(R1 ≠ R) ⇒ or(Pos(R1) ≠ (Pos(R) + Dir(R)), Dir(R1) ≠ Dir(R)))))), ¬(p1 ≝ ∃(R ∈ Rames).(and(R=1, Portes(R)=refermees, Mvt(R)=0, or(Pos(R) ≠ NS1, Dir(R) ≠ 1), or(Pos(R) ≠ 0, Dir(R) ≠ -1), ∀(R1 ∈ Rames).(R1 ≠ R ⇒ or(Pos(R1) ≠ Pos(R), Dir(R1) ≠ Dir(R)))))))
+	q1 ≝ and(¬(p0 ≝ Portes(1)=ouvertes), p2 ≝ ∃(R ∈ Rames).(and(R=1, Mvt(R)=1, ∀(R1 ∈ 1..NR).(and(R1 ≠ R) ⇒ or(Pos(R1) ≠ (Pos(R) + Dir(R)), Dir(R1) ≠ Dir(R))))), ¬(p1 ≝ ∃(R ∈ Rames).(and(R=1, Portes(R)=refermees, Mvt(R)=0, or(Pos(R) ≠ NS1, Dir(R) ≠ 1), or(Pos(R) ≠ 0, Dir(R) ≠ -1), ∀(R1 ∈ Rames).(R1 ≠ R ⇒ or(Pos(R1) ≠ Pos(R), Dir(R1) ≠ Dir(R)))))))
+	q2 ≝ and(¬(p0 ≝ Portes(1)=ouvertes), ¬(p2 ≝ ∃(R ∈ Rames).(and(R=1, Mvt(R)=1, ∀(R1 ∈ 1..NR).(and(R1 ≠ R) ⇒ or(Pos(R1) ≠ (Pos(R) + Dir(R)), Dir(R1) ≠ Dir(R)))))), p1 ≝ ∃(R ∈ Rames).(and(R=1, Portes(R)=refermees, Mvt(R)=0, or(Pos(R) ≠ NS1, Dir(R) ≠ 1), or(Pos(R) ≠ 0, Dir(R) ≠ -1), ∀(R1 ∈ Rames).(R1 ≠ R ⇒ or(Pos(R1) ≠ Pos(R), Dir(R1) ≠ Dir(R))))))
+	q4 ≝ and(p0 ≝ Portes(1)=ouvertes, ¬(p2 ≝ ∃(R ∈ Rames).(and(R=1, Mvt(R)=1, ∀(R1 ∈ 1..NR).(and(R1 ≠ R) ⇒ or(Pos(R1) ≠ (Pos(R) + Dir(R)), Dir(R1) ≠ Dir(R)))))), ¬(p1 ≝ ∃(R ∈ Rames).(and(R=1, Portes(R)=refermees, Mvt(R)=0, or(Pos(R) ≠ NS1, Dir(R) ≠ 1), or(Pos(R) ≠ 0, Dir(R) ≠ -1), ∀(R1 ∈ Rames).(R1 ≠ R ⇒ or(Pos(R1) ≠ Pos(R), Dir(R1) ≠ Dir(R)))))))
+
+
+SET_RCHD_AT:
+	q0 -[ Arrivee_Station ]-> q0
+	q0 -[ Changement_Direction ]-> q0
+	q0 -[ Depart_Station ]-> q0
+	q0 -[ Fermeture_Portes ]-> q0
+	q0 -[ Ouverture_Portes ]-> q0
+	q0 -[ Changement_Direction ]-> q1
+	q0 -[ Ouverture_Portes ]-> q4
+	q1 -[ Arrivee_Station ]-> q1
+	q1 -[ Depart_Station ]-> q1
+	q1 -[ Fermeture_Portes ]-> q1
+	q1 -[ Ouverture_Portes ]-> q1
+	q1 -[ Arrivee_Station ]-> q0
+	q2 -[ Arrivee_Station ]-> q2
+	q2 -[ Changement_Direction ]-> q2
+	q2 -[ Depart_Station ]-> q2
+	q2 -[ Fermeture_Portes ]-> q2
+	q2 -[ Ouverture_Portes ]-> q2
+	q2 -[ Depart_Station ]-> q0
+	q2 -[ Depart_Station ]-> q1
+	q4 -[ Arrivee_Station ]-> q4
+	q4 -[ Changement_Direction ]-> q4
+	q4 -[ Depart_Station ]-> q4
+	q4 -[ Fermeture_Portes ]-> q4
+	q4 -[ Ouverture_Portes ]-> q4
+	q4 -[ Fermeture_Portes ]-> q0
+	q4 -[ Fermeture_Portes ]-> q2
+
+
+SET_UNRCHD_AS:
+
+
+SET_UNRCHD_AT:
+	q0 -[ Arrivee_Station ]-> q2
+
+

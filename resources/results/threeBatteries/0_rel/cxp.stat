@@ -1,4 +1,4 @@
-Results for CXP (in 00:01.785):
+Results for CXP (in 00:01.934):
 
 NB_EV: 4
 
@@ -16,15 +16,15 @@ NB_RCHD_AT: 6
 
 COV_AT: 54.54545454545455 %
 
-NB_CS: 27
+NB_CS: 24
 
-NB_RCHD_CS: 6
+NB_RCHD_CS: 8
 
 NB_CT: 18
 
-NB_RCHD_CT: 7
+NB_RCHD_CT: 8
 
-RHO_CS: 13.5
+RHO_CS: 12.0
 
 RHO_CT: 3.0
 

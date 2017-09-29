@@ -1,4 +1,4 @@
-Abstract States (6 in 00:00.288):
+Abstract States (6 in 00:00.129):
 
 q0 ≝ and(¬(p0 ≝ S=0), ¬(p2 ≝ and(Tr=0, Lo=1, Do=0, Us=1)), ¬(p1 ≝ and(Tr=0, Mv=0, Do=0, Us=1, Lo=0, Gl=0, AC=0)))
 q1 ≝ and(¬(p0 ≝ S=0), p2 ≝ and(Tr=0, Lo=1, Do=0, Us=1), ¬(p1 ≝ and(Tr=0, Mv=0, Do=0, Us=1, Lo=0, Gl=0, AC=0)))

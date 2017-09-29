@@ -1,4 +1,4 @@
-Abstract States (7 in 00:00.128):
+Abstract States (7 in 00:00.145):
 
 q2 ≝ and(¬(p1 ≝ NbEssai=0), ¬(p0 ≝ NbEssai=1), ¬(p3 ≝ and(Combine=1, ¬(Etat=5))), p2 ≝ or(Combine=1, Etat=5))
 q3 ≝ and(¬(p1 ≝ NbEssai=0), ¬(p0 ≝ NbEssai=1), p3 ≝ and(Combine=1, ¬(Etat=5)), p2 ≝ or(Combine=1, Etat=5))

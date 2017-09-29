@@ -1,0 +1,63 @@
+Results for CXP (in 00:05.428):
+
+NB_EV: 11
+
+NB_AP: 3
+
+NB_AS: 4
+
+NB_AT: 17
+
+NB_RCHD_AS: 4
+
+COV_AS: 100.0 %
+
+NB_RCHD_AT: 14
+
+COV_AT: 82.3529411764706 %
+
+NB_CS: 36
+
+NB_RCHD_CS: 13
+
+NB_CT: 31
+
+NB_RCHD_CT: 14
+
+RHO_CS: 9.0
+
+RHO_CT: 2.2142857142857144
+
+SET_RCHD_AS:
+	q4 ≝ and(p0 ≝ Status=off, ¬(p1 ≝ Status=on), ¬(p2 ≝ or(and(Status=on, AskChange=0, AskCoffee=0, Balance=0), Status=error)))
+	q3 ≝ and(¬(p0 ≝ Status=off), p1 ≝ Status=on, p2 ≝ or(and(Status=on, AskChange=0, AskCoffee=0, Balance=0), Status=error))
+	q1 ≝ and(¬(p0 ≝ Status=off), ¬(p1 ≝ Status=on), p2 ≝ or(and(Status=on, AskChange=0, AskCoffee=0, Balance=0), Status=error))
+	q2 ≝ and(¬(p0 ≝ Status=off), p1 ≝ Status=on, ¬(p2 ≝ or(and(Status=on, AskChange=0, AskCoffee=0, Balance=0), Status=error)))
+
+
+SET_RCHD_AT:
+	q4 -[ addCoffee ]-> q4
+	q4 -[ powerUp ]-> q3
+	q3 -[ autoOut ]-> q1
+	q3 -[ insert100 ]-> q2
+	q3 -[ insert50 ]-> q2
+	q3 -[ powerDown ]-> q4
+	q1 -[ powerDown ]-> q4
+	q2 -[ changeReq ]-> q2
+	q2 -[ coffeeReq ]-> q2
+	q2 -[ insert100 ]-> q2
+	q2 -[ insert50 ]-> q2
+	q2 -[ serveCoffee ]-> q2
+	q2 -[ autoOut ]-> q1
+	q2 -[ changeBack ]-> q3
+
+
+SET_UNRCHD_AS:
+
+
+SET_UNRCHD_AT:
+	q4 -[ takePot ]-> q4
+	q2 -[ serveCoffee ]-> q1
+	q2 -[ serveCoffee ]-> q3
+
+

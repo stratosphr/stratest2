@@ -1,0 +1,10 @@
+Relevance Predicate:
+
+or(
+	Balance_ > Balance
+	CoffeeLeft_ < CoffeeLeft
+	and(
+		AskCoffee=0
+		AskCoffee_=1
+	)
+)
