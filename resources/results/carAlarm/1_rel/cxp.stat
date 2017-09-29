@@ -1,0 +1,75 @@
+Results for CXP (in 00:33.625):
+
+NB_EV: 19
+
+NB_AP: 4
+
+NB_AS: 4
+
+NB_AT: 29
+
+NB_RCHD_AS: 2
+
+COV_AS: 50.0 %
+
+NB_RCHD_AT: 15
+
+COV_AT: 51.724137931034484 %
+
+NB_CS: 34
+
+NB_RCHD_CS: 12
+
+NB_CT: 39
+
+NB_RCHD_CT: 20
+
+RHO_CS: 17.0
+
+RHO_CT: 2.6
+
+SET_RCHD_AS:
+	q4 ≝ and(¬(p0 ≝ and(Tr=0, Mv=0, AC=1, Do=1)), p1 ≝ and(Tr=0, Mv=0, Do=0, or(Us=0, and(Us=1, Lo=0, AC=0))), ¬(p3 ≝ and(Tr=0, Mv=0, Us=0, Be=1)), ¬(p2 ≝ and(Tr=0, Mv=0, Us=1, Do=0, AC=1, Lo=1)))
+	q0 ≝ and(¬(p0 ≝ and(Tr=0, Mv=0, AC=1, Do=1)), ¬(p1 ≝ and(Tr=0, Mv=0, Do=0, or(Us=0, and(Us=1, Lo=0, AC=0)))), ¬(p3 ≝ and(Tr=0, Mv=0, Us=0, Be=1)), ¬(p2 ≝ and(Tr=0, Mv=0, Us=1, Do=0, AC=1, Lo=1)))
+
+
+SET_RCHD_AT:
+	q4 -[ Glasses_Closing ]-> q4
+	q4 -[ Glasses_Opening ]-> q4
+	q4 -[ Light_Activation ]-> q4
+	q4 -[ Light_Deactivation ]-> q4
+	q4 -[ Car_Moving ]-> q0
+	q4 -[ Doors_Locking ]-> q0
+	q4 -[ Doors_Opening ]-> q0
+	q0 -[ Ch_Sec_Activation ]-> q0
+	q0 -[ Ch_Sec_Deactivation ]-> q0
+	q0 -[ Glasses_Opening ]-> q0
+	q0 -[ Increment_Chronometer ]-> q0
+	q0 -[ Light_Activation ]-> q0
+	q0 -[ Light_Deactivation ]-> q0
+	q0 -[ Car_Stopping ]-> q4
+	q0 -[ Doors_Closing ]-> q4
+
+
+SET_UNRCHD_AS:
+	q8 ≝ and(p0 ≝ and(Tr=0, Mv=0, AC=1, Do=1), ¬(p1 ≝ and(Tr=0, Mv=0, Do=0, or(Us=0, and(Us=1, Lo=0, AC=0)))), ¬(p3 ≝ and(Tr=0, Mv=0, Us=0, Be=1)), ¬(p2 ≝ and(Tr=0, Mv=0, Us=1, Do=0, AC=1, Lo=1)))
+	q2 ≝ and(¬(p0 ≝ and(Tr=0, Mv=0, AC=1, Do=1)), ¬(p1 ≝ and(Tr=0, Mv=0, Do=0, or(Us=0, and(Us=1, Lo=0, AC=0)))), ¬(p3 ≝ and(Tr=0, Mv=0, Us=0, Be=1)), p2 ≝ and(Tr=0, Mv=0, Us=1, Do=0, AC=1, Lo=1))
+
+
+SET_UNRCHD_AT:
+	q4 -[ Doors_Opening ]-> q8
+	q0 -[ Doors_Unlocking ]-> q0
+	q0 -[ Glasses_Closing ]-> q0
+	q0 -[ Alarm_Activation ]-> q2
+	q0 -[ Alarm_Activation ]-> q4
+	q0 -[ Alarm_Deactivation ]-> q4
+	q0 -[ Doors_Unlocking ]-> q4
+	q8 -[ Ch_Sec_Activation ]-> q8
+	q8 -[ Ch_Sec_Deactivation ]-> q8
+	q8 -[ Glasses_Closing ]-> q8
+	q8 -[ Glasses_Opening ]-> q8
+	q2 -[ Alarm_Deactivation ]-> q0
+	q2 -[ Doors_Unlocking ]-> q0
+	q2 -[ User_Unauthorized ]-> q4
+
+

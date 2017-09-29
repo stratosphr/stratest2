@@ -1,0 +1,64 @@
+Results for RGCXP (in 00:00.947):
+
+NB_EV: 4
+
+NB_AP: 4
+
+NB_AS: 7
+
+NB_AT: 15
+
+NB_RCHD_AS: 5
+
+COV_AS: 71.42857142857143 %
+
+NB_RCHD_AT: 11
+
+COV_AT: 73.33333333333333 %
+
+NB_CS: 15
+
+NB_RCHD_CS: 11
+
+NB_CT: 32
+
+NB_RCHD_CT: 28
+
+RHO_CS: 3.0
+
+RHO_CT: 2.909090909090909
+
+SET_RCHD_AS:
+	q4 ≝ and(p1 ≝ NbEssai=0, ¬(p0 ≝ NbEssai=1), ¬(p3 ≝ and(Combine=1, ¬(Etat=5))), ¬(p2 ≝ or(Combine=1, Etat=5)))
+	q7 ≝ and(p1 ≝ NbEssai=0, ¬(p0 ≝ NbEssai=1), p3 ≝ and(Combine=1, ¬(Etat=5)), p2 ≝ or(Combine=1, Etat=5))
+	q11 ≝ and(¬(p1 ≝ NbEssai=0), p0 ≝ NbEssai=1, p3 ≝ and(Combine=1, ¬(Etat=5)), p2 ≝ or(Combine=1, Etat=5))
+	q3 ≝ and(¬(p1 ≝ NbEssai=0), ¬(p0 ≝ NbEssai=1), p3 ≝ and(Combine=1, ¬(Etat=5)), p2 ≝ or(Combine=1, Etat=5))
+	q2 ≝ and(¬(p1 ≝ NbEssai=0), ¬(p0 ≝ NbEssai=1), ¬(p3 ≝ and(Combine=1, ¬(Etat=5))), p2 ≝ or(Combine=1, Etat=5))
+
+
+SET_RCHD_AT:
+	q4 -[ Appel_Qui_Donc ]-> q7
+	q7 -[ Start ]-> q7
+	q7 -[ HangUp ]-> q4
+	q7 -[ Timeout ]-> q11
+	q11 -[ Start ]-> q11
+	q11 -[ Timeout ]-> q3
+	q11 -[ HangUp ]-> q4
+	q3 -[ Start ]-> q3
+	q3 -[ Timeout ]-> q2
+	q3 -[ HangUp ]-> q4
+	q2 -[ HangUp ]-> q4
+
+
+SET_UNRCHD_AS:
+	q6 ≝ and(p1 ≝ NbEssai=0, ¬(p0 ≝ NbEssai=1), ¬(p3 ≝ and(Combine=1, ¬(Etat=5))), p2 ≝ or(Combine=1, Etat=5))
+	q10 ≝ and(¬(p1 ≝ NbEssai=0), p0 ≝ NbEssai=1, ¬(p3 ≝ and(Combine=1, ¬(Etat=5))), p2 ≝ or(Combine=1, Etat=5))
+
+
+SET_UNRCHD_AT:
+	q7 -[ Timeout ]-> q6
+	q6 -[ HangUp ]-> q4
+	q11 -[ Timeout ]-> q10
+	q10 -[ HangUp ]-> q4
+
+

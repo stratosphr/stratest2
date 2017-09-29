@@ -1,0 +1,58 @@
+Results for CXP (in 00:01.775):
+
+NB_EV: 4
+
+NB_AP: 3
+
+NB_AS: 5
+
+NB_AT: 11
+
+NB_RCHD_AS: 4
+
+COV_AS: 80.0 %
+
+NB_RCHD_AT: 9
+
+COV_AT: 81.81818181818181 %
+
+NB_CS: 14
+
+NB_RCHD_CS: 10
+
+NB_CT: 18
+
+NB_RCHD_CT: 14
+
+RHO_CS: 3.5
+
+RHO_CT: 2.0
+
+SET_RCHD_AS:
+	q6 ≝ and(p0 ≝ NbEssai=0, ¬(p2 ≝ and(Combine=1, Etat=5)), p1 ≝ and(Etat=4, Combine=0, NbEssai=0))
+	q4 ≝ and(p0 ≝ NbEssai=0, ¬(p2 ≝ and(Combine=1, Etat=5)), ¬(p1 ≝ and(Etat=4, Combine=0, NbEssai=0)))
+	q0 ≝ and(¬(p0 ≝ NbEssai=0), ¬(p2 ≝ and(Combine=1, Etat=5)), ¬(p1 ≝ and(Etat=4, Combine=0, NbEssai=0)))
+	q1 ≝ and(¬(p0 ≝ NbEssai=0), p2 ≝ and(Combine=1, Etat=5), ¬(p1 ≝ and(Etat=4, Combine=0, NbEssai=0)))
+
+
+SET_RCHD_AT:
+	q6 -[ Appel_Qui_Donc ]-> q4
+	q4 -[ Start ]-> q4
+	q4 -[ Timeout ]-> q0
+	q4 -[ HangUp ]-> q6
+	q0 -[ Start ]-> q0
+	q0 -[ Timeout ]-> q0
+	q0 -[ Timeout ]-> q1
+	q0 -[ HangUp ]-> q6
+	q1 -[ HangUp ]-> q6
+
+
+SET_UNRCHD_AS:
+	q5 ≝ and(p0 ≝ NbEssai=0, p2 ≝ and(Combine=1, Etat=5), ¬(p1 ≝ and(Etat=4, Combine=0, NbEssai=0)))
+
+
+SET_UNRCHD_AT:
+	q4 -[ Timeout ]-> q5
+	q5 -[ HangUp ]-> q6
+
+

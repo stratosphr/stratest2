@@ -7,15 +7,17 @@ import algs.heuristics.IAbstractStatesOrderingFunction;
 import algs.heuristics.IEventsOrderingFunction;
 import algs.heuristics.relevance.RelevancePredicate;
 import algs.outputs.ATS;
+import algs.outputs.CTS;
 import algs.outputs.ComputerResult;
 import formatters.eventb.EventBFormatter;
 import formatters.graphs.DefaultGVZFormatter;
 import formatters.statistics.StatisticsFormatter;
-import graphs.AState;
-import graphs.AbstractState;
+import graphs.*;
+import langs.eventb.Event;
 import langs.eventb.Machine;
 import langs.eventb.exprs.AExpr;
 import langs.eventb.exprs.bool.Predicate;
+import utilities.Time;
 
 import java.io.File;
 import java.io.IOException;
@@ -83,5 +85,21 @@ public final class Saver {
             e.printStackTrace();
         }
     }
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public static void saveFull(String subFolderName, FSM<ConcreteState, Event> full, Time time) {
+        File dir = new File(new File("resources/results", Machine.getName()), subFolderName);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        try {
+            /* FULL **********************************/
+            Files.write(new File(dir, "full.stat").toPath(), ("Results for CXP (in " + time + "):" + NL + NL + new StatisticsFormatter(new StatisticsComputer(new ATS(null, new CTS(full.getInitialStates(), full.getStates(), null, null, full.getTransitions().stream().map(o -> ((ConcreteTransition) o)).collect(Collectors.toCollection(LinkedHashSet::new)))), new LinkedHashSet<>(), EStatistics.NB_CS, EStatistics.NB_CT).compute().getResult()).format()).getBytes(), CREATE, TRUNCATE_EXISTING);
+            /* **************************************/
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

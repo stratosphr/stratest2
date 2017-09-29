@@ -1,0 +1,35 @@
+digraph g {
+
+	rankdir="LR"
+
+	__invisible__[shape="point", color="forestgreen"]
+	c0_q5[label="c0_q5 ≝ Combine=0, Etat=4, NbEssai=0", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen", penwidth=3] // Initial
+	c1_q6[label="c1_q6 ≝ Combine=1, Etat=0, NbEssai=0", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
+	c2_q6[label="c2_q6 ≝ Combine=1, Etat=1, NbEssai=0", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
+	c6_q2[label="c6_q2 ≝ Combine=1, Etat=1, NbEssai=1", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
+	c8_q2[label="c8_q2 ≝ Combine=1, Etat=3, NbEssai=1", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
+	c9_q2[label="c9_q2 ≝ Combine=1, Etat=3, NbEssai=2", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
+	c10_q2[label="c10_q2 ≝ Combine=1, Etat=1, NbEssai=2", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
+	c7_q2[label="c7_q2 ≝ Combine=1, Etat=0, NbEssai=1", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
+	c11_q2[label="c11_q2 ≝ Combine=1, Etat=0, NbEssai=2", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
+	c3_q6[label="c3_q6 ≝ Combine=1, Etat=3, NbEssai=0", shape="box", style="rounded, filled", color="deepskyblue4", fillcolor="lightblue2"]
+	c4_q6[label="c4_q6 ≝ Combine=1, Etat=2, NbEssai=0", shape="box", style="rounded, filled", color="deepskyblue4", fillcolor="lightblue2"]
+	c5_q6[label="c5_q6 ≝ Combine=1, Etat=5, NbEssai=0", shape="box", style="rounded, filled", color="deepskyblue4", fillcolor="lightblue2"]
+
+	__invisible__ -> c0_q5[color="forestgreen"]
+	c0_q5 -> c1_q6[label="Appel_Qui_Donc", color="forestgreen"]
+	c1_q6 -> c2_q6[label="Start", color="forestgreen"]
+	c2_q6 -> c6_q2[label="Timeout", color="forestgreen"]
+	c6_q2 -> c8_q2[label="Start", color="forestgreen"]
+	c8_q2 -> c9_q2[label="Timeout", color="forestgreen"]
+	c9_q2 -> c10_q2[label="Start", color="forestgreen"]
+	c6_q2 -> c10_q2[label="Timeout", color="forestgreen"]
+	c2_q6 -> c0_q5[label="HangUp", color="forestgreen"]
+	c1_q6 -> c7_q2[label="Timeout", color="forestgreen"]
+	c7_q2 -> c11_q2[label="Timeout", color="forestgreen"]
+	c11_q2 -> c0_q5[label="HangUp", color="forestgreen"]
+	c7_q2 -> c0_q5[label="HangUp", color="forestgreen"]
+	c3_q6 -> c2_q6[label="Start", color="black", style="dashed"]
+	c4_q6 -> c5_q6[label="Timeout", color="black", style="dashed"]
+
+}

@@ -28,6 +28,8 @@ public final class Resources {
 
     public static final File AP_CA_2 = new File(RESOURCES + "/eventb/CA/APs/ap2.ap");
 
+    public static final File AP_CM_0 = new File(RESOURCES + "/eventb/CM/APs/ap0.ap");
+
     public static final File AP_CM_1 = new File(RESOURCES + "/eventb/CM/APs/ap1.ap");
 
     public static final File AP_CM_2 = new File(RESOURCES + "/eventb/CM/APs/ap2.ap");

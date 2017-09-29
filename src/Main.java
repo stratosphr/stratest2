@@ -1,19 +1,26 @@
+import algs.FullFSMComputer;
 import algs.heuristics.DefaultAbstractStatesOrderingFunction;
 import algs.heuristics.DefaultEventsOrderingFunction;
 import algs.heuristics.relevance.*;
+import algs.outputs.ComputerResult;
+import graphs.ConcreteState;
+import graphs.FSM;
+import langs.eventb.Event;
 import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.Equals;
 import parsers.eventb.EventBParser;
 
 import static algs.statistics.Saver.save;
+import static algs.statistics.Saver.saveFull;
 import static utilities.Resources.*;
 
 public class Main {
 
     public static void main(String[] args) {
-        /*ev_ap1();
+        ev_ap1();
         ev_ap2();
         ev_ap3();
+        cm_ap0();
         cm_ap1();
         cm_ap2(); // Relevance may be improved (AT = 36% with relevance, AT = 40% with true)
         ca_ap1();
@@ -28,10 +35,26 @@ public class Main {
         ph_ap4();
         l14_ap1();
         l14_ap2();
-        l14_ap3();*/
-        el_ap0();
-        ca_ap1();
-        ca_ap2();
+        l14_ap3();
+        ComputerResult<FSM<ConcreteState, Event>> full;
+        EventBParser.parseMachine(EBM_EL);
+        full = new FullFSMComputer().compute();
+        saveFull("full", full.getResult(), full.getComputationTime());
+        EventBParser.parseMachine(EBM_CM);
+        full = new FullFSMComputer().compute();
+        saveFull("full", full.getResult(), full.getComputationTime());
+        EventBParser.parseMachine(EBM_L14);
+        full = new FullFSMComputer().compute();
+        saveFull("full", full.getResult(), full.getComputationTime());
+        EventBParser.parseMachine(EBM_PH);
+        full = new FullFSMComputer().compute();
+        saveFull("full", full.getResult(), full.getComputationTime());
+        EventBParser.parseMachine(EBM_CA);
+        full = new FullFSMComputer().compute();
+        saveFull("full", full.getResult(), full.getComputationTime());
+        EventBParser.parseMachine(EBM_EV);
+        full = new FullFSMComputer().compute();
+        saveFull("full", full.getResult(), full.getComputationTime());
     }
 
     public static RelevancePredicate el() {
@@ -111,7 +134,7 @@ public class Main {
 
     private static RelevancePredicate ph() {
         return new RelevancePredicate(
-                new AtomicPredicateGT(new Var("Enum"))
+                new AtomicPredicateGT(new Var("Etat"))
         );
     }
 
@@ -130,6 +153,13 @@ public class Main {
                 ca(),
                 7000
         );
+    }
+
+    private static void cm_ap0() {
+        EventBParser.parseMachine(EBM_CM);
+        save("0", EventBParser.parseAPs(AP_CM_0), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+                cm(),
+                7000);
     }
 
     private static void cm_ap1() {

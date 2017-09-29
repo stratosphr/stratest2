@@ -1,0 +1,51 @@
+Results for RGCXP (in 00:03.694):
+
+NB_EV: 4
+
+NB_AP: 2
+
+NB_AS: 2
+
+NB_AT: 7
+
+NB_RCHD_AS: 2
+
+COV_AS: 100.0 %
+
+NB_RCHD_AT: 7
+
+COV_AT: 100.0 %
+
+NB_CS: 35
+
+NB_RCHD_CS: 25
+
+NB_CT: 37
+
+NB_RCHD_CT: 31
+
+RHO_CS: 17.5
+
+RHO_CT: 5.285714285714286
+
+SET_RCHD_AS:
+	q3 ≝ and(p1 ≝ ∃(i ∈ 1..n, j ∈ 1..n).(and(i ≠ j, bat(i)=ok, bat(j)=ok)), p0 ≝ ∃(nb ∈ 1..n).(and(bat(nb)=ok)))
+	q2 ≝ and(¬(p1 ≝ ∃(i ∈ 1..n, j ∈ 1..n).(and(i ≠ j, bat(i)=ok, bat(j)=ok))), p0 ≝ ∃(nb ∈ 1..n).(and(bat(nb)=ok)))
+
+
+SET_RCHD_AT:
+	q3 -[ Commute ]-> q3
+	q3 -[ Fail ]-> q3
+	q3 -[ Repair ]-> q3
+	q3 -[ Tic ]-> q3
+	q3 -[ Fail ]-> q2
+	q2 -[ Tic ]-> q2
+	q2 -[ Repair ]-> q3
+
+
+SET_UNRCHD_AS:
+
+
+SET_UNRCHD_AT:
+
+

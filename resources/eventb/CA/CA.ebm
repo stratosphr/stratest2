@@ -64,13 +64,13 @@
                 <int value="1"/>
             </range>
         </var-def>
-        <var-def name="Be"> <!-- Timer Triggered -->
+        <var-def name="Tr"> <!-- Timer Triggered -->
             <range>
                 <int value="0"/>
                 <int value="1"/>
             </range>
         </var-def>
-        <var-def name="Be"> <!-- Delay -->
+        <var-def name="De"> <!-- Delay -->
             <range>
                 <int value="0"/>
                 <int value="10"/>

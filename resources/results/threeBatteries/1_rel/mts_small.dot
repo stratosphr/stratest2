@@ -1,0 +1,21 @@
+digraph g {
+
+	rankdir="LR"
+
+	__invisible__[shape="point", color="forestgreen"]
+	q1[label="q1", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen", penwidth=3] // Initial
+	q0[label="q0", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
+	q2[label="q2", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
+
+	__invisible__ -> q1[color="forestgreen"]
+	q1 -> q1[label="Fail", color="forestgreen"]
+	q1 -> q1[label="Repair", color="forestgreen"]
+	q1 -> q0[label="Tic", color="forestgreen"]
+	q0 -> q2[label="Repair", color="forestgreen"]
+	q2 -> q2[label="Fail", color="forestgreen"]
+	q2 -> q2[label="Repair", color="forestgreen"]
+	q2 -> q0[label="Fail", color="forestgreen"]
+	q2 -> q1[label="Commute", color="forestgreen"]
+	q1 -> q2[label="Tic", color="forestgreen"]
+
+}

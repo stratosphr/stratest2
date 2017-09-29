@@ -1,0 +1,20 @@
+digraph g {
+
+	rankdir="LR"
+
+	__invisible__[shape="point", color="forestgreen"]
+	q5[label="q5 ≝ and(p2 ≝ Combine=0, p0 ≝ NbEssai=0, ¬(p1 ≝ or(Combine=1, Etat=5)))", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen", penwidth=3] // Initial
+	q6[label="q6 ≝ and(¬(p2 ≝ Combine=0), p0 ≝ NbEssai=0, p1 ≝ or(Combine=1, Etat=5))", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
+	q2[label="q2 ≝ and(¬(p2 ≝ Combine=0), ¬(p0 ≝ NbEssai=0), p1 ≝ or(Combine=1, Etat=5))", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
+
+	__invisible__ -> q5[color="forestgreen"]
+	q5 -> q6[label="Appel_Qui_Donc", color="forestgreen"]
+	q6 -> q6[label="Start", color="forestgreen"]
+	q6 -> q6[label="Timeout", color="forestgreen"]
+	q6 -> q2[label="Timeout", color="forestgreen"]
+	q2 -> q2[label="Start", color="forestgreen"]
+	q2 -> q2[label="Timeout", color="forestgreen"]
+	q2 -> q5[label="HangUp", color="forestgreen"]
+	q6 -> q5[label="HangUp", color="forestgreen"]
+
+}

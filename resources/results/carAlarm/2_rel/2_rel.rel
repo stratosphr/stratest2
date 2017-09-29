@@ -1,0 +1,10 @@
+Relevance Predicate:
+
+or(
+	Us_ < Us
+	AC_ > AC
+	De_ > De
+	Lo_ < Lo
+	Gl_ > Gl
+	AC_ < AC
+)

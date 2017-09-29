@@ -234,6 +234,10 @@ public final class EventBParser {
 
     private ABoolExpr parseBoolExpr(XMLNode node) {
         switch (node.getName()) {
+            case FALSE:
+                return parseFalse(node);
+            case TRUE:
+                return parseTrue(node);
             case NOT:
                 return parseNot(node);
             case AND:
@@ -264,6 +268,16 @@ public final class EventBParser {
                 check(node, NOT, AND, OR, EQUALS, NEQ, GT, IMPLIES, FORALL, EXISTS, PREDICATE);
                 return null;
         }
+    }
+
+    private ABoolExpr parseFalse(XMLNode node) {
+        check(node, FALSE);
+        return new False();
+    }
+
+    private ABoolExpr parseTrue(XMLNode node) {
+        check(node, TRUE);
+        return new True();
     }
 
     private ABoolExpr parseNot(XMLNode node) {

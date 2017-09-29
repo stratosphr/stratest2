@@ -1,0 +1,51 @@
+Results for CXP (in 00:00.707):
+
+NB_EV: 4
+
+NB_AP: 2
+
+NB_AS: 2
+
+NB_AT: 7
+
+NB_RCHD_AS: 1
+
+COV_AS: 50.0 %
+
+NB_RCHD_AT: 3
+
+COV_AT: 42.857142857142854 %
+
+NB_CS: 16
+
+NB_RCHD_CS: 3
+
+NB_CT: 10
+
+NB_RCHD_CT: 3
+
+RHO_CS: 16.0
+
+RHO_CT: 3.3333333333333335
+
+SET_RCHD_AS:
+	q3 ≝ and(p1 ≝ ∃(i ∈ 1..n, j ∈ 1..n).(and(i ≠ j, bat(i)=ok, bat(j)=ok)), p0 ≝ ∃(nb ∈ 1..n).(and(bat(nb)=ok)))
+
+
+SET_RCHD_AT:
+	q3 -[ Fail ]-> q3
+	q3 -[ Repair ]-> q3
+	q3 -[ Tic ]-> q3
+
+
+SET_UNRCHD_AS:
+	q2 ≝ and(¬(p1 ≝ ∃(i ∈ 1..n, j ∈ 1..n).(and(i ≠ j, bat(i)=ok, bat(j)=ok))), p0 ≝ ∃(nb ∈ 1..n).(and(bat(nb)=ok)))
+
+
+SET_UNRCHD_AT:
+	q3 -[ Commute ]-> q3
+	q3 -[ Fail ]-> q2
+	q2 -[ Tic ]-> q2
+	q2 -[ Repair ]-> q3
+
+

@@ -5,7 +5,6 @@ import algs.heuristics.DefaultEventsOrderingFunction;
 import algs.heuristics.IAbstractStatesOrderingFunction;
 import algs.heuristics.IEventsOrderingFunction;
 import algs.heuristics.relevance.AAtomicPredicate;
-import algs.heuristics.relevance.AtomicPredicateMultiImplies;
 import algs.heuristics.relevance.RelevancePredicate;
 import algs.outputs.ATS;
 import com.microsoft.z3.Status;
@@ -171,12 +170,12 @@ public final class RGCXPComputer extends AComputer<ATS> {
                 for (AAtomicPredicate ap : relevancePredicate.getAtomicPredicates()) {
                     Z3.checkSAT(new And(Machine.getInvariant(), c, new Equals(variant, ap.getVariantC0(c))));
                     variantsMapping.get(c).put(ap, Z3.getModel(new LinkedHashSet<>(Collections.singletonList(variant))).get(variant));
-                    if (ap instanceof AtomicPredicateMultiImplies) {
+                    /*if (ap instanceof AtomicPredicateMultiImplies) {
                         ((AtomicPredicateMultiImplies) ap).getImplies().forEach(imply -> {
                             Z3.checkSAT(new And(Machine.getInvariant(), c, new Equals(variant, imply.getThenPart().getVariantC0(c))));
                             variantsMapping.get(c).put(imply.getThenPart(), Z3.getModel(new LinkedHashSet<>(Collections.singletonList(variant))).get(variant));
                         });
-                    }
+                    }*/
                 }
                 RCS.add(c);
             } else {
@@ -240,12 +239,12 @@ public final class RGCXPComputer extends AComputer<ATS> {
                                         AArithExpr op = opIterator.next();
                                         Z3.checkSAT(new And(Machine.getInvariant(), Machine.getInvariant().prime(), c, c_.prime(), new Equals(variant, op)));
                                         variantsMapping.get(c_).put(ap, Z3.getModel(new LinkedHashSet<>(Collections.singletonList(variant))).get(variant));
-                                        if (ap instanceof AtomicPredicateMultiImplies) {
+                                        /*if (ap instanceof AtomicPredicateMultiImplies) {
                                             ((AtomicPredicateMultiImplies) ap).getImplies().forEach(imply -> {
                                                 Z3.checkSAT(new And(Machine.getInvariant(), c_, new Equals(variant, imply.getThenPart().getVariantC_(c, c_, variantsMapping))));
                                                 variantsMapping.get(c_).put(imply.getThenPart(), Z3.getModel(new LinkedHashSet<>(Collections.singletonList(variant))).get(variant));
                                             });
-                                        }
+                                        }*/
                                     }
                                     /*System.out.println(c_.getName() + " : ");
                                     variantsMapping.get(c_).forEach((ap, value) -> {
