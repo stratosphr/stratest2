@@ -1,81 +1,95 @@
-Results for RGCXP (in 00:52.673):
+Results for RGCXP (in 01:10.290):
 
-NB_EV: 11
-
-NB_AP: 3
-
-NB_AS: 5
-
-NB_AT: 34
-
-NB_RCHD_AS: 5
-
-COV_AS: 100.0 %
-
-NB_RCHD_AT: 28
-
-COV_AT: 82.3529411764706 %
-
-NB_CS: 189
-
-NB_RCHD_CS: 146
-
-NB_CT: 222
-
-NB_RCHD_CT: 189
-
-RHO_CS: 37.8
-
-RHO_CT: 7.928571428571429
-
-SET_RCHD_AS:
-	q3 ≝ and(p2 ≝ Balance < 60, p1 ≝ Balance=0, ¬(p0 ≝ and(Status=on, or(Balance > 50, Balance=50), AskCoffee=1, CoffeeLeft > 0)))
-	q0 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance=0), ¬(p0 ≝ and(Status=on, or(Balance > 50, Balance=50), AskCoffee=1, CoffeeLeft > 0)))
-	q1 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance=0), ¬(p0 ≝ and(Status=on, or(Balance > 50, Balance=50), AskCoffee=1, CoffeeLeft > 0)))
-	q4 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance=0), p0 ≝ and(Status=on, or(Balance > 50, Balance=50), AskCoffee=1, CoffeeLeft > 0))
-	q5 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance=0), p0 ≝ and(Status=on, or(Balance > 50, Balance=50), AskCoffee=1, CoffeeLeft > 0))
+NB_EV : 11
 
 
-SET_RCHD_AT:
-	q3 -[ addCoffee ]-> q3
-	q3 -[ autoOut ]-> q3
-	q3 -[ powerDown ]-> q3
-	q3 -[ powerUp ]-> q3
-	q3 -[ insert100 ]-> q0
-	q3 -[ insert50 ]-> q1
-	q0 -[ addCoffee ]-> q0
-	q0 -[ autoOut ]-> q0
-	q0 -[ changeReq ]-> q0
-	q0 -[ insert100 ]-> q0
-	q0 -[ insert50 ]-> q0
-	q0 -[ powerDown ]-> q0
-	q0 -[ changeBack ]-> q3
-	q0 -[ powerUp ]-> q3
-	q0 -[ coffeeReq ]-> q4
-	q1 -[ addCoffee ]-> q1
-	q1 -[ autoOut ]-> q1
-	q1 -[ changeReq ]-> q1
-	q1 -[ powerDown ]-> q1
-	q1 -[ insert100 ]-> q0
-	q1 -[ insert50 ]-> q0
-	q1 -[ changeBack ]-> q3
-	q1 -[ powerUp ]-> q3
-	q1 -[ coffeeReq ]-> q5
-	q4 -[ autoOut ]-> q0
-	q4 -[ serveCoffee ]-> q0
-	q5 -[ autoOut ]-> q1
-	q5 -[ serveCoffee ]-> q3
+NB_AP : 3
 
 
-SET_UNRCHD_AS:
+NB_AS : 5
 
 
-SET_UNRCHD_AT:
-	q3 -[ takePot ]-> q3
-	q0 -[ coffeeReq ]-> q0
-	q0 -[ takePot ]-> q0
-	q1 -[ coffeeReq ]-> q1
-	q1 -[ takePot ]-> q1
-	q4 -[ serveCoffee ]-> q1
+NB_AT : 34
+
+
+NB_RCHD_AS : 5
+
+
+COV_AS : 1.0
+
+
+NB_RCHD_AT : 30
+
+
+COV_AT : 0.8823529411764706
+
+
+NB_CS : 196
+
+
+NB_RCHD_CS : 163
+
+
+NB_CT : 235
+
+
+NB_RCHD_CT : 216
+
+
+RHO_CS : 1.2024539877300613
+
+
+RHO_CT : 1.087962962962963
+
+
+SET_RCHD_AS : 
+	q3 ≝ and(p2 ≝ Balance < 60, p1 ≝ Balance = 0, ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q0 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q4 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))
+	q1 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q5 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance = 0), p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))
+
+
+SET_RCHD_AT : 
+	q3 ≝ and(p2 ≝ Balance < 60, p1 ≝ Balance = 0, ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))) -[ addCoffee ]-> q3 ≝ and(p2 ≝ Balance < 60, p1 ≝ Balance = 0, ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q3 ≝ and(p2 ≝ Balance < 60, p1 ≝ Balance = 0, ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))) -[ autoOut ]-> q3 ≝ and(p2 ≝ Balance < 60, p1 ≝ Balance = 0, ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q3 ≝ and(p2 ≝ Balance < 60, p1 ≝ Balance = 0, ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))) -[ powerDown ]-> q3 ≝ and(p2 ≝ Balance < 60, p1 ≝ Balance = 0, ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q3 ≝ and(p2 ≝ Balance < 60, p1 ≝ Balance = 0, ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))) -[ powerUp ]-> q3 ≝ and(p2 ≝ Balance < 60, p1 ≝ Balance = 0, ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q3 ≝ and(p2 ≝ Balance < 60, p1 ≝ Balance = 0, ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))) -[ takePot ]-> q3 ≝ and(p2 ≝ Balance < 60, p1 ≝ Balance = 0, ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q3 ≝ and(p2 ≝ Balance < 60, p1 ≝ Balance = 0, ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))) -[ insert100 ]-> q0 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q3 ≝ and(p2 ≝ Balance < 60, p1 ≝ Balance = 0, ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))) -[ insert50 ]-> q1 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q0 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))) -[ addCoffee ]-> q0 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q0 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))) -[ autoOut ]-> q0 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q0 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))) -[ changeReq ]-> q0 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q0 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))) -[ insert100 ]-> q0 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q0 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))) -[ insert50 ]-> q0 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q0 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))) -[ powerDown ]-> q0 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q0 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))) -[ changeBack ]-> q3 ≝ and(p2 ≝ Balance < 60, p1 ≝ Balance = 0, ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q0 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))) -[ powerUp ]-> q3 ≝ and(p2 ≝ Balance < 60, p1 ≝ Balance = 0, ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q0 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))) -[ coffeeReq ]-> q4 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))
+	q1 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))) -[ addCoffee ]-> q1 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q1 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))) -[ autoOut ]-> q1 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q1 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))) -[ changeReq ]-> q1 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q1 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))) -[ powerDown ]-> q1 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q1 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))) -[ insert100 ]-> q0 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q1 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))) -[ insert50 ]-> q0 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q1 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))) -[ changeBack ]-> q3 ≝ and(p2 ≝ Balance < 60, p1 ≝ Balance = 0, ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q1 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))) -[ powerUp ]-> q3 ≝ and(p2 ≝ Balance < 60, p1 ≝ Balance = 0, ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q1 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))) -[ coffeeReq ]-> q5 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance = 0), p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))
+	q4 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)) -[ autoOut ]-> q0 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q4 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)) -[ serveCoffee ]-> q0 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q4 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)) -[ serveCoffee ]-> q1 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q5 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance = 0), p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)) -[ autoOut ]-> q1 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q5 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance = 0), p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)) -[ serveCoffee ]-> q3 ≝ and(p2 ≝ Balance < 60, p1 ≝ Balance = 0, ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+
+
+SET_UNRCHD_AS : 
+
+
+SET_UNRCHD_AT : 
+	q0 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))) -[ coffeeReq ]-> q0 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q0 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))) -[ takePot ]-> q0 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q1 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))) -[ coffeeReq ]-> q1 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
+	q1 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))) -[ takePot ]-> q1 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))
 
 

@@ -100,7 +100,7 @@ public abstract class AExprFormatter extends AFormatter implements IExprVisitor 
 
     @Override
     public String visit(Equals equals) {
-        return equals.getOperands().stream().map(operand -> operand.accept(this)).collect(Collectors.joining("="));
+        return equals.getOperands().stream().map(operand -> operand.accept(this)).collect(Collectors.joining(" = "));
     }
 
     @Override

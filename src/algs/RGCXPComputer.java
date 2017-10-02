@@ -15,7 +15,6 @@ import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.And;
 import langs.eventb.exprs.bool.Equals;
 import langs.eventb.exprs.bool.GEQ;
-import solvers.z3.Model;
 import solvers.z3.Z3;
 import utilities.sets.Tuple2;
 
@@ -255,17 +254,9 @@ public final class RGCXPComputer extends AComputer<ATS> {
                                     RCS.add(c_);
                                     RCS.addAll(tmpRCS);
                                 }
-                            } else {
-                                if (c.getName().startsWith("c46") && c_.getName().startsWith("c58")) {
-                                    System.out.println(ats.getCTS().getC().contains(c_));
-                                    System.out.println(ats.getCTS().getKappa().get(c_));
-                                    System.out.println(c);
-                                    System.out.println(e.getName());
-                                    System.out.println(c_);
-                                    System.out.println(relevancePredicate.getVariantC_(c, c_, variantsMapping));
-                                }
                             }
                             ats.getCTS().getC().add(c_);
+                            ats.getCTS().getAlpha().put(c, q);
                             ats.getCTS().getAlpha().put(c_, q_);
                             ats.getCTS().getKappa().put(c_, GREEN);
                             ats.getCTS().getDeltaC().add(new ConcreteTransition(c, e, c_));
@@ -278,9 +269,9 @@ public final class RGCXPComputer extends AComputer<ATS> {
                                     q_.prime()
                             ));
                             if (status == SATISFIABLE) {
-                                Model model_ = Z3.getModel(Machine.getAssignables().stream().map(assignable -> (AAssignable) assignable.prime()).collect(Collectors.toCollection(LinkedHashSet::new)));
-                                ConcreteState c_ = concreteState(q_, model_);
+                                ConcreteState c_ = concreteState(q_, Z3.getModel(Machine.getAssignables().stream().map(assignable -> (AAssignable) assignable.prime()).collect(Collectors.toCollection(LinkedHashSet::new))));
                                 ats.getCTS().getC().add(c_);
+                                ats.getCTS().getAlpha().put(c, q);
                                 ats.getCTS().getAlpha().put(c_, q_);
                                 ats.getCTS().getKappa().put(c_, GREEN);
                                 ats.getCTS().getDeltaC().add(new ConcreteTransition(c, e, c_));

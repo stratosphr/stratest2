@@ -1,6 +1,6 @@
 package formatters.statistics;
 
-import algs.statistics.EStatistics;
+import algs.statistics.EStats;
 import formatters.AFormatter;
 import graphs.AbstractState;
 import graphs.AbstractTransition;
@@ -17,16 +17,16 @@ import static utilities.Chars.NL;
  */
 public final class StatisticsFormatter extends AFormatter {
 
-    private final LinkedHashMap<EStatistics, Object> statistics;
+    private final LinkedHashMap<EStats, Object> statistics;
 
-    public StatisticsFormatter(LinkedHashMap<EStatistics, Object> statistics) {
+    public StatisticsFormatter(LinkedHashMap<EStats, Object> statistics) {
         this.statistics = statistics;
     }
 
     @SuppressWarnings("unchecked")
     public String format() {
         StringBuilder formatted = new StringBuilder();
-        for (EStatistics key : statistics.keySet()) {
+        for (EStats key : statistics.keySet()) {
             switch (key) {
                 case NB_EV:
                     formatted.append(key).append(": ").append(statistics.get(key));

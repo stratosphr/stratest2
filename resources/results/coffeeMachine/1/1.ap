@@ -1,6 +1,6 @@
 Abstraction Predicates (3):
 
-        p0 ≝ and(Status=on, or(Balance > 50, Balance=50), AskCoffee=1, CoffeeLeft > 0)
-        p1 ≝ Balance=0
+        p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)
+        p1 ≝ Balance = 0
         p2 ≝ Balance
 < 60

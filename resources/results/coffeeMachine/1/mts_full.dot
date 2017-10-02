@@ -3,11 +3,11 @@ digraph g {
 	rankdir="LR"
 
 	__invisible__[shape="point", color="forestgreen"]
-	q3[label="q3 ≝ and(p2 ≝ Balance < 60, p1 ≝ Balance=0, ¬(p0 ≝ and(Status=on, or(Balance > 50, Balance=50), AskCoffee=1, CoffeeLeft > 0)))", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen", penwidth=3] // Initial
-	q0[label="q0 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance=0), ¬(p0 ≝ and(Status=on, or(Balance > 50, Balance=50), AskCoffee=1, CoffeeLeft > 0)))", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
-	q4[label="q4 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance=0), p0 ≝ and(Status=on, or(Balance > 50, Balance=50), AskCoffee=1, CoffeeLeft > 0))", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
-	q1[label="q1 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance=0), ¬(p0 ≝ and(Status=on, or(Balance > 50, Balance=50), AskCoffee=1, CoffeeLeft > 0)))", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
-	q5[label="q5 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance=0), p0 ≝ and(Status=on, or(Balance > 50, Balance=50), AskCoffee=1, CoffeeLeft > 0))", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
+	q3[label="q3 ≝ and(p2 ≝ Balance < 60, p1 ≝ Balance = 0, ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen", penwidth=3] // Initial
+	q0[label="q0 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
+	q4[label="q4 ≝ and(¬(p2 ≝ Balance < 60), ¬(p1 ≝ Balance = 0), p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
+	q1[label="q1 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance = 0), ¬(p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0)))", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
+	q5[label="q5 ≝ and(p2 ≝ Balance < 60, ¬(p1 ≝ Balance = 0), p0 ≝ and(Status = on, or(Balance > 50, Balance = 50), AskCoffee = 1, CoffeeLeft > 0))", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
 
 	__invisible__ -> q3[color="forestgreen"]
 	q3 -> q3[label="addCoffee", color="forestgreen"]

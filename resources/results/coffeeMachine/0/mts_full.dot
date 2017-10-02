@@ -3,10 +3,10 @@ digraph g {
 	rankdir="LR"
 
 	__invisible__[shape="point", color="forestgreen"]
-	q4[label="q4 ≝ and(p0 ≝ Status=off, ¬(p1 ≝ Status=on), ¬(p2 ≝ or(and(Status=on, AskChange=0, AskCoffee=0, Balance=0), Status=error)))", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen", penwidth=3] // Initial
-	q3[label="q3 ≝ and(¬(p0 ≝ Status=off), p1 ≝ Status=on, p2 ≝ or(and(Status=on, AskChange=0, AskCoffee=0, Balance=0), Status=error))", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
-	q1[label="q1 ≝ and(¬(p0 ≝ Status=off), ¬(p1 ≝ Status=on), p2 ≝ or(and(Status=on, AskChange=0, AskCoffee=0, Balance=0), Status=error))", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
-	q2[label="q2 ≝ and(¬(p0 ≝ Status=off), p1 ≝ Status=on, ¬(p2 ≝ or(and(Status=on, AskChange=0, AskCoffee=0, Balance=0), Status=error)))", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
+	q4[label="q4 ≝ and(p0 ≝ Status = off, ¬(p1 ≝ Status = on), ¬(p2 ≝ or(and(Status = on, AskChange = 0, AskCoffee = 0, Balance = 0), Status = error)))", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen", penwidth=3] // Initial
+	q3[label="q3 ≝ and(¬(p0 ≝ Status = off), p1 ≝ Status = on, p2 ≝ or(and(Status = on, AskChange = 0, AskCoffee = 0, Balance = 0), Status = error))", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
+	q1[label="q1 ≝ and(¬(p0 ≝ Status = off), ¬(p1 ≝ Status = on), p2 ≝ or(and(Status = on, AskChange = 0, AskCoffee = 0, Balance = 0), Status = error))", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
+	q2[label="q2 ≝ and(¬(p0 ≝ Status = off), p1 ≝ Status = on, ¬(p2 ≝ or(and(Status = on, AskChange = 0, AskCoffee = 0, Balance = 0), Status = error)))", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
 
 	__invisible__ -> q4[color="forestgreen"]
 	q4 -> q4[label="addCoffee", color="forestgreen"]

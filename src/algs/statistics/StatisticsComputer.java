@@ -15,33 +15,33 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.stream.Collectors;
 
-import static algs.statistics.EStatistics.*;
+import static algs.statistics.EStats.*;
 
 /**
  * Created by gvoiron on 30/06/17.
  * Time : 18:12
  */
-public final class StatisticsComputer extends AComputer<LinkedHashMap<EStatistics, Object>> {
+public final class StatisticsComputer extends AComputer<LinkedHashMap<EStats, Object>> {
 
     private final ATS ats;
     private final LinkedHashSet<Predicate> ap;
-    private final LinkedHashSet<EStatistics> keys;
+    private final LinkedHashSet<EStats> keys;
 
-    public StatisticsComputer(ATS ats, LinkedHashSet<Predicate> ap, EStatistics... keys) {
+    public StatisticsComputer(ATS ats, LinkedHashSet<Predicate> ap, EStats... keys) {
         this.ats = ats;
         this.ap = ap;
         this.keys = new LinkedHashSet<>(Arrays.asList(keys));
     }
 
     @Override
-    protected LinkedHashMap<EStatistics, Object> run() {
-        LinkedHashMap<EStatistics, Object> statistics = new LinkedHashMap<>();
+    protected LinkedHashMap<EStats, Object> run() {
+        LinkedHashMap<EStats, Object> statistics = new LinkedHashMap<>();
         keys.forEach(key -> statistics.put(key, getStatistic(key)));
         return statistics;
     }
 
     @SuppressWarnings("unchecked")
-    private Object getStatistic(EStatistics key) {
+    private Object getStatistic(EStats key) {
         Tuple2<LinkedHashSet<ConcreteState>, ArrayList<ATransition<ConcreteState, Event>>> reachedPart = new ReachablePartComputer<>(ats.getCTS()).compute().getResult();
         LinkedHashSet<ConcreteTransition> rchdConcreteTransitions = reachedPart.getSecond().stream().map(transition -> new ConcreteTransition(transition.getSource(), transition.getLabel(), transition.getTarget())).collect(Collectors.toCollection(LinkedHashSet::new));
         /*CTS connectedCTS = new ConnectedCTSComputer(new CTS(ats.getCTS().getC0(), reachedPart.getLeft(), ats.getCTS().getAlpha(), ats.getCTS().getKappa(), reachedPart.getRight().stream().map(edge -> new ConcreteTransition(edge.getSource(), ((LabeledArrow<ConcreteState, Event>) edge).getLabel(), edge.getTarget())).collect(Collectors.toCollection(LinkedHashSet::new)))).compute().getResult();

@@ -16,9 +16,9 @@ MACHINE coffeeMachine
 	INVARIANT
 		and(
 			and(
-				MaxPot=200
-				MaxBal=200
-				MaxCoffee=20
+				MaxPot = 200
+				MaxBal = 200
+				MaxCoffee = 20
 			)
 			and(
 				Pot ∈ {0, 50, 100, 150, 200, 250}
@@ -30,26 +30,26 @@ MACHINE coffeeMachine
 			)
 			and(
 				or(
-					¬(Balance=0)
+					¬(Balance = 0)
 					and(
-						AskCoffee=0
-						AskChange=0
+						AskCoffee = 0
+						AskChange = 0
 					)
 				)
 				or(
-					¬(AskChange=1)
+					¬(AskChange = 1)
 					and(
-						AskCoffee=0
+						AskCoffee = 0
 						Balance > 0
 					)
 				)
 				or(
-					¬(AskCoffee=1)
+					¬(AskCoffee = 1)
 					and(
-						AskChange=0
+						AskChange = 0
 						or(
 							Balance > 50
-							Balance=50
+							Balance = 50
 						)
 					)
 				)
@@ -69,12 +69,12 @@ MACHINE coffeeMachine
 		insert50 ≝
 			SELECT
 				and(
-					Status=on
-					AskChange=0
-					AskCoffee=0
+					Status = on
+					AskChange = 0
+					AskCoffee = 0
 					or(
 						MaxBal > (Balance + 50)
-						MaxBal=(Balance + 50)
+						MaxBal = (Balance + 50)
 					)
 				)
 			THEN
@@ -84,12 +84,12 @@ MACHINE coffeeMachine
 		insert100 ≝
 			SELECT
 				and(
-					Status=on
-					AskChange=0
-					AskCoffee=0
+					Status = on
+					AskChange = 0
+					AskCoffee = 0
 					or(
 						MaxBal > (Balance + 100)
-						MaxBal=(Balance + 100)
+						MaxBal = (Balance + 100)
 					)
 				)
 			THEN
@@ -99,11 +99,11 @@ MACHINE coffeeMachine
 		powerUp ≝
 			SELECT
 				and(
-					Status=off
+					Status = off
 					CoffeeLeft > 0
 					or(
 						MaxPot > Pot
-						MaxPot=Pot
+						MaxPot = Pot
 					)
 				)
 			THEN
@@ -117,12 +117,12 @@ MACHINE coffeeMachine
 			SELECT
 				or(
 					and(
-						Status=on
-						AskChange=0
-						AskCoffee=0
-						Balance=0
+						Status = on
+						AskChange = 0
+						AskCoffee = 0
+						Balance = 0
 					)
-					Status=error
+					Status = error
 				)
 			THEN
 				Status := off
@@ -130,7 +130,7 @@ MACHINE coffeeMachine
 
 		autoOut ≝
 			SELECT
-				Status=on
+				Status = on
 			THEN
 				Status := error
 			END
@@ -138,10 +138,10 @@ MACHINE coffeeMachine
 		takePot ≝
 			SELECT
 				and(
-					Status=off
+					Status = off
 					or(
 						Pot > (MaxPot - 50)
-						Pot=(MaxPot - 50)
+						Pot = (MaxPot - 50)
 					)
 				)
 			THEN
@@ -151,13 +151,13 @@ MACHINE coffeeMachine
 		coffeeReq ≝
 			SELECT
 				and(
-					Status=on
+					Status = on
 					or(
 						Balance > 50
-						Balance=50
+						Balance = 50
 					)
-					AskCoffee=0
-					AskChange=0
+					AskCoffee = 0
+					AskChange = 0
 				)
 			THEN
 				AskCoffee := 1
@@ -166,10 +166,10 @@ MACHINE coffeeMachine
 		changeReq ≝
 			SELECT
 				and(
-					Status=on
+					Status = on
 					Balance > 0
-					AskCoffee=0
-					AskChange=0
+					AskCoffee = 0
+					AskChange = 0
 				)
 			THEN
 				AskChange := 1
@@ -179,16 +179,14 @@ MACHINE coffeeMachine
 			ANY
 				x ∈ 1..MaxCoffee
 			WHERE
-				and(
-					or(
-						MaxCoffee > (CoffeeLeft + x)
-						MaxCoffee=(CoffeeLeft + x)
-					)
+				or(
+					MaxCoffee > (CoffeeLeft + x)
+					MaxCoffee = (CoffeeLeft + x)
 				)
 			THEN
 				SELECT
 					and(
-						Status=off
+						Status = off
 						MaxCoffee > CoffeeLeft
 					)
 				THEN
@@ -199,12 +197,12 @@ MACHINE coffeeMachine
 		serveCoffee ≝
 			SELECT
 				and(
-					Status=on
+					Status = on
 					or(
 						Balance > 50
-						Balance=50
+						Balance = 50
 					)
-					AskCoffee=1
+					AskCoffee = 1
 					CoffeeLeft > 0
 				)
 			THEN
@@ -212,7 +210,7 @@ MACHINE coffeeMachine
 					and(
 						or(
 							(Pot + 50) > MaxPot
-							CoffeeLeft=1
+							CoffeeLeft = 1
 						)
 						Balance > 50
 					)
@@ -227,7 +225,7 @@ MACHINE coffeeMachine
 					IF
 						or(
 							(Pot + 50) > MaxPot
-							CoffeeLeft=1
+							CoffeeLeft = 1
 						)
 					THEN
 						Status := error ||
@@ -257,9 +255,9 @@ MACHINE coffeeMachine
 		changeBack ≝
 			SELECT
 				and(
-					Status=on
+					Status = on
 					Balance > 0
-					AskChange=1
+					AskChange = 1
 				)
 			THEN
 				Balance := 0 ||

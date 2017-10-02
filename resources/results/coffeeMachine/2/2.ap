@@ -1,5 +1,0 @@
-Abstraction Predicates (3):
-
-        p0 ≝ and(Status=off, or(Pot > (MaxPot - 50), Pot=(MaxPot - 50)))
-        p1 ≝ Status=on
-        p2 ≝ and(Status=off, CoffeeLeft > 0, or(MaxPot > Pot, MaxPot=Pot))

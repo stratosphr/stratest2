@@ -59,7 +59,7 @@ public final class Minus extends AArithExpr {
 
     @Override
     public AArithExpr clone() {
-        return new Minus(operands.stream().map(AArithExpr::prime).toArray(AArithExpr[]::new));
+        return new Minus(operands.stream().map(AArithExpr::clone).toArray(AArithExpr[]::new));
     }
 
 }

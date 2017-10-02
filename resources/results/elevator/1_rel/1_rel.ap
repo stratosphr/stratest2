@@ -1,6 +1,0 @@
-Abstraction Predicates (3):
-
-        p0 ≝ PC=ouvertes
-        p1 ≝ and(Pos
-< LF, Pos ≥ 0, PC=refermees, PE(Pos)=fermees, Dir=1, or(∃(etage ∈ (Pos + 1)..LF).(BM(etage)=1), ∃(etage ∈ (Pos + 1)..LF).(BC(etage)=1)))
-        p2 ≝ and(PE(Pos)=fermees, PC=fermees)

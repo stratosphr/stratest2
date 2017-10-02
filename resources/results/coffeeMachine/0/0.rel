@@ -4,7 +4,12 @@ or(
 	Balance_ > Balance
 	CoffeeLeft_ < CoffeeLeft
 	and(
-		AskCoffee=0
-		AskCoffee_=1
+		AskCoffee = 0
+		AskCoffee_ = 1
+	)
+	Pot_ < Pot
+	and(
+		Status = on
+		Status_ = off
 	)
 )

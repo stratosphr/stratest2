@@ -4,7 +4,7 @@ package algs.statistics;
  * Created by gvoiron on 30/06/17.
  * Time : 18:11
  */
-public enum EStatistics {
+public enum EStats {
 
     NB_EV,
     NB_AP,
@@ -17,8 +17,6 @@ public enum EStatistics {
     NB_CS,
     NB_RCHD_CS,
     NB_CT,
-    /*NB_TESTS,
-    NB_TEST_STEPS,*/
     NB_RCHD_CT,
     RHO_CS,
     RHO_CT,
@@ -26,6 +24,5 @@ public enum EStatistics {
     SET_RCHD_AT,
     SET_UNRCHD_AS,
     SET_UNRCHD_AT
-    //TESTS
 
 }

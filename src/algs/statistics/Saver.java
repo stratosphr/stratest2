@@ -12,17 +12,18 @@ import algs.outputs.ComputerResult;
 import formatters.eventb.EventBFormatter;
 import formatters.graphs.DefaultGVZFormatter;
 import formatters.statistics.StatisticsFormatter;
+import formatters.statistics.StatsFormatter;
 import graphs.*;
 import langs.eventb.Event;
 import langs.eventb.Machine;
 import langs.eventb.exprs.AExpr;
 import langs.eventb.exprs.bool.Predicate;
+import utilities.Resources;
 import utilities.Time;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.stream.Collectors;
 
@@ -37,6 +38,51 @@ import static utilities.Chars.NL;
  */
 public final class Saver {
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public static void save2(String subFolderName, LinkedHashSet<Predicate> ap, IAbstractStatesOrderingFunction abstractStatesOrderingFunction, IEventsOrderingFunction eventsOrderingFunction, RelevancePredicate relevancePredicate, int limit) {
+        ComputerResult<LinkedHashSet<AbstractState>> asComputer = new AbstractStatesComputer(ap).compute();
+        Time asComputationTime = asComputer.getComputationTime();
+        LinkedHashSet<AbstractState> as = asComputer.getResult();
+        /* CXP **********************************/
+        ComputerResult<ATS> cxp = new CXPComputer(as, abstractStatesOrderingFunction).compute();
+        Time cxpComputationTime = cxp.getComputationTime();
+        ATS cxpATS = cxp.getResult();
+        String cxpStats = StatsFormatter.format(new StatsGen(cxpATS, ap));
+        /* **************************************/
+        /* RGCXP **********************************/
+        ComputerResult<ATS> rgcxp = new RGCXPComputer(cxpATS, relevancePredicate, limit).compute();
+        Time rgcxpComputationTime = rgcxp.getComputationTime();
+        ATS rgcxpATS = rgcxp.getResult();
+        String rgcxpStats = StatsFormatter.format(new StatsGen(rgcxpATS, ap));
+        /* **************************************/
+        File dir = new File(new File(Resources.RESULTS, Machine.getName()), subFolderName);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        try {
+            Files.write(new File(dir, Machine.getName() + ".mch").toPath(), EventBFormatter.format(new Machine()).getBytes(), CREATE, TRUNCATE_EXISTING);
+            Files.write(new File(dir, subFolderName + ".ap").toPath(), ("Abstraction Predicates (" + ap.size() + "):" + NL + NL + ap.stream().map(AExpr::toString).collect(Collectors.joining(NL))).getBytes(), CREATE, TRUNCATE_EXISTING);
+            Files.write(new File(dir, subFolderName + ".as").toPath(), ("Abstract States (" + as.size() + " in " + asComputationTime + "):" + NL + NL + as.stream().map(AState::toString).collect(Collectors.joining(NL))).getBytes(), CREATE, TRUNCATE_EXISTING);
+            Files.write(new File(dir, subFolderName + ".rel").toPath(), ("Relevance Predicate:" + NL + NL + relevancePredicate).getBytes(), CREATE, TRUNCATE_EXISTING);
+            /* MTS **********************************/
+            Files.write(new File(dir, "mts_small.dot").toPath(), cxpATS.getMTS().accept(new DefaultGVZFormatter<>(false, LR)).getBytes(), CREATE, TRUNCATE_EXISTING);
+            Files.write(new File(dir, "mts_full.dot").toPath(), cxpATS.getMTS().accept(new DefaultGVZFormatter<>(true, LR)).getBytes(), CREATE, TRUNCATE_EXISTING);
+            /* **************************************/
+            /* CXP **********************************/
+            Files.write(new File(dir, "cxp.stat").toPath(), ("Results for CXP (in " + cxpComputationTime + "):" + NL + NL + cxpStats).getBytes(), CREATE, TRUNCATE_EXISTING);
+            Files.write(new File(dir, "cxp_small.dot").toPath(), cxpATS.getCTS().accept(new DefaultGVZFormatter<>(false, LR)).getBytes(), CREATE, TRUNCATE_EXISTING);
+            Files.write(new File(dir, "cxp_full.dot").toPath(), cxpATS.getCTS().accept(new DefaultGVZFormatter<>(true, LR)).getBytes(), CREATE, TRUNCATE_EXISTING);
+            /* **************************************/
+            /* RGCXP **********************************/
+            Files.write(new File(dir, "rgcxp.stat").toPath(), ("Results for RGCXP (in " + rgcxpComputationTime + "):" + NL + NL + rgcxpStats).getBytes(), CREATE, TRUNCATE_EXISTING);
+            Files.write(new File(dir, "rgcxp_small.dot").toPath(), rgcxpATS.getCTS().accept(new DefaultGVZFormatter<>(false, LR)).getBytes(), CREATE, TRUNCATE_EXISTING);
+            Files.write(new File(dir, "rgcxp_full.dot").toPath(), rgcxpATS.getCTS().accept(new DefaultGVZFormatter<>(true, LR)).getBytes(), CREATE, TRUNCATE_EXISTING);
+            /* **************************************/
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @SuppressWarnings({"SameParameterValue", "ResultOfMethodCallIgnored"})
     public static void save(String subFolderName, LinkedHashSet<Predicate> ap, IAbstractStatesOrderingFunction abstractStatesOrderingFunction, IEventsOrderingFunction eventsOrderingFunction, RelevancePredicate relevancePredicate, int limit) {
         ComputerResult<LinkedHashSet<AbstractState>> compute = new AbstractStatesComputer(ap).compute();
@@ -46,13 +92,13 @@ public final class Saver {
         ComputerResult<ATS> cxp = new CXPComputer(as, abstractStatesOrderingFunction, eventsOrderingFunction).compute();
         String cxpComputationTime = cxp.getComputationTime().toString();
         ATS cxpATS = cxp.getResult();
-        LinkedHashMap<EStatistics, Object> cxpStatistics = cxpATS.getStatistics(ap);
+        //LinkedHashMap<EStats, Object> cxpStatistics = cxpATS.getStatistics(ap);
         /* **************************************/
         /* RGCXP ********************************/
         ComputerResult<ATS> rgcxp = new RGCXPComputer(cxpATS, abstractStatesOrderingFunction, eventsOrderingFunction, relevancePredicate, limit).compute();
         String rgcxpComputationTime = rgcxp.getComputationTime().toString();
         ATS rgcxpATS = rgcxp.getResult();
-        LinkedHashMap<EStatistics, Object> rgcxpStatistics = rgcxpATS.getStatistics(ap);
+        //LinkedHashMap<EStats, Object> rgcxpStatistics = rgcxpATS.getStatistics(ap);
         /* **************************************/
         File dir = new File(new File("resources/results", Machine.getName()), subFolderName);
         if (!dir.exists()) {
@@ -63,21 +109,21 @@ public final class Saver {
             Files.write(new File(dir, subFolderName + ".ap").toPath(), ("Abstraction Predicates (" + ap.size() + "):" + NL + NL + ap.stream().map(AExpr::toString).collect(Collectors.joining(NL))).getBytes(), CREATE, TRUNCATE_EXISTING);
             Files.write(new File(dir, subFolderName + ".as").toPath(), ("Abstract States (" + as.size() + " in " + asComputationTime + "):" + NL + NL + as.stream().map(AState::toString).collect(Collectors.joining(NL))).getBytes(), CREATE, TRUNCATE_EXISTING);
             Files.write(new File(dir, subFolderName + ".rel").toPath(), ("Relevance Predicate:" + NL + NL + relevancePredicate).getBytes(), CREATE, TRUNCATE_EXISTING);
-            Files.write(new File(dir, subFolderName + ".row").toPath(), (
+            /*Files.write(new File(dir, subFolderName + ".row").toPath(), (
                     cxpStatistics.keySet().stream().filter(eStatistics -> !eStatistics.toString().startsWith("SET")).map(eStatistics -> cxpStatistics.get(eStatistics).toString()).collect(Collectors.joining(" ")) + NL +
                             rgcxpStatistics.keySet().stream().filter(eStatistics -> !eStatistics.toString().startsWith("SET")).map(eStatistics -> rgcxpStatistics.get(eStatistics).toString()).collect(Collectors.joining(" ")) + NL
-            ).getBytes(), CREATE, TRUNCATE_EXISTING);
+            ).getBytes(), CREATE, TRUNCATE_EXISTING);*/
             /* MTS **********************************/
             Files.write(new File(dir, "mts_small.dot").toPath(), cxpATS.getMTS().accept(new DefaultGVZFormatter<>(false, LR)).getBytes(), CREATE, TRUNCATE_EXISTING);
             Files.write(new File(dir, "mts_full.dot").toPath(), cxpATS.getMTS().accept(new DefaultGVZFormatter<>(true, LR)).getBytes(), CREATE, TRUNCATE_EXISTING);
             /* **************************************/
             /* CXP **********************************/
-            Files.write(new File(dir, "cxp.stat").toPath(), ("Results for CXP (in " + cxpComputationTime + "):" + NL + NL + new StatisticsFormatter(cxpStatistics).format()).getBytes(), CREATE, TRUNCATE_EXISTING);
+            //Files.write(new File(dir, "cxp.stat").toPath(), ("Results for CXP (in " + cxpComputationTime + "):" + NL + NL + new StatisticsFormatter(cxpStatistics).format()).getBytes(), CREATE, TRUNCATE_EXISTING);
             Files.write(new File(dir, "cxp_small.dot").toPath(), cxpATS.getCTS().accept(new DefaultGVZFormatter<>(false, LR)).getBytes(), CREATE, TRUNCATE_EXISTING);
             Files.write(new File(dir, "cxp_full.dot").toPath(), cxpATS.getCTS().accept(new DefaultGVZFormatter<>(true, LR)).getBytes(), CREATE, TRUNCATE_EXISTING);
             /* **************************************/
             /* RGCXP **********************************/
-            Files.write(new File(dir, "rgcxp.stat").toPath(), ("Results for RGCXP (in " + rgcxpComputationTime + "):" + NL + NL + new StatisticsFormatter(rgcxpStatistics).format()).getBytes(), CREATE, TRUNCATE_EXISTING);
+            //Files.write(new File(dir, "rgcxp.stat").toPath(), ("Results for RGCXP (in " + rgcxpComputationTime + "):" + NL + NL + new StatisticsFormatter(rgcxpStatistics).format()).getBytes(), CREATE, TRUNCATE_EXISTING);
             Files.write(new File(dir, "rgcxp_small.dot").toPath(), rgcxpATS.getCTS().accept(new DefaultGVZFormatter<>(false, LR)).getBytes(), CREATE, TRUNCATE_EXISTING);
             Files.write(new File(dir, "rgcxp_full.dot").toPath(), rgcxpATS.getCTS().accept(new DefaultGVZFormatter<>(true, LR)).getBytes(), CREATE, TRUNCATE_EXISTING);
             /* **************************************/
@@ -94,7 +140,7 @@ public final class Saver {
         }
         try {
             /* FULL **********************************/
-            Files.write(new File(dir, "full.stat").toPath(), ("Results for CXP (in " + time + "):" + NL + NL + new StatisticsFormatter(new StatisticsComputer(new ATS(null, new CTS(full.getInitialStates(), full.getStates(), null, null, full.getTransitions().stream().map(o -> ((ConcreteTransition) o)).collect(Collectors.toCollection(LinkedHashSet::new)))), new LinkedHashSet<>(), EStatistics.NB_CS, EStatistics.NB_CT).compute().getResult()).format()).getBytes(), CREATE, TRUNCATE_EXISTING);
+            Files.write(new File(dir, "full.stat").toPath(), ("Results for CXP (in " + time + "):" + NL + NL + new StatisticsFormatter(new StatisticsComputer(new ATS(null, new CTS(full.getInitialStates(), full.getStates(), null, null, full.getTransitions().stream().map(o -> ((ConcreteTransition) o)).collect(Collectors.toCollection(LinkedHashSet::new)))), new LinkedHashSet<>(), EStats.NB_CS, EStats.NB_CT).compute().getResult()).format()).getBytes(), CREATE, TRUNCATE_EXISTING);
             /* **************************************/
         } catch (IOException e) {
             e.printStackTrace();

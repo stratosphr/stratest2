@@ -432,24 +432,22 @@
                         </range>
                     </var-def>
                 </vars-defs>
-                <and>
-                    <or>
-                        <gt>
-                            <const name="MaxCoffee"/>
-                            <plus>
-                                <var name="CoffeeLeft"/>
-                                <var name="x"/>
-                            </plus>
-                        </gt>
-                        <equals>
-                            <const name="MaxCoffee"/>
-                            <plus>
-                                <var name="CoffeeLeft"/>
-                                <var name="x"/>
-                            </plus>
-                        </equals>
-                    </or>
-                </and>
+                <or>
+                    <gt>
+                        <const name="MaxCoffee"/>
+                        <plus>
+                            <var name="CoffeeLeft"/>
+                            <var name="x"/>
+                        </plus>
+                    </gt>
+                    <equals>
+                        <const name="MaxCoffee"/>
+                        <plus>
+                            <var name="CoffeeLeft"/>
+                            <var name="x"/>
+                        </plus>
+                    </equals>
+                </or>
                 <select>
                     <and>
                         <equals>

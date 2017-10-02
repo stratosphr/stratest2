@@ -1,17 +1,11 @@
-import algs.FullFSMComputer;
 import algs.heuristics.DefaultAbstractStatesOrderingFunction;
 import algs.heuristics.DefaultEventsOrderingFunction;
 import algs.heuristics.relevance.*;
-import algs.outputs.ComputerResult;
-import graphs.ConcreteState;
-import graphs.FSM;
-import langs.eventb.Event;
 import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.Equals;
 import parsers.eventb.EventBParser;
 
-import static algs.statistics.Saver.save;
-import static algs.statistics.Saver.saveFull;
+import static algs.statistics.Saver.save2;
 import static utilities.Resources.*;
 
 public class Main {
@@ -36,25 +30,25 @@ public class Main {
         ev_ap1();
         ev_ap2();
         ev_ap3();
-        ComputerResult<FSM<ConcreteState, Event>> full;
+        /*ComputerResult<FSM<ConcreteState, Event>> full;
         EventBParser.parseMachine(EBM_EL);
         full = new FullFSMComputer().compute();
-        saveFull("full", full.getResult(), full.getComputationTime());
+        save2Full("full", full.getResult(), full.getComputationTime());
         EventBParser.parseMachine(EBM_CM);
         full = new FullFSMComputer().compute();
-        saveFull("full", full.getResult(), full.getComputationTime());
+        save2Full("full", full.getResult(), full.getComputationTime());
         EventBParser.parseMachine(EBM_L14);
         full = new FullFSMComputer().compute();
-        saveFull("full", full.getResult(), full.getComputationTime());
+        save2Full("full", full.getResult(), full.getComputationTime());
         EventBParser.parseMachine(EBM_PH);
         full = new FullFSMComputer().compute();
-        saveFull("full", full.getResult(), full.getComputationTime());
+        save2Full("full", full.getResult(), full.getComputationTime());
         EventBParser.parseMachine(EBM_CA);
         full = new FullFSMComputer().compute();
-        saveFull("full", full.getResult(), full.getComputationTime());
+        save2Full("full", full.getResult(), full.getComputationTime());
         EventBParser.parseMachine(EBM_EV);
         full = new FullFSMComputer().compute();
-        saveFull("full", full.getResult(), full.getComputationTime());
+        save2Full("full", full.getResult(), full.getComputationTime());*/
     }
 
     public static RelevancePredicate el() {
@@ -89,7 +83,9 @@ public class Main {
         return new RelevancePredicate(
                 new AtomicPredicateGT(new Var("Balance")),
                 new AtomicPredicateLT(new Var("CoffeeLeft")),
-                new AtomicPredicateEnumSet(new Var("AskCoffee"), new Int(0), new Int(1))
+                new AtomicPredicateEnumSet(new Var("AskCoffee"), new Int(0), new Int(1)),
+                new AtomicPredicateLT(new Var("Pot")),
+                new AtomicPredicateEnumSet(new Var("Status"), new EnumValue("on"), new EnumValue("off"))
         );
     }
 
@@ -139,9 +135,9 @@ public class Main {
     }
 
     private static void ca_ap1() {
-        //save("1_true", EventBParser.parseMachine(EBM_CA), EventBParser.parseAPs(AP_CA_1), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(), new True(), 7000);
+        //save2("1_true", EventBParser.parseMachine(EBM_CA), EventBParser.parseAPs(AP_CA_1), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(), new True(), 7000);
         EventBParser.parseMachine(EBM_CA);
-        save("1_rel", EventBParser.parseAPs(AP_CA_1), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+        save2("1_rel", EventBParser.parseAPs(AP_CA_1), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 ca(),
                 7000
         );
@@ -149,7 +145,7 @@ public class Main {
 
     private static void ca_ap2() {
         EventBParser.parseMachine(EBM_CA);
-        save("2_rel", EventBParser.parseAPs(AP_CA_2), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+        save2("2_rel", EventBParser.parseAPs(AP_CA_2), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 ca(),
                 7000
         );
@@ -157,28 +153,28 @@ public class Main {
 
     private static void cm_ap0() {
         EventBParser.parseMachine(EBM_CM);
-        save("0", EventBParser.parseAPs(AP_CM_0), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+        save2("0", EventBParser.parseAPs(AP_CM_0), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 cm(),
                 7000);
     }
 
     private static void cm_ap1() {
         EventBParser.parseMachine(EBM_CM);
-        save("1", EventBParser.parseAPs(AP_CM_1), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+        save2("1", EventBParser.parseAPs(AP_CM_1), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 cm(),
                 7000);
     }
 
     private static void cm_ap2() {
         EventBParser.parseMachine(EBM_CM);
-        save("2", EventBParser.parseAPs(AP_CM_2), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+        save2("2", EventBParser.parseAPs(AP_CM_2), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 cm(),
                 7000);
     }
 
     private static void el_ap0() {
         EventBParser.parseMachine(EBM_EL);
-        save("0_rel", EventBParser.parseAPs(AP_EL_0), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+        save2("0_rel", EventBParser.parseAPs(AP_EL_0), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 el(),
                 7000
         );
@@ -186,7 +182,7 @@ public class Main {
 
     private static void el_ap1() {
         EventBParser.parseMachine(EBM_EL);
-        save("1_rel", EventBParser.parseAPs(AP_EL_1), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+        save2("1_rel", EventBParser.parseAPs(AP_EL_1), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 el(),
                 7000
         );
@@ -194,7 +190,7 @@ public class Main {
 
     private static void el_ap2() {
         EventBParser.parseMachine(EBM_EL);
-        save("2_rel", EventBParser.parseAPs(AP_EL_2), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+        save2("2_rel", EventBParser.parseAPs(AP_EL_2), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 el(),
                 7000
         );
@@ -202,7 +198,7 @@ public class Main {
 
     private static void el_ap4() {
         EventBParser.parseMachine(EBM_EL);
-        save("4_rel", EventBParser.parseAPs(AP_EL_4), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+        save2("4_rel", EventBParser.parseAPs(AP_EL_4), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 el(),
                 7000
         );
@@ -211,7 +207,7 @@ public class Main {
     private static void ev_ap1() {
         // 2944 with full
         EventBParser.parseMachine(EBM_EV);
-        save("1_rel", EventBParser.parseAPs(AP_EV_1), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+        save2("1_rel", EventBParser.parseAPs(AP_EV_1), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 ev(),
                 1500
         );
@@ -219,7 +215,7 @@ public class Main {
 
     private static void ev_ap2() {
         EventBParser.parseMachine(EBM_EV);
-        save("2", EventBParser.parseAPs(AP_EV_2), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+        save2("2", EventBParser.parseAPs(AP_EV_2), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 ev(),
                 7000
         );
@@ -227,7 +223,7 @@ public class Main {
 
     private static void ev_ap3() {
         EventBParser.parseMachine(EBM_EV);
-        save("3_rel", EventBParser.parseAPs(AP_EV_3), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+        save2("3_rel", EventBParser.parseAPs(AP_EV_3), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 ev(),
                 7000
         );
@@ -235,7 +231,7 @@ public class Main {
 
     private static void l14_ap1() {
         EventBParser.parseMachine(EBM_L14);
-        save("1_rel", EventBParser.parseAPs(AP_L14_1), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+        save2("1_rel", EventBParser.parseAPs(AP_L14_1), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 l14(),
                 7000
         );
@@ -243,42 +239,42 @@ public class Main {
 
     private static void l14_ap2() {
         EventBParser.parseMachine(EBM_L14);
-        save("2", EventBParser.parseAPs(AP_L14_2), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+        save2("2", EventBParser.parseAPs(AP_L14_2), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 l14(),
                 7000);
     }
 
     private static void l14_ap3() {
         EventBParser.parseMachine(EBM_L14);
-        save("3", EventBParser.parseAPs(AP_L14_3), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+        save2("3", EventBParser.parseAPs(AP_L14_3), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 l14(),
                 7000);
     }
 
     private static void ph_ap1() {
         EventBParser.parseMachine(EBM_PH);
-        save("1", EventBParser.parseAPs(AP_PH_1), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+        save2("1", EventBParser.parseAPs(AP_PH_1), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 ph(),
                 7000);
     }
 
     private static void ph_ap2() {
         EventBParser.parseMachine(EBM_PH);
-        save("2", EventBParser.parseAPs(AP_PH_2), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+        save2("2", EventBParser.parseAPs(AP_PH_2), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 ph(),
                 7000);
     }
 
     private static void ph_ap3() {
         EventBParser.parseMachine(EBM_PH);
-        save("3", EventBParser.parseAPs(AP_PH_3), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+        save2("3", EventBParser.parseAPs(AP_PH_3), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 ph(),
                 7000);
     }
 
     private static void ph_ap4() {
         EventBParser.parseMachine(EBM_PH);
-        save("4", EventBParser.parseAPs(AP_PH_4), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+        save2("4", EventBParser.parseAPs(AP_PH_4), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 ph(),
                 7000);
     }
