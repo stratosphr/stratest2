@@ -25,7 +25,6 @@ import java.util.stream.Collectors;
  */
 public final class FullFSMComputer extends AComputer<FSM<ConcreteState, Event>> {
 
-
     @Override
     protected FSM<ConcreteState, Event> run() {
         LinkedHashSet<ConcreteState> initialStates = new LinkedHashSet<>();
@@ -46,9 +45,7 @@ public final class FullFSMComputer extends AComputer<FSM<ConcreteState, Event>> 
         while (!lastReached.isEmpty()) {
             ConcreteState c = lastReached.iterator().next();
             lastReached.remove(c);
-            if (states.size() % 5 == 0) {
-                System.out.println("#Full: " + Machine.getName() + " " + states.size());
-            }
+            System.out.println("#Full: " + Machine.getName() + " " + transitions.size());
             for (Event e : Machine.getEvents().values()) {
                 while (Z3.checkSAT(new And(
                         Machine.getInvariant(),

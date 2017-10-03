@@ -69,7 +69,7 @@ public final class Range extends ASetExpr {
             Var varUpperBound = new Var("_upperBound");
             Z3.checkSAT(new And(new Equals(varLowerBound, lowerBound), new Equals(varUpperBound, upperBound), new And(Machine.getConstsDefs().keySet().stream().map(constName -> new Equals(Machine.getConsts().get(constName), Machine.getConstsDefs().get(constName))).toArray(ABoolExpr[]::new))));
             Model model = Z3.getModel(new LinkedHashSet<>(Arrays.asList(varLowerBound, varUpperBound)));
-            set = (((Int) model.get(varLowerBound)).getValue() < ((Int) model.get(varUpperBound)).getValue() ? Maths.range(((Int) model.get(varLowerBound)).getValue(), ((Int) model.get(varUpperBound)).getValue()) : Maths.range(((Int) model.get(varUpperBound)).getValue(), ((Int) model.get(varLowerBound)).getValue())).stream().map(Int::new).collect(Collectors.toCollection(LinkedHashSet::new));
+            set = (((Int) model.get(varLowerBound)).getValue() <= ((Int) model.get(varUpperBound)).getValue() ? Maths.range(((Int) model.get(varLowerBound)).getValue(), ((Int) model.get(varUpperBound)).getValue()) : Maths.range(((Int) model.get(varUpperBound)).getValue(), ((Int) model.get(varLowerBound)).getValue())).stream().map(Int::new).collect(Collectors.toCollection(LinkedHashSet::new));
         }
         return set;
     }

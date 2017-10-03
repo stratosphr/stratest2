@@ -13,6 +13,7 @@ import utilities.sets.Tuple2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.stream.Collectors;
 
@@ -28,6 +29,7 @@ public final class StatsGen {
     private Tuple2<LinkedHashSet<ConcreteState>, ArrayList<ATransition<ConcreteState, Event>>> rchdPart;
     private LinkedHashSet<AbstractState> rchdAS;
     private LinkedHashSet<AbstractTransition> rchdAT;
+    private Object desiredStat;
 
     public StatsGen(ATS ats, LinkedHashSet<Predicate> ap) {
         this(ats, ap, EStats.values());
@@ -37,6 +39,55 @@ public final class StatsGen {
         this.ats = ats;
         this.ap = ap;
         this.desiredStatistics = new LinkedHashSet<>(Arrays.asList(desiredStats));
+    }
+
+    public Object getDesiredStat(EStats stat) {
+        switch (stat) {
+            case NB_EV:
+                return getNbEv();
+            case NB_AP:
+                return getNbAP();
+            case NB_AS:
+                return getNbAS();
+            case NB_AT:
+                return getNbAT();
+            case NB_RCHD_AS:
+                return getNbRchdAS();
+            case COV_AS:
+                return getCovAS();
+            case NB_RCHD_AT:
+                return getNbRchdAT();
+            case COV_AT:
+                return getCovAT();
+            case NB_CS:
+                return getNbCS();
+            case NB_RCHD_CS:
+                return getNbRchdCS();
+            case NB_CT:
+                return getNbCT();
+            case NB_RCHD_CT:
+                return getNbRchdCT();
+            case RHO_CS:
+                return getRhoCS();
+            case RHO_CT:
+                return getRhoCT();
+            case SET_RCHD_AS:
+                return getSetRchdAS();
+            case SET_RCHD_AT:
+                return getSetRchdAT();
+            case SET_UNRCHD_AS:
+                return getSetUnrchdAS();
+            case SET_UNRCHD_AT:
+                return getSetUnrchdAT();
+            default:
+                throw new Error("Trying to access statistics for unknown EStat value.");
+        }
+    }
+
+    public LinkedHashMap<EStats, Object> getAllDesiredStats() {
+        LinkedHashMap<EStats, Object> allDesiredStats = new LinkedHashMap<>();
+        desiredStatistics.forEach(stat -> allDesiredStats.put(stat, getDesiredStat(stat)));
+        return allDesiredStats;
     }
 
     public Integer getNbEv() {
@@ -60,7 +111,7 @@ public final class StatsGen {
     }
 
     public double getCovAS() {
-        return getNbAS() == 0 ? 0 : 1.0 * getNbRchdAS() / getNbAS();
+        return getNbAS() == 0 ? 0 : 100.0 * getNbRchdAS() / getNbAS();
     }
 
     public Integer getNbRchdAT() {
@@ -68,7 +119,7 @@ public final class StatsGen {
     }
 
     public double getCovAT() {
-        return getNbAT() == 0 ? 0 : 1.0 * getNbRchdAT() / getNbAT();
+        return getNbAT() == 0 ? 0 : 100.0 * getNbRchdAT() / getNbAT();
     }
 
     public Integer getNbCS() {

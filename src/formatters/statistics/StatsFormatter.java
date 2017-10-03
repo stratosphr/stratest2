@@ -35,13 +35,13 @@ public final class StatsFormatter extends AFormatter {
                     formatted.append(formatter.line(statistics + " : " + statsGen.getNbRchdAS()));
                     break;
                 case COV_AS:
-                    formatted.append(formatter.line(statistics + " : " + statsGen.getCovAS()));
+                    formatted.append(formatter.line(statistics + " : " + statsGen.getCovAS() + "%"));
                     break;
                 case NB_RCHD_AT:
                     formatted.append(formatter.line(statistics + " : " + statsGen.getNbRchdAT()));
                     break;
                 case COV_AT:
-                    formatted.append(formatter.line(statistics + " : " + statsGen.getCovAT()));
+                    formatted.append(formatter.line(statistics + " : " + statsGen.getCovAT() + "%"));
                     break;
                 case NB_CS:
                     formatted.append(formatter.line(statistics + " : " + statsGen.getNbCS()));
@@ -65,16 +65,16 @@ public final class StatsFormatter extends AFormatter {
                     formatted.append(formatter.line(statistics + " : ")).append(formatter.indentRight()).append(statsGen.getSetRchdAS().stream().map(abstractState -> formatter.indentLine(abstractState.toString())).collect(Collectors.joining())).append(formatter.indentLeft());
                     break;
                 case SET_RCHD_AT:
-                    formatted.append(formatter.line(statistics + " : ")).append(formatter.indentRight()).append(statsGen.getSetRchdAT().stream().map(abstractState -> formatter.indentLine(abstractState.toString())).collect(Collectors.joining())).append(formatter.indentLeft());
+                    formatted.append(formatter.line(statistics + " : ")).append(formatter.indentRight()).append(statsGen.getSetRchdAT().stream().map(abstractTransition -> formatter.indentLine(abstractTransition.getSource().getName() + " -[ " + abstractTransition.getEvent().getName() + " ]-> " + abstractTransition.getTarget().getName())).collect(Collectors.joining())).append(formatter.indentLeft());
                     break;
                 case SET_UNRCHD_AS:
                     formatted.append(formatter.line(statistics + " : ")).append(formatter.indentRight()).append(statsGen.getSetUnrchdAS().stream().map(abstractState -> formatter.indentLine(abstractState.toString())).collect(Collectors.joining())).append(formatter.indentLeft());
                     break;
                 case SET_UNRCHD_AT:
-                    formatted.append(formatter.line(statistics + " : ")).append(formatter.indentRight()).append(statsGen.getSetUnrchdAT().stream().map(abstractState -> formatter.indentLine(abstractState.toString())).collect(Collectors.joining())).append(formatter.indentLeft());
+                    formatted.append(formatter.line(statistics + " : ")).append(formatter.indentRight()).append(statsGen.getSetUnrchdAT().stream().map(abstractTransition -> formatter.indentLine(abstractTransition.getSource().getName() + " -[ " + abstractTransition.getEvent().getName() + " ]-> " + abstractTransition.getTarget().getName())).collect(Collectors.joining())).append(formatter.indentLeft());
                     break;
             }
-            formatted.append(formatter.line()).append(formatter.line());
+            formatted.append(formatter.line());
         }
         return formatted.toString();
     }

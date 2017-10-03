@@ -8,16 +8,20 @@ compile () {
         for subfolder in $(echo */);
         do
             cd $subfolder;
+            cd dot
             for dotFile in $(ls *.dot);
             do
-                dot -Tpdf $dotFile > $(basename $dotFile .dot).pdf
+                dot -Tpdf $dotFile > ../pdf/$(basename $dotFile .dot).pdf
             done
-            for txtFile in $(ls *.mch *.stat *.txt *.ap *.as 2>/dev/null);
+            cd ..
+            cd stats
+            for txtFile in $(ls *.stat *.ap *.as *.rel 2>/dev/null);
             do
                 paps --font="Monospace 6" $txtFile > $txtFile.ps
-                ps2pdf $txtFile.ps $txtFile.pdf&
+                ps2pdf $txtFile.ps ../pdf/$txtFile.pdf
+                rm $txtFile.ps
             done
-            cd ..;
+            cd ../..;
         done
         cd ..;
     done

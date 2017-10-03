@@ -11,9 +11,9 @@ import static utilities.Resources.*;
 public class Main {
 
     public static void main(String[] args) {
-        cm_ap0();
+        /*cm_ap0();
         cm_ap1();
-        cm_ap2(); // Relevance may be improved (AT = 36% with relevance, AT = 40% with true)
+        cm_ap2();
         el_ap0();
         el_ap1();
         el_ap2();
@@ -29,26 +29,8 @@ public class Main {
         l14_ap3();
         ev_ap1();
         ev_ap2();
-        ev_ap3();
-        /*ComputerResult<FSM<ConcreteState, Event>> full;
-        EventBParser.parseMachine(EBM_EL);
-        full = new FullFSMComputer().compute();
-        save2Full("full", full.getResult(), full.getComputationTime());
-        EventBParser.parseMachine(EBM_CM);
-        full = new FullFSMComputer().compute();
-        save2Full("full", full.getResult(), full.getComputationTime());
-        EventBParser.parseMachine(EBM_L14);
-        full = new FullFSMComputer().compute();
-        save2Full("full", full.getResult(), full.getComputationTime());
-        EventBParser.parseMachine(EBM_PH);
-        full = new FullFSMComputer().compute();
-        save2Full("full", full.getResult(), full.getComputationTime());
-        EventBParser.parseMachine(EBM_CA);
-        full = new FullFSMComputer().compute();
-        save2Full("full", full.getResult(), full.getComputationTime());
-        EventBParser.parseMachine(EBM_EV);
-        full = new FullFSMComputer().compute();
-        save2Full("full", full.getResult(), full.getComputationTime());*/
+        ev_ap3();*/
+        el_ap0(true);
     }
 
     public static RelevancePredicate el() {
@@ -58,7 +40,31 @@ public class Main {
                 new AtomicPredicateEnumSet(new Fun("bat", new Int(3)), new EnumValue("ok"), new EnumValue("ko")),
                 new AtomicPredicateEnumSet(new Fun("bat", new Int(4)), new EnumValue("ok"), new EnumValue("ko")),
                 new AtomicPredicateEnumSet(new Fun("bat", new Int(5)), new EnumValue("ok"), new EnumValue("ko")),
-                new AtomicPredicateEnumSet(new Fun("bat", new Int(6)), new EnumValue("ok"), new EnumValue("ko"))
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(6)), new EnumValue("ok"), new EnumValue("ko")),
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(7)), new EnumValue("ok"), new EnumValue("ko")),
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(8)), new EnumValue("ok"), new EnumValue("ko")),
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(9)), new EnumValue("ok"), new EnumValue("ko")),
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(10)), new EnumValue("ok"), new EnumValue("ko")),
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(11)), new EnumValue("ok"), new EnumValue("ko")),
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(12)), new EnumValue("ok"), new EnumValue("ko")),
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(13)), new EnumValue("ok"), new EnumValue("ko")),
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(14)), new EnumValue("ok"), new EnumValue("ko")),
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(15)), new EnumValue("ok"), new EnumValue("ko")),
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(16)), new EnumValue("ok"), new EnumValue("ko")),
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(17)), new EnumValue("ok"), new EnumValue("ko")),
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(18)), new EnumValue("ok"), new EnumValue("ko")),
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(19)), new EnumValue("ok"), new EnumValue("ko")),
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(20)), new EnumValue("ok"), new EnumValue("ko")),
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(21)), new EnumValue("ok"), new EnumValue("ko")),
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(22)), new EnumValue("ok"), new EnumValue("ko")),
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(23)), new EnumValue("ok"), new EnumValue("ko")),
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(24)), new EnumValue("ok"), new EnumValue("ko")),
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(25)), new EnumValue("ok"), new EnumValue("ko")),
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(26)), new EnumValue("ok"), new EnumValue("ko")),
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(27)), new EnumValue("ok"), new EnumValue("ko")),
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(28)), new EnumValue("ok"), new EnumValue("ko")),
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(29)), new EnumValue("ok"), new EnumValue("ko")),
+                new AtomicPredicateEnumSet(new Fun("bat", new Int(30)), new EnumValue("ok"), new EnumValue("ko"))
         );
     }
 
@@ -172,11 +178,12 @@ public class Main {
                 7000);
     }
 
-    private static void el_ap0() {
+    private static void el_ap0(boolean computeFull) {
         EventBParser.parseMachine(EBM_EL);
-        save2("0_rel", EventBParser.parseAPs(AP_EL_0), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+        save2("7bat", EventBParser.parseAPs(AP_EL_0), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 el(),
-                7000
+                7000,
+                computeFull
         );
     }
 
