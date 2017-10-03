@@ -30,7 +30,7 @@ public class Main {
         ev_ap1();
         ev_ap2();
         ev_ap3();*/
-        el_ap0(true);
+        ev_ap1(true);
     }
 
     public static RelevancePredicate el() {
@@ -157,11 +157,11 @@ public class Main {
         );
     }
 
-    private static void cm_ap0() {
+    private static void cm_ap0(boolean computeFull) {
         EventBParser.parseMachine(EBM_CM);
-        save2("0", EventBParser.parseAPs(AP_CM_0), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+        save2("4-6-300", EventBParser.parseAPs(AP_CM_0), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 cm(),
-                7000);
+                7000, computeFull);
     }
 
     private static void cm_ap1() {
@@ -180,7 +180,7 @@ public class Main {
 
     private static void el_ap0(boolean computeFull) {
         EventBParser.parseMachine(EBM_EL);
-        save2("7bat", EventBParser.parseAPs(AP_EL_0), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+        save2("2bat", EventBParser.parseAPs(AP_EL_0), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 el(),
                 7000,
                 computeFull
@@ -211,12 +211,13 @@ public class Main {
         );
     }
 
-    private static void ev_ap1() {
+    private static void ev_ap1(boolean computeFull) {
         // 2944 with full
         EventBParser.parseMachine(EBM_EV);
         save2("1_rel", EventBParser.parseAPs(AP_EV_1), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 ev(),
-                1500
+                1500,
+                computeFull
         );
     }
 

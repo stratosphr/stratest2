@@ -1,0 +1,4 @@
+Abstraction Predicates (2):
+
+        p0 ≝ h = tic
+        p1 ≝ ∃(i ∈ 1..n, j ∈ 1..n).(and(i ≠ j, bat(i) = ok, bat(j) = ok))

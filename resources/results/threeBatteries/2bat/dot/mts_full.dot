@@ -1,0 +1,20 @@
+digraph g {
+
+	rankdir="LR"
+
+	__invisible__[shape="point", color="forestgreen"]
+	q1[label="q1 ≝ and(¬(p0 ≝ h = tic), p1 ≝ ∃(i ∈ 1..n, j ∈ 1..n).(and(i ≠ j, bat(i) = ok, bat(j) = ok)))", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen", penwidth=3] // Initial
+	q0[label="q0 ≝ and(¬(p0 ≝ h = tic), ¬(p1 ≝ ∃(i ∈ 1..n, j ∈ 1..n).(and(i ≠ j, bat(i) = ok, bat(j) = ok))))", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
+	q2[label="q2 ≝ and(p0 ≝ h = tic, ¬(p1 ≝ ∃(i ∈ 1..n, j ∈ 1..n).(and(i ≠ j, bat(i) = ok, bat(j) = ok))))", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
+	q3[label="q3 ≝ and(p0 ≝ h = tic, p1 ≝ ∃(i ∈ 1..n, j ∈ 1..n).(and(i ≠ j, bat(i) = ok, bat(j) = ok)))", shape="box", style="rounded, filled", color="forestgreen", fillcolor="limegreen"]
+
+	__invisible__ -> q1[color="forestgreen"]
+	q1 -> q0[label="Fail", color="forestgreen"]
+	q0 -> q1[label="Repair", color="forestgreen"]
+	q0 -> q2[label="Tic", color="forestgreen"]
+	q2 -> q3[label="Repair", color="forestgreen"]
+	q3 -> q1[label="Commute", color="forestgreen"]
+	q3 -> q2[label="Fail", color="forestgreen"]
+	q1 -> q3[label="Tic", color="forestgreen"]
+
+}

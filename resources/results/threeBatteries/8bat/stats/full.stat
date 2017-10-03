@@ -1,0 +1,53 @@
+Results for FULL (in 50:42.808):
+
+NB_EV : 4
+
+NB_AP : 2
+
+NB_AS : 4
+
+NB_AT : 11
+
+NB_RCHD_AS : 4
+
+COV_AS : 100.0%
+
+NB_RCHD_AT : 11
+
+COV_AT : 100.0%
+
+NB_CS : 2048
+
+NB_RCHD_CS : 2048
+
+NB_CT : 26112
+
+NB_RCHD_CT : 26112
+
+RHO_CS : 1.0
+
+RHO_CT : 1.0
+
+SET_RCHD_AS : 
+	q1 ≝ and(¬(p0 ≝ h = tic), p1 ≝ ∃(i ∈ 1..n, j ∈ 1..n).(and(i ≠ j, bat(i) = ok, bat(j) = ok)))
+	q3 ≝ and(p0 ≝ h = tic, p1 ≝ ∃(i ∈ 1..n, j ∈ 1..n).(and(i ≠ j, bat(i) = ok, bat(j) = ok)))
+	q2 ≝ and(p0 ≝ h = tic, ¬(p1 ≝ ∃(i ∈ 1..n, j ∈ 1..n).(and(i ≠ j, bat(i) = ok, bat(j) = ok))))
+	q0 ≝ and(¬(p0 ≝ h = tic), ¬(p1 ≝ ∃(i ∈ 1..n, j ∈ 1..n).(and(i ≠ j, bat(i) = ok, bat(j) = ok))))
+
+SET_RCHD_AT : 
+	q1 -[ Fail ]-> q1
+	q1 -[ Repair ]-> q1
+	q1 -[ Fail ]-> q0
+	q1 -[ Tic ]-> q3
+	q0 -[ Repair ]-> q1
+	q0 -[ Tic ]-> q2
+	q3 -[ Fail ]-> q3
+	q3 -[ Repair ]-> q3
+	q3 -[ Commute ]-> q1
+	q3 -[ Fail ]-> q2
+	q2 -[ Repair ]-> q3
+
+SET_UNRCHD_AS : 
+
+SET_UNRCHD_AT : 
+

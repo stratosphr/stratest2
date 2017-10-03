@@ -1,0 +1,124 @@
+Relevance Predicate:
+
+or(
+	and(
+		bat(1) = ok
+		bat_(1) = ko
+	)
+	and(
+		bat(2) = ok
+		bat_(2) = ko
+	)
+	and(
+		bat(3) = ok
+		bat_(3) = ko
+	)
+	and(
+		bat(4) = ok
+		bat_(4) = ko
+	)
+	and(
+		bat(5) = ok
+		bat_(5) = ko
+	)
+	and(
+		bat(6) = ok
+		bat_(6) = ko
+	)
+	and(
+		bat(7) = ok
+		bat_(7) = ko
+	)
+	and(
+		bat(8) = ok
+		bat_(8) = ko
+	)
+	and(
+		bat(9) = ok
+		bat_(9) = ko
+	)
+	and(
+		bat(10) = ok
+		bat_(10) = ko
+	)
+	and(
+		bat(11) = ok
+		bat_(11) = ko
+	)
+	and(
+		bat(12) = ok
+		bat_(12) = ko
+	)
+	and(
+		bat(13) = ok
+		bat_(13) = ko
+	)
+	and(
+		bat(14) = ok
+		bat_(14) = ko
+	)
+	and(
+		bat(15) = ok
+		bat_(15) = ko
+	)
+	and(
+		bat(16) = ok
+		bat_(16) = ko
+	)
+	and(
+		bat(17) = ok
+		bat_(17) = ko
+	)
+	and(
+		bat(18) = ok
+		bat_(18) = ko
+	)
+	and(
+		bat(19) = ok
+		bat_(19) = ko
+	)
+	and(
+		bat(20) = ok
+		bat_(20) = ko
+	)
+	and(
+		bat(21) = ok
+		bat_(21) = ko
+	)
+	and(
+		bat(22) = ok
+		bat_(22) = ko
+	)
+	and(
+		bat(23) = ok
+		bat_(23) = ko
+	)
+	and(
+		bat(24) = ok
+		bat_(24) = ko
+	)
+	and(
+		bat(25) = ok
+		bat_(25) = ko
+	)
+	and(
+		bat(26) = ok
+		bat_(26) = ko
+	)
+	and(
+		bat(27) = ok
+		bat_(27) = ko
+	)
+	and(
+		bat(28) = ok
+		bat_(28) = ko
+	)
+	and(
+		bat(29) = ok
+		bat_(29) = ko
+	)
+	and(
+		bat(30) = ok
+		bat_(30) = ko
+	)
+)
