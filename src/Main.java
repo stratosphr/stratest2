@@ -30,7 +30,7 @@ public class Main {
         ev_ap1();
         ev_ap2();
         ev_ap3();*/
-        ev_ap1(true);
+        cm_ap0(true);
     }
 
     public static RelevancePredicate el() {
@@ -91,31 +91,54 @@ public class Main {
                 new AtomicPredicateLT(new Var("CoffeeLeft")),
                 new AtomicPredicateEnumSet(new Var("AskCoffee"), new Int(0), new Int(1)),
                 new AtomicPredicateLT(new Var("Pot")),
-                new AtomicPredicateEnumSet(new Var("Status"), new EnumValue("on"), new EnumValue("off"))
+                new AtomicPredicateEnumSet(new Var("Status"), new EnumValue("on"), new EnumValue("off")),
+                new AtomicPredicateEnumSet(new Var("Status"), new EnumValue("error"), new EnumValue("off"))
+        );
+    }
+
+    public static RelevancePredicate l14_notREquals1() {
+        return new RelevancePredicate(
+                new AtomicPredicateEnumSet(new Fun("Mvt", new Int(1)), new Int(0), new Int(1)),
+                new AtomicPredicateEnumSet(new Fun("Dir", new Int(1)), new Int(-1), new Int(1)),
+                new AtomicPredicateEnumSet(new Fun("Dir", new Int(1)), new Int(1), new Int(-1)),
+                new AtomicPredicateEnumSet(new Fun("Portes", new Int(1)), new EnumValue("fermees"), new EnumValue("ouvertes")),
+                new AtomicPredicateEnumSet(new Fun("Portes", new Int(1)), new EnumValue("ouvertes"), new EnumValue("refermees")),
+                new AtomicPredicateMultiImpliesV2(
+                        new AtomicPredicateImplies(new Equals(new Fun("Dir", new Int(1)), new Int(1)), new AtomicPredicateGT(new Fun("Pos", new Int(1)))),
+                        new AtomicPredicateImplies(new Equals(new Fun("Dir", new Int(1)), new Int(-1)), new AtomicPredicateLT(new Fun("Pos", new Int(1))))
+                )
         );
     }
 
     public static RelevancePredicate l14() {
         return new RelevancePredicate(
                 new AtomicPredicateEnumSet(new Fun("Mvt", new Int(1)), new Int(0), new Int(1)),
-                new AtomicPredicateMultiImpliesV2(
-                        new AtomicPredicateImplies(new Equals(new Fun("Dir", new Int(1)), new Int(1)), new AtomicPredicateGT(new Fun("Pos", new Int(1)))),
-                        new AtomicPredicateImplies(new Equals(new Fun("Dir", new Int(1)), new Int(-1)), new AtomicPredicateLT(new Fun("Pos", new Int(1))))
-                ),
                 new AtomicPredicateEnumSet(new Fun("Dir", new Int(1)), new Int(-1), new Int(1)),
                 new AtomicPredicateEnumSet(new Fun("Dir", new Int(1)), new Int(1), new Int(-1)),
                 new AtomicPredicateEnumSet(new Fun("Portes", new Int(1)), new EnumValue("fermees"), new EnumValue("ouvertes")),
                 new AtomicPredicateEnumSet(new Fun("Portes", new Int(1)), new EnumValue("ouvertes"), new EnumValue("refermees")),
+                new AtomicPredicateMultiImpliesV2(
+                        new AtomicPredicateImplies(new Equals(new Fun("Dir", new Int(1)), new Int(1)), new AtomicPredicateGT(new Fun("Pos", new Int(1)))),
+                        new AtomicPredicateImplies(new Equals(new Fun("Dir", new Int(1)), new Int(-1)), new AtomicPredicateLT(new Fun("Pos", new Int(1))))
+                ),
                 new AtomicPredicateEnumSet(new Fun("Mvt", new Int(2)), new Int(0), new Int(1)),
+                new AtomicPredicateEnumSet(new Fun("Dir", new Int(2)), new Int(-1), new Int(1)),
+                new AtomicPredicateEnumSet(new Fun("Dir", new Int(2)), new Int(1), new Int(-1)),
+                new AtomicPredicateEnumSet(new Fun("Portes", new Int(2)), new EnumValue("fermees"), new EnumValue("ouvertes")),
+                new AtomicPredicateEnumSet(new Fun("Portes", new Int(2)), new EnumValue("ouvertes"), new EnumValue("refermees")),
                 new AtomicPredicateMultiImpliesV2(
                         new AtomicPredicateImplies(new Equals(new Fun("Dir", new Int(2)), new Int(1)), new AtomicPredicateGT(new Fun("Pos", new Int(2)))),
                         new AtomicPredicateImplies(new Equals(new Fun("Dir", new Int(2)), new Int(-1)), new AtomicPredicateLT(new Fun("Pos", new Int(2))))
                 ),
-                new AtomicPredicateEnumSet(new Fun("Dir", new Int(2)), new Int(-1), new Int(1)),
-                new AtomicPredicateEnumSet(new Fun("Dir", new Int(2)), new Int(1), new Int(-1)),
-                new AtomicPredicateEnumSet(new Fun("Portes", new Int(2)), new EnumValue("fermees"), new EnumValue("ouvertes")),
-                new AtomicPredicateEnumSet(new Fun("Portes", new Int(2)), new EnumValue("ouvertes"), new EnumValue("refermees"))
-
+                new AtomicPredicateEnumSet(new Fun("Mvt", new Int(3)), new Int(0), new Int(1)),
+                new AtomicPredicateEnumSet(new Fun("Dir", new Int(3)), new Int(-1), new Int(1)),
+                new AtomicPredicateEnumSet(new Fun("Dir", new Int(3)), new Int(1), new Int(-1)),
+                new AtomicPredicateEnumSet(new Fun("Portes", new Int(3)), new EnumValue("fermees"), new EnumValue("ouvertes")),
+                new AtomicPredicateEnumSet(new Fun("Portes", new Int(3)), new EnumValue("ouvertes"), new EnumValue("refermees")),
+                new AtomicPredicateMultiImpliesV2(
+                        new AtomicPredicateImplies(new Equals(new Fun("Dir", new Int(3)), new Int(1)), new AtomicPredicateGT(new Fun("Pos", new Int(3)))),
+                        new AtomicPredicateImplies(new Equals(new Fun("Dir", new Int(3)), new Int(-1)), new AtomicPredicateLT(new Fun("Pos", new Int(3))))
+                )
         );
     }
 
@@ -140,12 +163,13 @@ public class Main {
         );
     }
 
-    private static void ca_ap1() {
+    private static void ca_ap1(boolean computeFull) {
         //save2("1_true", EventBParser.parseMachine(EBM_CA), EventBParser.parseAPs(AP_CA_1), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(), new True(), 7000);
         EventBParser.parseMachine(EBM_CA);
         save2("1_rel", EventBParser.parseAPs(AP_CA_1), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 ca(),
-                7000
+                7000,
+                computeFull
         );
     }
 
@@ -159,7 +183,7 @@ public class Main {
 
     private static void cm_ap0(boolean computeFull) {
         EventBParser.parseMachine(EBM_CM);
-        save2("4-6-300", EventBParser.parseAPs(AP_CM_0), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+        save2("7-400", EventBParser.parseAPs(AP_CM_0), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 cm(),
                 7000, computeFull);
     }
@@ -180,7 +204,7 @@ public class Main {
 
     private static void el_ap0(boolean computeFull) {
         EventBParser.parseMachine(EBM_EL);
-        save2("2bat", EventBParser.parseAPs(AP_EL_0), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+        save2("30bat", EventBParser.parseAPs(AP_EL_0), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 el(),
                 7000,
                 computeFull
@@ -237,11 +261,12 @@ public class Main {
         );
     }
 
-    private static void l14_ap1() {
+    private static void l14_ap1(boolean computeFull) {
         EventBParser.parseMachine(EBM_L14);
-        save2("1_rel", EventBParser.parseAPs(AP_L14_1), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
-                l14(),
-                7000
+        save2("3Stations3Rames_notREquals1", EventBParser.parseAPs(AP_L14_0), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+                l14_notREquals1(),
+                7000,
+                computeFull
         );
     }
 
@@ -259,11 +284,13 @@ public class Main {
                 7000);
     }
 
-    private static void ph_ap1() {
+    private static void ph_ap1(boolean computeFull) {
         EventBParser.parseMachine(EBM_PH);
         save2("1", EventBParser.parseAPs(AP_PH_1), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 ph(),
-                7000);
+                7000,
+                computeFull
+        );
     }
 
     private static void ph_ap2() {

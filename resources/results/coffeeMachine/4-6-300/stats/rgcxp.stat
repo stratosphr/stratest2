@@ -1,4 +1,4 @@
-Results for RGCXP (in 00:50.889):
+Results for RGCXP (in 00:53.154):
 
 NB_EV : 11
 
@@ -12,21 +12,21 @@ NB_RCHD_AS : 4
 
 COV_AS : 100.0%
 
-NB_RCHD_AT : 16
+NB_RCHD_AT : 17
 
-COV_AT : 94.11764705882354%
+COV_AT : 100.0%
 
-NB_CS : 138
+NB_CS : 150
 
-NB_RCHD_CS : 117
+NB_RCHD_CS : 130
 
-NB_CT : 168
+NB_CT : 182
 
-NB_RCHD_CT : 152
+NB_RCHD_CT : 166
 
-RHO_CS : 1.1794871794871795
+RHO_CS : 1.1538461538461537
 
-RHO_CT : 1.105263157894737
+RHO_CT : 1.0963855421686748
 
 SET_RCHD_AS : 
 	q4 ≝ and(p0 ≝ Status = off, ¬(p1 ≝ Status = on), ¬(p2 ≝ or(and(Status = on, AskChange = 0, AskCoffee = 0, Balance = 0), Status = error)))
@@ -36,6 +36,7 @@ SET_RCHD_AS :
 
 SET_RCHD_AT : 
 	q4 -[ addCoffee ]-> q4
+	q4 -[ takePot ]-> q4
 	q4 -[ powerUp ]-> q3
 	q3 -[ autoOut ]-> q1
 	q3 -[ insert100 ]-> q2
@@ -55,5 +56,4 @@ SET_RCHD_AT :
 SET_UNRCHD_AS : 
 
 SET_UNRCHD_AT : 
-	q4 -[ takePot ]-> q4
 

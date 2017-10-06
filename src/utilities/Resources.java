@@ -48,6 +48,8 @@ public final class Resources {
 
     public static final File AP_EV_3 = new File(RESOURCES + "/eventb/EV/APs/ap3.ap");
 
+    public static final File AP_L14_0 = new File(RESOURCES + "/eventb/L14/APs/ap0.ap");
+
     public static final File AP_L14_1 = new File(RESOURCES + "/eventb/L14/APs/ap1.ap");
 
     public static final File AP_L14_2 = new File(RESOURCES + "/eventb/L14/APs/ap2.ap");

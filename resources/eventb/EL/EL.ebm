@@ -5,7 +5,7 @@
 
     <consts-defs>
         <const-def name="n">
-            <int value="2"/>
+            <int value="30"/>
         </const-def>
     </consts-defs>
 
@@ -65,6 +65,174 @@
             <assignment>
                 <fun name="bat">
                     <int value="2"/>
+                </fun>
+                <enum-value name="ok"/>
+            </assignment>
+            <assignment>
+                <fun name="bat">
+                    <int value="3"/>
+                </fun>
+                <enum-value name="ok"/>
+            </assignment>
+            <assignment>
+                <fun name="bat">
+                    <int value="4"/>
+                </fun>
+                <enum-value name="ok"/>
+            </assignment>
+            <assignment>
+                <fun name="bat">
+                    <int value="5"/>
+                </fun>
+                <enum-value name="ok"/>
+            </assignment>
+            <assignment>
+                <fun name="bat">
+                    <int value="6"/>
+                </fun>
+                <enum-value name="ok"/>
+            </assignment>
+            <assignment>
+                <fun name="bat">
+                    <int value="7"/>
+                </fun>
+                <enum-value name="ok"/>
+            </assignment>
+            <assignment>
+                <fun name="bat">
+                    <int value="8"/>
+                </fun>
+                <enum-value name="ok"/>
+            </assignment>
+            <assignment>
+                <fun name="bat">
+                    <int value="9"/>
+                </fun>
+                <enum-value name="ok"/>
+            </assignment>
+            <assignment>
+                <fun name="bat">
+                    <int value="10"/>
+                </fun>
+                <enum-value name="ok"/>
+            </assignment>
+            <assignment>
+                <fun name="bat">
+                    <int value="11"/>
+                </fun>
+                <enum-value name="ok"/>
+            </assignment>
+            <assignment>
+                <fun name="bat">
+                    <int value="12"/>
+                </fun>
+                <enum-value name="ok"/>
+            </assignment>
+            <assignment>
+                <fun name="bat">
+                    <int value="13"/>
+                </fun>
+                <enum-value name="ok"/>
+            </assignment>
+            <assignment>
+                <fun name="bat">
+                    <int value="14"/>
+                </fun>
+                <enum-value name="ok"/>
+            </assignment>
+            <assignment>
+                <fun name="bat">
+                    <int value="15"/>
+                </fun>
+                <enum-value name="ok"/>
+            </assignment>
+            <assignment>
+                <fun name="bat">
+                    <int value="16"/>
+                </fun>
+                <enum-value name="ok"/>
+            </assignment>
+            <assignment>
+                <fun name="bat">
+                    <int value="17"/>
+                </fun>
+                <enum-value name="ok"/>
+            </assignment>
+            <assignment>
+                <fun name="bat">
+                    <int value="18"/>
+                </fun>
+                <enum-value name="ok"/>
+            </assignment>
+            <assignment>
+                <fun name="bat">
+                    <int value="19"/>
+                </fun>
+                <enum-value name="ok"/>
+            </assignment>
+            <assignment>
+                <fun name="bat">
+                    <int value="20"/>
+                </fun>
+                <enum-value name="ok"/>
+            </assignment>
+            <assignment>
+                <fun name="bat">
+                    <int value="21"/>
+                </fun>
+                <enum-value name="ok"/>
+            </assignment>
+            <assignment>
+                <fun name="bat">
+                    <int value="22"/>
+                </fun>
+                <enum-value name="ok"/>
+            </assignment>
+            <assignment>
+                <fun name="bat">
+                    <int value="23"/>
+                </fun>
+                <enum-value name="ok"/>
+            </assignment>
+            <assignment>
+                <fun name="bat">
+                    <int value="24"/>
+                </fun>
+                <enum-value name="ok"/>
+            </assignment>
+            <assignment>
+                <fun name="bat">
+                    <int value="25"/>
+                </fun>
+                <enum-value name="ok"/>
+            </assignment>
+            <assignment>
+                <fun name="bat">
+                    <int value="26"/>
+                </fun>
+                <enum-value name="ok"/>
+            </assignment>
+            <assignment>
+                <fun name="bat">
+                    <int value="27"/>
+                </fun>
+                <enum-value name="ok"/>
+            </assignment>
+            <assignment>
+                <fun name="bat">
+                    <int value="28"/>
+                </fun>
+                <enum-value name="ok"/>
+            </assignment>
+            <assignment>
+                <fun name="bat">
+                    <int value="29"/>
+                </fun>
+                <enum-value name="ok"/>
+            </assignment>
+            <assignment>
+                <fun name="bat">
+                    <int value="30"/>
                 </fun>
                 <enum-value name="ok"/>
             </assignment>

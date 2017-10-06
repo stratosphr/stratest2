@@ -25,7 +25,7 @@ public final class Time {
 
     @Override
     public String toString() {
-        return new SimpleDateFormat("mm:ss.SSS").format(new Date(getNanoSeconds() / 1000000));
+        return new SimpleDateFormat("HH:mm:ss.SSS").format(new Date(getNanoSeconds() / 1000000));
     }
 
 }

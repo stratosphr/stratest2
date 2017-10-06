@@ -12,4 +12,8 @@ or(
 		Status = on
 		Status_ = off
 	)
+	and(
+		Status = error
+		Status_ = off
+	)
 )
