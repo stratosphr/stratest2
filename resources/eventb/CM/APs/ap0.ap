@@ -2,10 +2,19 @@
 
 <predicates xmlns="ap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="ap ../../ap.xsd">
     <predicate name="p0">
-        <equals>
-            <var name="Status"/>
-            <enum-value name="off"/>
-        </equals>
+        <and>
+            <equals>
+                <var name="Status"/>
+                <enum-value name="off"/>
+            </equals>
+            <geq>
+                <var name="Pot"/>
+                <minus>
+                    <const name="MaxPot"/>
+                    <int value="50"/>
+                </minus>
+            </geq>
+        </and>
     </predicate>
     <predicate name="p1">
         <equals>
