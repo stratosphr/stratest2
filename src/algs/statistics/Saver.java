@@ -117,8 +117,8 @@ public final class Saver {
                 LinkedHashMap<EStats, Object> fullDesiredStats = new StatsGen(fullATS, ap, Arrays.stream(EStats.values()).filter(eStats -> !eStats.toString().startsWith("SET") && !eStats.toString().startsWith("RHO")).toArray(EStats[]::new)).getAllDesiredStats();
                 Files.write(new File(statsDir, "full.row").toPath(), (fullDesiredStats.keySet().stream().map(stat -> new DecimalFormat("##.##").format(fullDesiredStats.get(stat)).replaceAll(",", ".")).collect(Collectors.joining(" ")) + " " + fullComputationTime).getBytes(), CREATE, TRUNCATE_EXISTING);
                 Files.write(new File(statsDir, "full.stat").toPath(), ("Results for FULL (in " + fullComputationTime + "):" + NL + NL + fullStats).getBytes(), CREATE, TRUNCATE_EXISTING);
-                //Files.write(new File(dotDir, "full_small.dot").toPath(), fullATS.getCTS().accept(new DefaultGVZFormatter<>(false, LR)).getBytes(), CREATE, TRUNCATE_EXISTING);
-                //Files.write(new File(dotDir, "full_full.dot").toPath(), fullATS.getCTS().accept(new DefaultGVZFormatter<>(true, LR)).getBytes(), CREATE, TRUNCATE_EXISTING);
+                Files.write(new File(dotDir, "full_small.dot").toPath(), fullATS.getCTS().accept(new DefaultGVZFormatter<>(false, LR)).getBytes(), CREATE, TRUNCATE_EXISTING);
+                Files.write(new File(dotDir, "full_full.dot").toPath(), fullATS.getCTS().accept(new DefaultGVZFormatter<>(true, LR)).getBytes(), CREATE, TRUNCATE_EXISTING);
             }
             /* ***************************************/
         } catch (IOException e) {

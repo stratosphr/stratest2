@@ -117,6 +117,7 @@ public final class CXPComputer extends AComputer<ATS> {
                 for (Event e : events) {
                     Status status = Z3.checkSAT(new And(Machine.getInvariant(), Machine.getInvariant().prime(), q, e.getSubstitution().getPrd(Machine.getAssignables()), q_.prime()));
                     if (status == SATISFIABLE) {
+                        System.out.println("#" + (3 * abstractStates.size() * events.size() * abstractStates.size() - deltaC.size()));
                         Model model = Z3.getModel(Machine.getAssignables());
                         Model model_ = Z3.getModel(Machine.getAssignables().stream().map(assignable -> (AAssignable) assignable.prime()).collect(Collectors.toCollection(LinkedHashSet::new)));
                         AbstractTransition abstractTransition = new AbstractTransition(q, e, q_);

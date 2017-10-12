@@ -1,7 +1,7 @@
 MACHINE elevator
 
 	CONSTS
-		NE ≝ 3
+		NE ≝ 4
 		LF ≝ (NE - 1)
 
 	SETS
@@ -26,7 +26,7 @@ MACHINE elevator
 	INVARIANT
 		and(
 			and(
-				NE = 3
+				NE = 4
 				LF = (NE - 1)
 			)
 			and(
@@ -38,15 +38,19 @@ MACHINE elevator
 				BC!0 ∈ 0..1
 				BC!1 ∈ 0..1
 				BC!2 ∈ 0..1
+				BC!3 ∈ 0..1
 				BM!0 ∈ 0..1
 				BM!1 ∈ 0..1
 				BM!2 ∈ 0..1
+				BM!3 ∈ 0..1
 				BD!0 ∈ 0..1
 				BD!1 ∈ 0..1
 				BD!2 ∈ 0..1
+				BD!3 ∈ 0..1
 				PE!0 ∈ DoorsState
 				PE!1 ∈ DoorsState
 				PE!2 ∈ DoorsState
+				PE!3 ∈ DoorsState
 			)
 			and(
 				BM(LF) = 0

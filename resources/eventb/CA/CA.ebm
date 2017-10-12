@@ -364,7 +364,7 @@
 
     <events>
 
-        <event name="Bell_Activation">
+        <event name="Be_Activation">
             <select>
                 <and>
                     <equals>
@@ -390,14 +390,14 @@
                         <int value="1"/>
                     </assignment>
                     <assignment>
-                        <var name="Alarme"/>
+                        <var name="Be"/>
                         <int value="1"/>
                     </assignment>
                 </assignments>
             </select>
         </event>
 
-        <event name="Bell_Stop">
+        <event name="Be_Stop">
             <select>
                 <and>
                     <equals>
@@ -423,7 +423,7 @@
                         <int value="0"/>
                     </assignment>
                     <assignment>
-                        <var name="Alarme"/>
+                        <var name="Be"/>
                         <int value="0"/>
                     </assignment>
                 </assignments>

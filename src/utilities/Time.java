@@ -2,6 +2,7 @@ package utilities;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Created by gvoiron on 18/06/17.
@@ -25,7 +26,9 @@ public final class Time {
 
     @Override
     public String toString() {
-        return new SimpleDateFormat("HH:mm:ss.SSS").format(new Date(getNanoSeconds() / 1000000));
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss.SSS");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+        return sdf.format(new Date(getNanoSeconds() / 1000000));
     }
 
 }
