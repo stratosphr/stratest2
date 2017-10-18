@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<relevance-predicate xmlns="rp" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:schemaLocation="rp ../../rp.xsd">
+    <changes>
+        <fun name="Mvt">
+            <int value="1"/>
+        </fun>
+        <int value="0"/>
+        <int value="1"/>
+    </changes>
+    <changes>
+        <fun name="Dir">
+            <int value="1"/>
+        </fun>
+        <int value="1"/>
+        <int value="-1"/>
+    </changes>
+    <changes>
+        <fun name="Dir">
+            <int value="1"/>
+        </fun>
+        <int value="-1"/>
+        <int value="1"/>
+    </changes>
+    <changes>
+        <fun name="Portes">
+            <int value="1"/>
+        </fun>
+        <enum-value name="fermees"/>
+        <enum-value name="ouvertes"/>
+    </changes>
+    <changes>
+        <fun name="Portes">
+            <int value="1"/>
+        </fun>
+        <enum-value name="ouvertes"/>
+        <enum-value name="refermees"/>
+    </changes>
+    <conditions>
+        <condition>
+            <equals>
+                <fun name="Dir">
+                    <int value="1"/>
+                </fun>
+                <int value="1"/>
+            </equals>
+            <increases>
+                <fun name="Pos">
+                    <int value="1"/>
+                </fun>
+            </increases>
+        </condition>
+        <condition>
+            <equals>
+                <fun name="Dir">
+                    <int value="1"/>
+                </fun>
+                <int value="-1"/>
+            </equals>
+            <decreases>
+                <fun name="Pos">
+                    <int value="1"/>
+                </fun>
+            </decreases>
+        </condition>
+    </conditions>
+</relevance-predicate>

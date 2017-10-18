@@ -1,5 +1,6 @@
 package parsers.eventb;
 
+import algs.heuristics.relevance.*;
 import langs.eventb.Event;
 import langs.eventb.Machine;
 import langs.eventb.exprs.arith.*;
@@ -56,6 +57,12 @@ public final class EventBParser {
         return parser.parsePredicates(parse.getRoot());
     }
 
+    public static RelevancePredicate parseRP(File file) {
+        EventBParser parser = new EventBParser();
+        XMLDocument parse = XMLParser.parse(file, new File("resources/eventb/rp.xsd"));
+        return parser.parseRelevancePredicate(parse.getRoot());
+    }
+
     private void parseModel(XMLNode root) {
         check(root, MODEL);
         List<XMLNode> constsDefsNode = root.getChildren(CONSTS_DEFS);
@@ -92,6 +99,11 @@ public final class EventBParser {
     private LinkedHashSet<Predicate> parsePredicates(XMLNode root) {
         check(root, PREDICATES);
         return root.getChildren().stream().map(this::parsePredicate).collect(Collectors.toCollection(LinkedHashSet::new));
+    }
+
+    private RelevancePredicate parseRelevancePredicate(XMLNode root) {
+        check(root, RELEVANCE_PREDICATE);
+        return new RelevancePredicate(root.getChildren().stream().map(this::parseAtomicPredicate).toArray(AAtomicPredicate[]::new));
     }
 
     private LinkedHashSet<Tuple2<String, AArithExpr>> parseConstsDefs(XMLNode node) {
@@ -441,6 +453,47 @@ public final class EventBParser {
     private ASubstitution parseAny(XMLNode node) {
         check(node, ANY);
         return new Any(parseBoolExpr(node.getChildren().get(1)), parseSubstitution(node.getChildren().get(2)), parseVarsDefs(node.getChildren().get(0)).stream().map(tuple -> new Tuple2<>(new Var(tuple.getFirst()), tuple.getSecond())).toArray((IntFunction<Tuple2<Var, ASetExpr>[]>) Tuple2[]::new));
+    }
+
+    private AAtomicPredicate parseAtomicPredicate(XMLNode node) {
+        switch (node.getName()) {
+            case CHANGES:
+                return parseChanges(node);
+            case INCREASES:
+                return parseIncreases(node);
+            case DECREASES:
+                return parseDecreases(node);
+            case CONDITIONS:
+                return parseConditions(node);
+            default:
+                check(node, CHANGES, INCREASES, DECREASES, CONDITIONS);
+                return null;
+        }
+    }
+
+    private AtomicPredicateEnumSet parseChanges(XMLNode node) {
+        check(node, CHANGES);
+        return new AtomicPredicateEnumSet(parseAssignable(node.getChildren().get(0)), parseArithExpr(node.getChildren().get(1)), parseArithExpr(node.getChildren().get(2)));
+    }
+
+    private AtomicPredicateGT parseIncreases(XMLNode node) {
+        check(node, INCREASES);
+        return new AtomicPredicateGT(parseAssignable(node.getChildren().get(0)));
+    }
+
+    private AtomicPredicateLT parseDecreases(XMLNode node) {
+        check(node, DECREASES);
+        return new AtomicPredicateLT(parseAssignable(node.getChildren().get(0)));
+    }
+
+    private AtomicPredicateMultiImpliesV2 parseConditions(XMLNode node) {
+        check(node, CONDITIONS);
+        return new AtomicPredicateMultiImpliesV2(node.getChildren().stream().map(this::parseCondition).toArray(AtomicPredicateImplies[]::new));
+    }
+
+    private AtomicPredicateImplies parseCondition(XMLNode node) {
+        check(node, CONDITION);
+        return new AtomicPredicateImplies(parseBoolExpr(node.getChildren().get(0)), parseAtomicPredicate(node.getChildren().get(1)));
     }
 
 }

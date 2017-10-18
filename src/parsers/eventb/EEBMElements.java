@@ -8,6 +8,7 @@ public final class EEBMElements {
 
     public static final String MODEL = "model";
     public static final String PREDICATES = "predicates";
+    public static final String RELEVANCE_PREDICATE = "relevance-predicate";
     public static final String SETS_DEFS = "sets-defs";
     public static final String SET_DEF = "set-def";
     public static final String CONSTS_DEFS = "consts-defs";
@@ -56,6 +57,11 @@ public final class EEBMElements {
     public static final String IF_THEN_ELSE = "if-then-else";
     public static final String CHOICE = "choice";
     public static final String ANY = "any";
+    public static final String CHANGES = "changes";
+    public static final String INCREASES = "increases";
+    public static final String DECREASES = "decreases";
+    public static final String CONDITIONS = "conditions";
+    public static final String CONDITION = "condition";
 
     private EEBMElements() {
     }

@@ -5,7 +5,7 @@
 
     <consts-defs>
         <const-def name="NS">
-            <int value="3"/>
+            <int value="12"/>
         </const-def>
         <const-def name="NS1"> <!-- NS - 1 -->
             <minus>

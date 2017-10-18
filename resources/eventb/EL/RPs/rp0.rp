@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<relevance-predicate xmlns="rp" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:schemaLocation="rp ../../rp.xsd">
+    <changes>
+        <fun name="bat">
+            <int value="1"/>
+        </fun>
+        <enum-value name="ok"/>
+        <enum-value name="ko"/>
+    </changes>
+    <changes>
+        <fun name="bat">
+            <int value="2"/>
+        </fun>
+        <enum-value name="ok"/>
+        <enum-value name="ko"/>
+    </changes>
+    <changes>
+        <fun name="bat">
+            <int value="3"/>
+        </fun>
+        <enum-value name="ok"/>
+        <enum-value name="ko"/>
+    </changes>
+</relevance-predicate>

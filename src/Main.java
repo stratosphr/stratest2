@@ -1,17 +1,42 @@
 import algs.heuristics.DefaultAbstractStatesOrderingFunction;
 import algs.heuristics.DefaultEventsOrderingFunction;
 import algs.heuristics.relevance.*;
+import formatters.AFormatter;
+import langs.eventb.Machine;
 import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.Equals;
+import langs.eventb.exprs.bool.Predicate;
 import parsers.eventb.EventBParser;
+
+import java.io.File;
+import java.util.LinkedHashSet;
 
 import static algs.statistics.Saver.save2;
 import static utilities.Resources.*;
 
-public class Main {
+public class Main extends AFormatter {
 
     public static void main(String[] args) {
-        ca_ap1(false);
+        Main main = new Main();
+        if (args.length != 4) {
+            throw new Error(
+                    main.line("The number of arguments should be equal to 3 (was " + args.length + "):") +
+                            main.indentRight() + main.indentLine("1. The path to the \"ebm\" file (the model)") + main.indentLeft() +
+                            main.indentRight() + main.indentLine("2. The path to the \"ap\" file (the set of abstraction predicates)") + main.indentLeft() +
+                            main.indentRight() + main.indentLine("3. The path to the \"rp\" file (the relevance predicate)") + main.indentLeft() +
+                            main.indentRight() + main.indentLine("4. The name of the subfolder in which the results must be saved") + main.indentLeft()
+            );
+        } else {
+            EventBParser.parseMachine(new File(args[0]));
+            LinkedHashSet<Predicate> predicates = EventBParser.parseAPs(new File(args[1]));
+            RelevancePredicate relevancePredicate = EventBParser.parseRP(new File(args[2]));
+            String subFolder = args[3];
+            save2(subFolder, predicates, new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+                    relevancePredicate,
+                    7000
+            );
+            System.out.println("Results have been saved in \"resources/results/" + Machine.getName() + "/" + subFolder + "\".");
+        }
     }
 
     public static RelevancePredicate el() {
@@ -224,7 +249,7 @@ public class Main {
 
     private static void cm_ap0(boolean computeFull) {
         EventBParser.parseMachine(EBM_CM);
-        save2("25-1300", EventBParser.parseAPs(AP_CM_0), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+        save2("new_10-500", EventBParser.parseAPs(AP_CM_0), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 cm(),
                 7000, computeFull);
     }
@@ -304,8 +329,8 @@ public class Main {
 
     private static void l14_ap1(boolean computeFull) {
         EventBParser.parseMachine(EBM_L14);
-        save2("3R3S_3Rrel", EventBParser.parseAPs(AP_L14_0), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
-                l14_3Rrel(),
+        save2("3R12S_1Rrel", EventBParser.parseAPs(AP_L14_0), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+                l14_1Rrel(),
                 7000,
                 computeFull
         );
