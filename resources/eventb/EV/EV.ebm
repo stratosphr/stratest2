@@ -5,7 +5,7 @@
 
     <consts-defs>
         <const-def name="NE">
-            <int value="4"/>
+            <int value="3"/>
         </const-def>
         <const-def name="LF"> <!-- Last Floor -->
             <minus>

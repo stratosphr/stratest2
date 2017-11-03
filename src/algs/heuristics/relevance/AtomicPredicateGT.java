@@ -35,7 +35,8 @@ public class AtomicPredicateGT extends AAtomicPredicate {
         do {
             max = iterator.next();
         } while (iterator.hasNext());
-        return new Minus(max, assignable);
+        //return new Minus(max, assignable);
+        return max;
     }
 
     @Override

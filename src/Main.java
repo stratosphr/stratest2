@@ -19,6 +19,7 @@ public class Main extends AFormatter {
     public static void main(String[] args) {
         Main main = new Main();
         if (args.length != 4) {
+            gsm_ap0(false);
             throw new Error(
                     main.line("The number of arguments should be equal to 3 (was " + args.length + "):") +
                             main.indentRight() + main.indentLine("1. The path to the \"ebm\" file (the model)") + main.indentLeft() +
@@ -249,7 +250,7 @@ public class Main extends AFormatter {
 
     private static void cm_ap0(boolean computeFull) {
         EventBParser.parseMachine(EBM_CM);
-        save2("new_10-500", EventBParser.parseAPs(AP_CM_0), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+        save2("6-300", EventBParser.parseAPs(AP_CM_0), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 cm(),
                 7000, computeFull);
     }
@@ -327,6 +328,15 @@ public class Main extends AFormatter {
         );
     }
 
+    private static void l14_2_ap1(boolean computeFull) {
+        EventBParser.parseMachine(EBM_L14_2);
+        save2("3R10S", EventBParser.parseAPs(AP_L14_2_0), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+                l14_1Rrel(),
+                7000,
+                computeFull
+        );
+    }
+
     private static void l14_ap1(boolean computeFull) {
         EventBParser.parseMachine(EBM_L14);
         save2("3R12S_1Rrel", EventBParser.parseAPs(AP_L14_0), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
@@ -378,6 +388,25 @@ public class Main extends AFormatter {
         save2("4", EventBParser.parseAPs(AP_PH_4), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
                 ph(),
                 7000);
+    }
+
+    private static RelevancePredicate gsm() {
+        return new RelevancePredicate(
+                new AtomicPredicateEnumSet(
+                        new Var("currentFile"),
+                        new EnumValue("nofiles"),
+                        new EnumValue("nofiles")
+                )
+        );
+    }
+
+    private static void gsm_ap0(boolean computeFull) {
+        EventBParser.parseMachine(EBM_GSM);
+        save2("0", EventBParser.parseAPs(AP_GSM_0), new DefaultAbstractStatesOrderingFunction(), new DefaultEventsOrderingFunction(),
+                gsm(),
+                7000,
+                computeFull
+        );
     }
 
 }

@@ -4,6 +4,7 @@ import algs.heuristics.relevance.RelevancePredicate;
 import formatters.AFormatter;
 import graphs.AbstractState;
 import graphs.ConcreteState;
+import langs.eventb.Machine;
 import langs.eventb.exprs.arith.*;
 import langs.eventb.exprs.bool.*;
 import langs.eventb.exprs.bool.GEQ;
@@ -165,7 +166,7 @@ public abstract class AExprFormatter extends AFormatter implements IExprVisitor 
 
     @Override
     public String visit(Set set) {
-        return "{" + set.getSet().stream().map(value -> value.accept(this)).collect(Collectors.joining(", ")) + "}";
+        return "{" + set.getElements().stream().map(value -> value.accept(this)).collect(Collectors.joining(", ")) + "}";
     }
 
     @Override
@@ -175,17 +176,17 @@ public abstract class AExprFormatter extends AFormatter implements IExprVisitor 
 
     @Override
     public String visit(NamedSet namedSet) {
-        return namedSet.getName();
+        return namedSet.getName() + "[" + Machine.getSetsDefs().get(namedSet.getName()) + "]";
     }
 
     @Override
     public String visit(Range range) {
-        return range.getLowerBound().accept(this) + ".." + range.getUpperBound().accept(this);
+        return range.getLowerBound().accept(this) + ".." + range.getUpperBound().accept(this) + "[" + range.getSet().stream().map(value -> value.accept(this)).collect(Collectors.joining(", ")) + "]";
     }
 
     @Override
     public String visit(EnumValue enumValue) {
-        return enumValue.getName();
+        return enumValue.getName() + "[" + enumValue.getValue() + "]";
     }
 
     @Override

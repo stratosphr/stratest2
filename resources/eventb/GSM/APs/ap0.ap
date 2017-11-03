@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<predicates xmlns="ap" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="ap ../../ap.xsd">
+
+    <predicate name="p0">
+        <equals>
+            <var name="currentFile"/>
+            <enum-value name="nofiles"/>
+        </equals>
+    </predicate>
+
+</predicates>

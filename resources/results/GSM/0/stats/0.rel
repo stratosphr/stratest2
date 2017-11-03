@@ -1,0 +1,8 @@
+Relevance Predicate:
+
+or(
+	and(
+		currentFile = nofiles[7]
+		currentFile_ = nofiles[7]
+	)
+)

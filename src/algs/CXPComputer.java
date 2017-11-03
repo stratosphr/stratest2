@@ -5,6 +5,7 @@ import algs.outputs.ATS;
 import algs.outputs.CTS;
 import algs.outputs.MTS;
 import com.microsoft.z3.Status;
+import formatters.eventb.EventBFormatter;
 import graphs.AbstractState;
 import graphs.AbstractTransition;
 import graphs.ConcreteState;
@@ -90,6 +91,7 @@ public final class CXPComputer extends AComputer<ATS> {
     }
 
     private void step1() {
+        System.out.println(EventBFormatter.format(new Machine()));
         for (AbstractState q : abstractStates) {
             Status status = Z3.checkSAT(new And(Machine.getInvariant(), Machine.getInvariant().prime(), Machine.getInitialisation().getPrd(Machine.getAssignables()), q.prime()));
             if (status == SATISFIABLE) {

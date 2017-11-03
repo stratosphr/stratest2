@@ -1,0 +1,52 @@
+Results for RGCXP (in 00:01:06.776):
+
+NB_EV : 6
+
+NB_AP : 1
+
+NB_AS : 2
+
+NB_AT : 12
+
+NB_RCHD_AS : 2
+
+COV_AS : 100.0%
+
+NB_RCHD_AT : 12
+
+COV_AT : 100.0%
+
+NB_CS : 304
+
+NB_RCHD_CS : 282
+
+NB_CT : 649
+
+NB_RCHD_CT : 637
+
+RHO_CS : 1.0780141843971631
+
+RHO_CT : 1.0188383045525902
+
+SET_RCHD_AS : 
+	q1 ≝ and(p0 ≝ currentFile = nofiles[7])
+	q0 ≝ and(¬(p0 ≝ currentFile = nofiles[7]))
+
+SET_RCHD_AT : 
+	q1 -[ Change_Chv ]-> q1
+	q1 -[ Reset ]-> q1
+	q1 -[ Select_File ]-> q1
+	q1 -[ Verify_Chv ]-> q1
+	q1 -[ Select_File ]-> q0
+	q0 -[ Change_Chv ]-> q0
+	q0 -[ Read_Binary ]-> q0
+	q0 -[ Select_File ]-> q0
+	q0 -[ Update_Binary ]-> q0
+	q0 -[ Verify_Chv ]-> q0
+	q0 -[ Reset ]-> q1
+	q0 -[ Select_File ]-> q1
+
+SET_UNRCHD_AS : 
+
+SET_UNRCHD_AT : 
+

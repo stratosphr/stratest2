@@ -1,0 +1,52 @@
+Results for CXP (in 00:00:02.552):
+
+NB_EV : 6
+
+NB_AP : 1
+
+NB_AS : 2
+
+NB_AT : 12
+
+NB_RCHD_AS : 2
+
+COV_AS : 100.0%
+
+NB_RCHD_AT : 12
+
+COV_AT : 100.0%
+
+NB_CS : 34
+
+NB_RCHD_CS : 12
+
+NB_CT : 24
+
+NB_RCHD_CT : 12
+
+RHO_CS : 2.8333333333333335
+
+RHO_CT : 2.0
+
+SET_RCHD_AS : 
+	q1 ≝ and(p0 ≝ currentFile = nofiles[7])
+	q0 ≝ and(¬(p0 ≝ currentFile = nofiles[7]))
+
+SET_RCHD_AT : 
+	q1 -[ Change_Chv ]-> q1
+	q1 -[ Reset ]-> q1
+	q1 -[ Select_File ]-> q1
+	q1 -[ Verify_Chv ]-> q1
+	q1 -[ Select_File ]-> q0
+	q0 -[ Change_Chv ]-> q0
+	q0 -[ Read_Binary ]-> q0
+	q0 -[ Select_File ]-> q0
+	q0 -[ Update_Binary ]-> q0
+	q0 -[ Verify_Chv ]-> q0
+	q0 -[ Reset ]-> q1
+	q0 -[ Select_File ]-> q1
+
+SET_UNRCHD_AS : 
+
+SET_UNRCHD_AT : 
+

@@ -270,6 +270,8 @@ public final class EventBParser {
                 return parseGEQ(node);
             case IMPLIES:
                 return parseImplies(node);
+            case EQUIV:
+                return parseEquiv(node);
             case FORALL:
                 return parseForAll(node);
             case EXISTS:
@@ -277,7 +279,7 @@ public final class EventBParser {
             case PREDICATE:
                 return parsePredicate(node);
             default:
-                check(node, NOT, AND, OR, EQUALS, NEQ, GT, IMPLIES, FORALL, EXISTS, PREDICATE);
+                check(node, NOT, AND, OR, EQUALS, NEQ, GT, IMPLIES, EQUIV, FORALL, EXISTS, PREDICATE);
                 return null;
         }
     }
@@ -340,6 +342,11 @@ public final class EventBParser {
     private ABoolExpr parseImplies(XMLNode node) {
         check(node, IMPLIES);
         return new Implies(parseBoolExpr(node.getChildren().get(0)), parseBoolExpr(node.getChildren().get(1)));
+    }
+
+    private ABoolExpr parseEquiv(XMLNode node) {
+        check(node, EQUIV);
+        return new Equiv(parseBoolExpr(node.getChildren().get(0)), parseBoolExpr(node.getChildren().get(1)));
     }
 
     private ABoolExpr parseExists(XMLNode node) {

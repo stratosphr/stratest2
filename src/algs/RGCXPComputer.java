@@ -23,6 +23,8 @@ import java.util.stream.Collectors;
 
 import static algs.heuristics.EConcreteStateColor.GREEN;
 import static com.microsoft.z3.Status.SATISFIABLE;
+import static utilities.Chars.NL;
+import static utilities.Chars.TAB;
 
 /**
  * Created by gvoiron on 29/06/17.
@@ -181,12 +183,10 @@ public final class RGCXPComputer extends AComputer<ATS> {
                 throw new Error("A reached concrete state does not satisfy the relevance predicate. This is probably not a problem and this error should be deleted.");
             }
         }
-        /*variantsMapping.forEach((concreteState, mapping) -> {
+        variantsMapping.forEach((concreteState, mapping) -> {
             System.out.println(concreteState.getName() + " : ");
-            mapping.forEach((ap, value) -> {
-                System.out.println(TAB + ap.toString().replaceAll(NL, " ").replaceAll(TAB, "") + " = " + value);
-            });
-        });*/
+            mapping.forEach((ap, value) -> System.out.println(TAB + ap.toString().replaceAll(NL, " ").replaceAll(TAB, "") + " = " + value));
+        });
         LinkedHashSet<ConcreteState> TRCS = new LinkedHashSet<>(RCS);
         Status status;
         LinkedHashSet<Event> events = eventsOrderingFunction.apply(new LinkedHashSet<>(Machine.getEvents().values()));
